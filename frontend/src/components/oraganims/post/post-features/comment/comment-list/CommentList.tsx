@@ -5,7 +5,7 @@ import {
   CommentListBody,
 } from './style';
 import DeleteComment from '../delete-comment/DeleteComment';
-import { useGetCommentsQuery } from '@/service/postApi';
+import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
 type CommentListProps = {
   postId: number;
 };

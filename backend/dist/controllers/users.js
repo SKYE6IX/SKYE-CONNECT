@@ -13,29 +13,33 @@ import User from "../models/users";
 export const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const userID = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
-    const returnUsers = (yield User.find()).filter(user => String(user._id) !== String(userID));
+    const returnUsers = (yield User.find()).filter((user) => String(user._id) !== String(userID));
     res.json(returnUsers);
 });
 export function getSingleUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { userID } = req.params;
-        const singleUser = yield User.findById(userID).populate({
+        const singleUser = yield User.findById(userID)
+            .populate({
             path: "posts",
             populate: {
-                path: "author"
-            }
-        }).populate({
+                path: "author",
+            },
+        })
+            .populate({
             path: "likePosts",
             populate: {
-                path: "author"
-            }
-        }).populate({ path: "following" }).populate({ path: "followers" });
+                path: "author",
+            },
+        })
+            .populate({ path: "following" })
+            .populate({ path: "followers" });
         res.json(singleUser);
     });
 }
 export const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, password, first_name, last_name, gender, date_of_birth } = req.body;
+        const { username, email, password, first_name, last_name, gender, date_of_birth, } = req.body;
         const newUser = new User({
             username,
             email,
@@ -43,7 +47,7 @@ export const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, fun
             last_name,
             gender,
             date_of_birth,
-            created_at: new Date()
+            created_at: new Date(),
         });
         const registerUser = yield User.register(newUser, password);
         req.login(registerUser, (err) => {
@@ -75,21 +79,28 @@ export const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 export const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userID } = req.params;
-    const { email, username, first_name, last_name, date_of_birth, gender, country, city, professional, about_me } = req.body;
+    const { email, username, first_name, last_name, date_of_birth, gender, country, city, professional, about_me, } = req.body;
     const updateUser = yield User.findByIdAndUpdate(userID, {
         $set: {
-            email, username, first_name,
-            last_name, date_of_birth, gender, country, city, professional, about_me
-        }
+            email,
+            username,
+            first_name,
+            last_name,
+            date_of_birth,
+            gender,
+            country,
+            city,
+            professional,
+            about_me,
+        },
     });
     const file = req.file;
     if (file && updateUser != undefined) {
         const publicID = updateUser.avatar.filename;
-        cloudinary.uploader.destroy(publicID)
-            .then((res) => console.log(res));
+        cloudinary.uploader.destroy(publicID).then((res) => console.log(res));
         const avatarResult = {
             url: file.path,
-            filename: file.filename
+            filename: file.filename,
         };
         updateUser.avatar = avatarResult;
     }
@@ -121,17 +132,20 @@ export const userAuth = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.json({ status: false });
     }
     else {
-        const user = yield User.findById(currentUser._id).populate({
+        const user = yield User.findById(currentUser._id)
+            .populate({
             path: "posts",
             populate: {
-                path: "author"
-            }
-        }).populate({
+                path: "author",
+            },
+        })
+            .populate({
             path: "likePosts",
             populate: {
-                path: "author"
-            }
-        }).populate({ path: "following" })
+                path: "author",
+            },
+        })
+            .populate({ path: "following" })
             .populate({ path: "followers" })
             .populate("chatLists.chat_with");
         res.json(user);
@@ -164,15 +178,13 @@ export function addFollower(req, res) {
             currentUser.following.push(otherUser._id);
             otherUser.followers.push(currentUser._id);
         }
-        ;
         currentUser === null || currentUser === void 0 ? void 0 : currentUser.save();
         otherUser === null || otherUser === void 0 ? void 0 : otherUser.save();
         res.json({
-            message: "User added"
+            message: "User added",
         });
     });
 }
-;
 export function removeFollower(req, res) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {

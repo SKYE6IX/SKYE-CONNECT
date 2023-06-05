@@ -1,3 +1,4 @@
+'use client';
 import { rootApi } from './rootApi';
 import type {
   GetUserResponse,
@@ -6,11 +7,12 @@ import type {
   SignUpForm,
   UpdateProfileMutationInput,
   User,
-} from '../types/user';
+} from '@/types/user';
 
 interface UpdateResponse {
   status: string;
 }
+
 export const usersApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<GetUserResponse, void>({

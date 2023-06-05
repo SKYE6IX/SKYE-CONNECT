@@ -8,13 +8,15 @@ import {
   ProfileCardInfo,
 } from './style';
 import type { User } from '@/types/user';
+
 type ProfileCardProps = {
   user: User | null;
 };
+
 const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
   return (
     <ProfileCardContainer>
-      <ProfileCardAvatar alt={user?.first_name} src={user?.avatar?.thumbnail} />
+      <ProfileCardAvatar src={user?.avatar?.thumbnail} alt={user?.first_name} />
       <ProfileCardName>
         <span>{user?.first_name}</span>
         <span>{user?.last_name}</span>

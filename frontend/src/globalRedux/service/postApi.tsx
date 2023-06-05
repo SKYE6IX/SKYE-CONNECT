@@ -1,3 +1,4 @@
+'use client';
 import { rootApi } from './rootApi';
 import { Socket } from 'socket.io-client';
 import {
@@ -7,7 +8,7 @@ import {
   CommentResponse,
   LikeResponse,
   Like,
-} from '../types/post';
+} from '@/types/post';
 // import type { DeleteCommentProps } from '../../component/DeleteComment';
 import getSocket from './socket';
 

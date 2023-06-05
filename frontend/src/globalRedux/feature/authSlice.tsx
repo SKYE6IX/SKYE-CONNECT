@@ -1,11 +1,12 @@
+'use client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '../../types/user';
+import type { User } from '@/types/user';
 import type { RootState } from '../store';
-import { usersApi } from '../userApi';
+import { usersApi } from '../service/userApi';
 
 const initialState = {
-  user: null,
-} as { user: null | User };
+  authUser: null,
+} as { authUser: User | null };
 
 const authSlice = createSlice({
   name: 'auth',
@@ -24,7 +25,7 @@ const authSlice = createSlice({
           if (action.payload.status === false) {
             return state;
           } else {
-            state.user = action.payload;
+            state.authUser = action.payload;
           }
         }
       );
@@ -32,7 +33,5 @@ const authSlice = createSlice({
 });
 
 export const { onLogout } = authSlice.actions;
-
-export const selectUser = (state: RootState) => state.auth.user;
-
+export const selectAuthUser = (state: RootState) => state.authReducer.authUser;
 export default authSlice.reducer;

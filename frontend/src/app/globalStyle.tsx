@@ -1,5 +1,5 @@
 'use client';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 html{
     height: 100%;

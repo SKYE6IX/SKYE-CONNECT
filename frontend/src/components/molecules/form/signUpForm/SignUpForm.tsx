@@ -14,7 +14,7 @@ import {
 } from './style';
 import Button from '@/components/atoms/buttons/Button';
 import useForm from '@/hooks/useForm';
-import { useSignupMutation } from '@/service/userApi';
+import { useSignupMutation } from '@/globalRedux/service/userApi';
 import type { SignUpForm } from '@/types/user';
 
 const SignUpForm: FC = () => {

@@ -1,3 +1,4 @@
+'use client';
 import { Socket } from 'socket.io-client';
 import { rootApi } from './rootApi';
 import getSocket from './socket';
@@ -11,7 +12,7 @@ import type {
   DeleteMessageResponse,
   EditMessageData,
   EditMessageResponse,
-} from '../types/chat';
+} from '@/types/chat';
 let socket: Socket;
 
 export const chatsApi = rootApi.injectEndpoints({

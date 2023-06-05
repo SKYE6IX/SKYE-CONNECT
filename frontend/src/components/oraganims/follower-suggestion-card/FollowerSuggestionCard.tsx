@@ -8,7 +8,7 @@ import {
   FollowerName,
   FollowerSuggestionCardContainerAction,
 } from './style';
-import { useGetAllUserQuery } from '@/service/userApi';
+import { useGetAllUserQuery } from '@/globalRedux/service/userApi';
 import type { User } from '@/types/user';
 
 type FollowerSuggestionCardProps = {

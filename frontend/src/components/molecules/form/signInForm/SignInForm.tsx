@@ -4,14 +4,13 @@ import { useRouter } from 'next/navigation';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@/components/atoms/buttons/Button';
 import { Form, SignInInput } from './style';
-import { useLoginMutation } from '@/service/userApi';
+import { useLoginMutation } from '@/globalRedux/service/userApi';
 import useForm from '@/hooks/useForm';
 
 interface SignInForm {
   username: string;
   password: string;
 }
-
 const SignInForm: FC = () => {
   const router = useRouter();
   const { formState, handleChange, resetForm } = useForm<SignInForm>({
@@ -26,6 +25,7 @@ const SignInForm: FC = () => {
     await login(formState)
       .unwrap()
       .then((payload) => {
+        console.log(payload);
         router.push('/feeds');
         resetForm();
       })

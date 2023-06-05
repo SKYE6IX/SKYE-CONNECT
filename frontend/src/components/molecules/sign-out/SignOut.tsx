@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useLogoutMutation } from '@/service/userApi';
+import { useLogoutMutation } from '@/globalRedux/service/userApi';
 import { SignoutButton } from './style';
 
 const SignOut: FC = () => {
@@ -12,7 +12,6 @@ const SignOut: FC = () => {
     await logout();
     router.push('/');
   };
-
   return (
     <SignoutButton onClick={handleClick} disabled={isLoading}>
       <LogoutIcon />

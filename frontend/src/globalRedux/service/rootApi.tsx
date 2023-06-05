@@ -1,9 +1,12 @@
+'use client';
 import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
+
 //Custom baseQuery with axios
 const axiosInsance = axios.create({
   withCredentials: true,
 });
+
 const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' }
@@ -36,6 +39,7 @@ const axiosBaseQuery =
       };
     }
   };
+
 export const rootApi = createApi({
   reducerPath: 'allApi',
   baseQuery: axiosBaseQuery({ baseUrl: process.env.API_URL }),
