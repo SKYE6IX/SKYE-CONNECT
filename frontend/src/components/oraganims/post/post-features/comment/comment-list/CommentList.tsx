@@ -6,10 +6,14 @@ import {
 } from './style';
 import DeleteComment from '../delete-comment/DeleteComment';
 import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
+import type { User } from '@/types/user';
+
 type CommentListProps = {
   post_id: number;
+  user: User | undefined;
 };
-const CommentList: FC<CommentListProps> = ({ post_id }) => {
+
+const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
   const { data: comments, isLoading } = useGetCommentsQuery(post_id);
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -26,7 +30,9 @@ const CommentList: FC<CommentListProps> = ({ post_id }) => {
             <p>{comment.content}</p>
             <span>20 min ago</span>
           </CommentListBody>
-          <DeleteComment />
+          {user?._id === comment.author?._id && (
+            <DeleteComment post_id={post_id} comment_id={comment._id} />
+          )}
         </CommentListContainer>
       ))}
     </>
