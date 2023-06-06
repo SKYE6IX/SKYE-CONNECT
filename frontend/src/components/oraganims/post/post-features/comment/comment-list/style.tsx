@@ -5,7 +5,7 @@ import { Avatar } from '@/components/atoms/MUIComponents/Components';
 const CommentListContainer = styled.div`
   display: flex;
   gap: 0.5rem;
-  margin: 1.5rem 1.5rem;
+  margin: 0.5em 1.5em;
 `;
 
 const CommentListAvatar = styled(Avatar)`

@@ -32,7 +32,10 @@ export const PostCardNames = styled.div`
 
 export const PostCardBody = styled.div``;
 
-export const PostCardCommentContainer = styled.div``;
+export const PostCardCommentContainer = styled.div`
+  max-height: 200px;
+  overflow-y: scroll;
+`;
 
 export const PostCardTextContent = styled.p`
   line-height: 2rem;

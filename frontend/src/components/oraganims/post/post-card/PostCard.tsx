@@ -25,7 +25,9 @@ type PostCardProps = {
 };
 
 const PostCard: FC<PostCardProps> = ({ post }) => {
-  const { data, isLoading } = useGetUserQuery();
+  const { data } = useGetUserQuery();
+  const userData = data;
+
   return (
     <PostCardContainer>
       <PostCardHeader>
@@ -50,15 +52,20 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         </PostCardMediaContent>
 
         <PostCardReaction>
-          <PostLikes />
+          <PostLikes post_id={post._id} user={userData} />
           <CommentIcon>Comment</CommentIcon>
         </PostCardReaction>
       </PostCardBody>
 
-      <CommentList post_id={post._id} user={data} />
+      <PostCardCommentContainer>
+        <CommentList post_id={post._id} user={userData} />
+      </PostCardCommentContainer>
 
       <PostCardFooter>
-        <PostCardAvatar src={data?.avatar?.thumbnail} alt={data?.first_name} />
+        <PostCardAvatar
+          src={userData?.avatar?.thumbnail}
+          alt={userData?.first_name}
+        />
         <AddComment post_id={post._id} />
       </PostCardFooter>
     </PostCardContainer>
