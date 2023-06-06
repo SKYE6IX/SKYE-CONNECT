@@ -7,10 +7,10 @@ import {
 import DeleteComment from '../delete-comment/DeleteComment';
 import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
 type CommentListProps = {
-  postId: number;
+  post_id: number;
 };
-const CommentList: FC<CommentListProps> = ({ postId }) => {
-  const { data: comments, isLoading } = useGetCommentsQuery(postId);
+const CommentList: FC<CommentListProps> = ({ post_id }) => {
+  const { data: comments, isLoading } = useGetCommentsQuery(post_id);
   if (isLoading) return <p>Loading...</p>;
   return (
     <>

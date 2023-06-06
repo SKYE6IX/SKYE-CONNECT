@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import { CommentIcon } from '@/components/atoms/MUIComponents/Components';
 import {
   PostCardContainer,
@@ -24,6 +25,7 @@ type PostCardProps = {
 };
 
 const PostCard: FC<PostCardProps> = ({ post }) => {
+  const { data } = useGetUserQuery();
   return (
     <PostCardContainer>
       <PostCardHeader>
@@ -53,11 +55,11 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         </PostCardReaction>
       </PostCardBody>
 
-      <CommentList postId={post._id} />
+      <CommentList post_id={post._id} />
 
       <PostCardFooter>
-        <PostCardAvatar />
-        <AddComment />
+        <PostCardAvatar src={data?.avatar?.thumbnail} alt={data?.first_name} />
+        <AddComment post_id={post._id} />
       </PostCardFooter>
     </PostCardContainer>
   );

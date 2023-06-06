@@ -8,8 +8,8 @@ export const getComments = async (req: Request, res: Response) => {
     const { id } = req.params;
     //Query all comment relate to the post ID only
     const postComments = await Comment.find({ post: id }).populate("author");
-    res.json(postComments)
-}
+    res.json(postComments);
+};
 //Create new comment
 export const createComment = async (req: Request, res: Response) => {
     //Query the actual Post
@@ -20,7 +20,7 @@ export const createComment = async (req: Request, res: Response) => {
     const newComment = new Comment({
         content: content,
         post: currentPost?._id,
-        author: req.user?._id,
+        author: req.user,
     });
     const newCommentID = newComment.id;
     currentPost?.comments.push(newCommentID);
@@ -28,7 +28,7 @@ export const createComment = async (req: Request, res: Response) => {
     newComment.save();
     currentPost?.save();
 
-    io.emit("comment_created", newComment)
+    io.emit("comment_created", newComment);
 
     res.json(newComment);
 };
@@ -39,13 +39,6 @@ export const deleteComment = async (req: Request, res: Response) => {
     await Post.findByIdAndUpdate(id, { $pull: { comments: commentID } });
     const commentDeleted = await Comment.findById(commentID);
     commentDeleted?.delete();
-    io.emit("comment_deleted", commentDeleted)
-    res.json(commentDeleted)
+    io.emit("comment_deleted", commentDeleted);
+    res.json(commentDeleted);
 };
-
-
-
-
-
-
-

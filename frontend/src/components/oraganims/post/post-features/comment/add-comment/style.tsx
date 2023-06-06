@@ -19,6 +19,9 @@ export const AddCommentTextArea = styled.textarea`
   background-color: #eee;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.2);
+  &::placeholder {
+    font-size: 0.8em;
+  }
 `;
 
 export const AddCommentButton = styled.button`

@@ -19,7 +19,6 @@ export const getComments = (req, res) => __awaiter(void 0, void 0, void 0, funct
 });
 //Create new comment
 export const createComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     //Query the actual Post
     const { id } = req.params;
     const currentPost = yield Post.findById(id);
@@ -28,7 +27,7 @@ export const createComment = (req, res) => __awaiter(void 0, void 0, void 0, fun
     const newComment = new Comment({
         content: content,
         post: currentPost === null || currentPost === void 0 ? void 0 : currentPost._id,
-        author: (_a = req.user) === null || _a === void 0 ? void 0 : _a._id,
+        author: req.user,
     });
     const newCommentID = newComment.id;
     currentPost === null || currentPost === void 0 ? void 0 : currentPost.comments.push(newCommentID);

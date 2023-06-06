@@ -69,6 +69,7 @@ export const postsApi = rootApi.injectEndpoints({
               });
             }
           });
+
           socket.on('comment_deleted', (data) => {
             if (data.post === postID) {
               updateCachedData((comments) => {
