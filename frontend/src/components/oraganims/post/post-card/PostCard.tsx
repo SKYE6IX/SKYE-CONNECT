@@ -13,7 +13,7 @@ import {
   PostCardReaction,
   PostCardCommentContainer,
 } from './style';
-import PostMenuButton from '../post-options/menu-button/PostMenuButton';
+import PostMenu from '../post-options/menu-button/PostMenu';
 import PostLikes from '../post-features/likes/PostLikes';
 import AddComment from '../post-features/comment/add-comment/AddComment';
 import CommentList from '../post-features/comment/comment-list/CommentList';
@@ -36,7 +36,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           <span>{post.author.last_name}</span>
           <p>1 hr ago</p>
         </PostCardNames>
-        <PostMenuButton />
+        <PostMenu post_id={post._id} />
       </PostCardHeader>
 
       <PostCardBody>

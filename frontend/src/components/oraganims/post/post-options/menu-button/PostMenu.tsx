@@ -7,7 +7,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeletePostButton from '../delete-button/DeletePostButon';
 import { PostMenuButtonContainer } from './style';
 
-const PostMenuButton: FC = () => {
+type PostMenuProps = {
+  post_id: number;
+};
+
+const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,22 +40,17 @@ const PostMenuButton: FC = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          style: {
-            borderRadius: '0.8rem',
-          },
-        }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: 20,
+          horizontal: 55,
         }}
       >
         <MenuItem>
-          <DeletePostButton />
+          <DeletePostButton post_id={post_id} />
         </MenuItem>
       </Menu>
     </PostMenuButtonContainer>
   );
 };
 
-export default PostMenuButton;
+export default PostMenu;
