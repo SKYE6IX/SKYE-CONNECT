@@ -7,11 +7,9 @@ import {
   ProfileCardInfoContainer,
   ProfileCardInfo,
 } from './style';
-import type { User } from '@/types/user';
+import type { CardsProps } from '@/types/user';
 
-type ProfileCardProps = {
-  user: User | null;
-};
+type ProfileCardProps = CardsProps;
 
 const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
   return (

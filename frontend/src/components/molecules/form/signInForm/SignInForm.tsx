@@ -25,7 +25,6 @@ const SignInForm: FC = () => {
     await login(formState)
       .unwrap()
       .then((payload) => {
-        console.log(payload);
         router.push('/feeds');
         resetForm();
       })

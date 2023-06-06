@@ -58,3 +58,8 @@ export type UpdateProfileMutationInput = {
   userID: number;
   body: UpdateProfileFormTypes;
 };
+
+export type CardsProps = {
+  user: User | undefined;
+  isUserDataLoading: boolean;
+};

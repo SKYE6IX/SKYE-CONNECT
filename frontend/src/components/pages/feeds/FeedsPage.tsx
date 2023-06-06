@@ -1,6 +1,5 @@
 'use client';
 import { FC } from 'react';
-import { useRouter } from 'next/navigation';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import { FeedsContainer, FeedsMain, FeedsAsides } from './style';
 import PostsTemplate from '@/components/template/posts/PostsTemplate';
@@ -9,17 +8,18 @@ import FollowerCard from '@/components/oraganims/follower-card/FollowerCard';
 import FollowerSuggestionCard from '@/components/oraganims/follower-suggestion-card/FollowerSuggestionCard';
 
 const FeedsPage: FC = () => {
-  // const { data, isLoading } = useGetUserQuery();
-  // console.log(data);
+  const { data, isLoading } = useGetUserQuery();
   return (
     <FeedsContainer>
-      <FeedsAsides>{/* <ProfileCard user={user} /> */}</FeedsAsides>
+      <FeedsAsides>
+        <ProfileCard user={data} isUserDataLoading={isLoading} />
+      </FeedsAsides>
       <FeedsMain>
         <PostsTemplate />
       </FeedsMain>
       <FeedsAsides>
-        {/* <FollowerCard user={user} /> */}
-        {/* <FollowerSuggestionCard user={user} /> */}
+        <FollowerCard user={data} isUserDataLoading={isLoading} />
+        <FollowerSuggestionCard user={data} isUserDataLoading={isLoading} />
       </FeedsAsides>
     </FeedsContainer>
   );

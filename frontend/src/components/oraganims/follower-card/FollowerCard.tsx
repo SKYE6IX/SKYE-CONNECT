@@ -13,10 +13,8 @@ import {
   FollowerAboutMe,
   FollowerCardActions,
 } from './style';
-import type { User } from '@/types/user';
-type FollowerCardProps = {
-  user: User | null;
-};
+import type { CardsProps } from '@/types/user';
+type FollowerCardProps = CardsProps;
 const FollowerCard: FC<FollowerCardProps> = ({ user }) => {
   return (
     <FollowerCardContainer>

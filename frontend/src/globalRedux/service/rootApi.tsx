@@ -6,7 +6,6 @@ import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 const axiosInsance = axios.create({
   withCredentials: true,
 });
-
 const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' }

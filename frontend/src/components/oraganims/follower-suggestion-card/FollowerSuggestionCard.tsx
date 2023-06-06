@@ -9,17 +9,15 @@ import {
   FollowerSuggestionCardContainerAction,
 } from './style';
 import { useGetAllUserQuery } from '@/globalRedux/service/userApi';
-import type { User } from '@/types/user';
+import type { CardsProps, User } from '@/types/user';
 
-type FollowerSuggestionCardProps = {
-  user: User | null;
-};
+type FollowerSuggestionCardProps = CardsProps;
 
 const FollowerSuggestionCard: FC<FollowerSuggestionCardProps> = ({ user }) => {
   const { data: otherUsers, isLoading } = useGetAllUserQuery();
 
   const isFollowerExist = (
-    user: User | null,
+    user: User | undefined,
     otherUserId: number
   ): boolean | undefined => {
     const isFollowerExist = user?.following.some((followingUser) => {
@@ -27,7 +25,6 @@ const FollowerSuggestionCard: FC<FollowerSuggestionCardProps> = ({ user }) => {
     });
     return isFollowerExist;
   };
-
   return (
     <FollowerSuggestionCardContainer>
       <FollowerSuggestionCardTitle>
