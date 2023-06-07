@@ -4,8 +4,8 @@ import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import { FeedsContainer, FeedsMain, FeedsAsides } from './style';
 import PostsTemplate from '@/components/template/posts/PostsTemplate';
 import ProfileCard from '@/components/oraganims/profile-card/ProfileCard';
-import ConnectionCard from '@/components/oraganims/follower-card/ConnectionCard';
-import FollowerSuggestionCard from '@/components/oraganims/follower-suggestion-card/FollowerSuggestionCard';
+import ConnectionCard from '@/components/oraganims/connection-card/ConnectionCard';
+import FollowerSuggestionCard from '@/components/oraganims/connection-suggestion-card/ConnectionSuggestionCard';
 
 const FeedsPage: FC = () => {
   const { data, isLoading } = useGetUserQuery();
