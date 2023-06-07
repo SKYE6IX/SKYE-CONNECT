@@ -6,6 +6,7 @@ import PostsTemplate from '@/components/template/posts/PostsTemplate';
 import ProfileCard from '@/components/oraganims/profile-card/ProfileCard';
 import ConnectionCard from '@/components/oraganims/connection-card/ConnectionCard';
 import FollowerSuggestionCard from '@/components/oraganims/connection-suggestion-card/ConnectionSuggestionCard';
+import ChatOpener from '@/components/oraganims/chat/chatOpener/ChatOpener';
 
 const FeedsPage: FC = () => {
   const { data, isLoading } = useGetUserQuery();
@@ -13,6 +14,7 @@ const FeedsPage: FC = () => {
     <FeedsContainer>
       <FeedsAsides>
         <ProfileCard user={data} isUserDataLoading={isLoading} />
+        <ChatOpener />
       </FeedsAsides>
       <FeedsMain>
         <PostsTemplate />

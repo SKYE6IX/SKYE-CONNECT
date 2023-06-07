@@ -23,7 +23,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
       <ProfileCardInfoContainer>
         <ProfileCardInfo>
           <h5>Follower</h5>
-          <span>{user?.followers.length}</span>
+          <span>{user?.followers?.length}</span>
         </ProfileCardInfo>
         <ProfileCardInfo>
           <h5>Posts</h5>
