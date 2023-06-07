@@ -28,7 +28,7 @@ const FollowerSuggestionCard: FC<FollowerSuggestionCardProps> = ({ user }) => {
   return (
     <FollowerSuggestionCardContainer>
       <FollowerSuggestionCardTitle>
-        People you may follow
+        People you may connect with...
       </FollowerSuggestionCardTitle>
       {isLoading ? (
         <p>Loading...</p>
