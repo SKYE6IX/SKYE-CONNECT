@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 import type { GetUserResponse } from '@/types/user';
-
 const axiosInsance = axios.create({
   withCredentials: true,
   baseURL: process.env.API_URL,

@@ -11,6 +11,7 @@ const SignOut: FC = () => {
   const handleClick = async () => {
     await logout();
     router.push('/');
+    router.refresh();
   };
   return (
     <SignoutButton onClick={handleClick} disabled={isLoading}>

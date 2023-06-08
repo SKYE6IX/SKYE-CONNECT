@@ -26,6 +26,7 @@ const SignInForm: FC = () => {
       .unwrap()
       .then((payload) => {
         router.push('/feeds');
+        router.refresh();
         resetForm();
       })
       .catch((error) => {

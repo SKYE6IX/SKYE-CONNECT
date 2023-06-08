@@ -25,7 +25,7 @@ const ConnectionCard: FC<ConnectionCardProps> = ({ user }) => {
   return (
     <ConnectionCardContainer>
       <ConnectionCardTitle>Connections</ConnectionCardTitle>
-      {user?.following.map((follow) => (
+      {user?.following?.map((follow) => (
         <Connection key={follow._id}>
           <ConnectionAvatar
             alt={follow.first_name}

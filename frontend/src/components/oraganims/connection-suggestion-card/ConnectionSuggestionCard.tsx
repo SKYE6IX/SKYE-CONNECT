@@ -27,7 +27,7 @@ const ConnectionSuggestionCard: FC<ConnectionSuggestionCardProps> = ({
     user: User | undefined,
     otherUserId: number
   ): boolean | undefined => {
-    const isFollowerExist = user?.following.some((followingUser) => {
+    const isFollowerExist = user?.following?.some((followingUser) => {
       return String(followingUser._id) === String(otherUserId);
     });
     return isFollowerExist;
