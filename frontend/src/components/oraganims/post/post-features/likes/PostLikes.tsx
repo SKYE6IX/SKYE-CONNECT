@@ -31,7 +31,7 @@ const RemoveLike: FC<PostLikesProps> = ({ post_id }) => {
 const PostLikes: FC<PostLikesProps> = ({ post_id, user }) => {
   const { data } = useGetPostLikesQuery(post_id);
   const isPostLike = () => {
-    return user?.likePosts.some((likePost) => {
+    return user?.likePosts?.some((likePost) => {
       return likePost._id === post_id;
     });
   };

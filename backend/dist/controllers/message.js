@@ -16,11 +16,11 @@ import checkChatHistory from "../utilities/checkChatHistory";
 export function getMessages(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { chat_id } = req.params;
+        console.log(chat_id);
         const messages = yield Message.find({ chat_id: chat_id });
         res.json(messages);
     });
 }
-;
 export function createMessages(req, res) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -37,30 +37,35 @@ export function createMessages(req, res) {
             to: to,
             message_text: message,
             created_at: new Date(),
-            chat_id: makeAnObjectID(chat_id)
+            chat_id: makeAnObjectID(chat_id),
         };
         //create a new message
         const createNewMessages = new Message(newMessage);
         const newMessagesId = createNewMessages._id;
-        yield Chat.findByIdAndUpdate(chat_id, { $push: { messages: newMessagesId } });
+        yield Chat.findByIdAndUpdate(chat_id, {
+            $push: { messages: newMessagesId },
+        });
         yield createNewMessages.save();
         // Check chat history between correspond users
         const isOtherUserExistInCurrentUserChatList = yield checkChatHistory(String(user_id), String(to));
         if (!isOtherUserExistInCurrentUserChatList) {
-            currrentUser === null || currrentUser === void 0 ? void 0 : currrentUser.chatLists.push({ chat_with: to, chatID: makeAnObjectID(chat_id) });
+            currrentUser === null || currrentUser === void 0 ? void 0 : currrentUser.chatLists.push({
+                chat_with: to,
+                chatID: makeAnObjectID(chat_id),
+            });
         }
-        ;
         const isCurrentUserExistInOtherChatList = yield checkChatHistory(String(to), String(user_id));
         if (!isCurrentUserExistInOtherChatList) {
-            otherUser === null || otherUser === void 0 ? void 0 : otherUser.chatLists.push({ chat_with: user_id, chatID: makeAnObjectID(chat_id) });
+            otherUser === null || otherUser === void 0 ? void 0 : otherUser.chatLists.push({
+                chat_with: user_id,
+                chatID: makeAnObjectID(chat_id),
+            });
         }
-        ;
         currrentUser === null || currrentUser === void 0 ? void 0 : currrentUser.save();
         otherUser === null || otherUser === void 0 ? void 0 : otherUser.save();
         io.to(to).to(String(user_id)).emit("private_message", newMessage);
     });
 }
-;
 export function editMessage(req, res) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -68,7 +73,9 @@ export function editMessage(req, res) {
             const user_id = String((_a = req.user) === null || _a === void 0 ? void 0 : _a._id);
             const { message_id } = req.params;
             const { message, to } = req.body;
-            const editedMessage = yield Message.findByIdAndUpdate(message_id, { $set: { message_text: message } });
+            const editedMessage = yield Message.findByIdAndUpdate(message_id, {
+                $set: { message_text: message },
+            });
             io.to(to).to(user_id).emit("message_edit", editedMessage);
             res.json({ status: true });
         }
@@ -86,7 +93,9 @@ export function deleteMessage(req, res) {
             const { chat_id, message_id } = req.params;
             const deleteMessage = yield Message.findById(message_id);
             const to = String(deleteMessage === null || deleteMessage === void 0 ? void 0 : deleteMessage.to);
-            yield Chat.findByIdAndUpdate(chat_id, { $pull: { messages: message_id } });
+            yield Chat.findByIdAndUpdate(chat_id, {
+                $pull: { messages: message_id },
+            });
             //delete the message from DB
             deleteMessage === null || deleteMessage === void 0 ? void 0 : deleteMessage.delete();
             io.to(to).to(user_id).emit("message_delete", deleteMessage);

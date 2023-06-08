@@ -37,7 +37,7 @@ export const chatsApi = rootApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    getMessages: builder.query<IMessage[], string>({
+    getMessages: builder.query<IMessage[], number | string>({
       query: (chatID) => ({ url: `/chat/message/${chatID}`, method: 'GET' }),
       providesTags: ['Chats'],
       async onCacheEntryAdded(

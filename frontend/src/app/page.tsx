@@ -1,6 +1,11 @@
-import React from 'react';
-import Home from '@/components/pages/home/Home';
+import { redirect } from 'next/navigation';
+import WelcomePage from '@/components/pages/welcome/WelcomePage';
+import { isAuthenticated } from './authentication/isAuthenticated';
 
-export default function Page() {
-  return <Home />;
+export default async function Page() {
+  const authUser = await isAuthenticated();
+  if (authUser) {
+    redirect('/feeds');
+  }
+  return <WelcomePage />;
 }
