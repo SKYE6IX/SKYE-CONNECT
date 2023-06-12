@@ -91,5 +91,4 @@ const DeleteChatOptions: FC<DeleteChatOptionsProps> = ({
     </CustomDialog>
   );
 };
-
 export default DeleteChatOptions;

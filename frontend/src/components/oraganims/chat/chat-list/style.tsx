@@ -15,7 +15,7 @@ export const ChatName = styled.div`
   }
 `;
 
-export const ClickToChatWrapper = styled.div`
+export const ClickToChatRoomWrapper = styled.div`
   width: 100%;
   padding: 0.5em;
   cursor: pointer;
