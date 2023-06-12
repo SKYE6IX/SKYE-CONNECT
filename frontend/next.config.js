@@ -1,18 +1,18 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/messenger',
-  //       destination: '/feeds',
-  //     },
-  //     // {
-  //     //   source: '/messenger/:slug',
-  //     //   destination: '/feeds',
-  //     // },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      // {
+      //   source: '/messenger',
+      //   destination: '/feeds',
+      // },
+      {
+        source: '/messenger/:id',
+        destination: '/messenger',
+      },
+    ];
+  },
   compiler: {
     styledComponents: true,
   },

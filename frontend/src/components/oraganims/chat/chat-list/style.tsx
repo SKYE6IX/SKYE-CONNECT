@@ -1,9 +1,6 @@
 'use client';
 import styled from 'styled-components';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
-
-export const ChatListContainer = styled.div``;
-
 export const ChatWrapper = styled.div`
   display: flex;
   margin: 0 0 1em 0;
@@ -16,4 +13,15 @@ export const ChatName = styled.div`
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
   }
+`;
+
+export const ClickToChatWrapper = styled.div`
+  width: 100%;
+  padding: 0.5em;
+  cursor: pointer;
+`;
+
+export const LastMessageTag = styled.p`
+  margin: 0.3em 0 0 0;
+  font-weight: 300;
 `;

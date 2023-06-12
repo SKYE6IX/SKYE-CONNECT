@@ -78,7 +78,7 @@ export const chatsApi = rootApi.injectEndpoints({
     }),
     sendMessages: builder.mutation<any, SendMessageData>({
       query: (sendMessageData) => ({
-        url: `/chat/message/${sendMessageData.chatID}`,
+        url: `/chat/message/${sendMessageData.chat_id}`,
         method: 'POST',
         data: sendMessageData,
       }),

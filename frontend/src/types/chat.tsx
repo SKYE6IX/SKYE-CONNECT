@@ -23,8 +23,8 @@ export interface IChat {
 
 export interface SendMessageData {
   message: string;
-  to: string;
-  chatID: string;
+  to: number;
+  chat_id: string;
 }
 
 export interface EditMessageData {
@@ -37,7 +37,7 @@ export interface EditMessageResponse extends DeleteChatResponse {}
 
 export type DeleteChatProps = {
   chat_id: string;
-  chat_with_id: string;
+  chat_with_id: number;
 };
 
 export interface DeleteChatResponse {

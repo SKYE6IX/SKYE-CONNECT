@@ -1,7 +1,7 @@
 import React from 'react';
-
+import RootLayout from '../RootLayout';
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
+  return <RootLayout>{children}</RootLayout>;
 };
 
 export default DashboardLayout;
