@@ -37,6 +37,7 @@ export function createMessages(req, res) {
             to: to,
             message_text: message,
             created_at: new Date(),
+            isEdited: false,
             chat_id: makeAnObjectID(chat_id),
         };
         //create a new message
@@ -72,11 +73,21 @@ export function editMessage(req, res) {
         try {
             const user_id = String((_a = req.user) === null || _a === void 0 ? void 0 : _a._id);
             const { message_id } = req.params;
-            const { message, to } = req.body;
-            const editedMessage = yield Message.findByIdAndUpdate(message_id, {
-                $set: { message_text: message },
+            const { message, chat_with_id } = req.body;
+            const findEditMessage = yield Message.findById(message_id);
+            const editedMessage = {
+                _id: findEditMessage === null || findEditMessage === void 0 ? void 0 : findEditMessage._id,
+                from: user_id,
+                to: chat_with_id,
+                message_text: message,
+                created_at: new Date(),
+                isEdited: true,
+                chat_id: findEditMessage === null || findEditMessage === void 0 ? void 0 : findEditMessage.chat_id,
+            };
+            io.to(chat_with_id).to(user_id).emit("message_edit", editedMessage);
+            yield Message.findByIdAndUpdate(message_id, {
+                $set: { message_text: message, isEdited: true },
             });
-            io.to(to).to(user_id).emit("message_edit", editedMessage);
             res.json({ status: true });
         }
         catch (error) {

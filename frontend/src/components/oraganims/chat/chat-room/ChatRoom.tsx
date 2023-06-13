@@ -62,6 +62,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
                   <MessageLeft
                     message_text={message.message_text}
                     created_at={message.created_at}
+                    isEdited={message.isEdited}
                   />
                 )}
 
@@ -71,6 +72,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
                     created_at={message.created_at}
                     chat_id={message.chat_id}
                     message_id={message._id}
+                    isEdited={message.isEdited}
                   />
                 )}
               </div>

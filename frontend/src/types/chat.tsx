@@ -6,6 +6,7 @@ export interface IMessage {
   to: string;
   message_text: string;
   created_at: string;
+  isEdited: boolean;
   chat_id: string;
 }
 
@@ -30,7 +31,7 @@ export interface SendMessageData {
 export interface EditMessageData {
   message: string;
   message_id: string;
-  chat_with_id: string;
+  chat_with_id: number;
 }
 
 export interface EditMessageResponse extends DeleteChatResponse {}

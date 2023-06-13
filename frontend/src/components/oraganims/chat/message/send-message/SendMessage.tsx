@@ -2,12 +2,17 @@
 import React, { FC, useEffect } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
+  useSendMessagesMutation,
+  useEditMessageMutation,
+} from '@/globalRedux/service/chatApi';
+import { useAppSelector } from '@/hooks/appStateHooks';
+import { selectEditMessage } from '@/globalRedux/feature/messengerSlice';
+import {
   SendMessageWrapper,
   SendMessageForm,
   SendMessageFormTextArea,
   SendMessageButton,
 } from './style';
-import { useSendMessagesMutation } from '@/globalRedux/service/chatApi';
 import useForm from '@/hooks/useForm';
 
 interface MessageForm {
@@ -19,11 +24,13 @@ type SendMessageProps = {
 };
 
 const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
+  const editMessage = useAppSelector(selectEditMessage);
   const [sendMessage] = useSendMessagesMutation();
+  const [sendEditMessage] = useEditMessageMutation();
 
   const { formState, handleChange, resetForm } = useForm<MessageForm>({
     initialState: {
-      message: '',
+      message: editMessage.isEditing ? editMessage.message_edit_text : '',
     },
   });
 
@@ -42,13 +49,21 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
 
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const sendMessageData = {
       message: formState.message,
       chat_id: chat_id,
       to: to,
     };
+
     if (formState.message) {
-      sendMessage(sendMessageData);
+      editMessage.isEditing
+        ? sendEditMessage({
+            message: formState.message,
+            message_id: editMessage.message_id,
+            chat_with_id: to,
+          })
+        : sendMessage(sendMessageData);
     }
     resetForm();
   };

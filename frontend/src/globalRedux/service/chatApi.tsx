@@ -56,7 +56,17 @@ export const chatsApi = rootApi.injectEndpoints({
               });
             }
           });
-
+          socket.on('message_edit', (data: IMessage) => {
+            if (chatID === data.chat_id) {
+              updateCachedData((draft) => {
+                const indexOfMessage = draft.findIndex(
+                  (message) => message._id === data._id
+                );
+                draft[indexOfMessage].message_text = data.message_text;
+                draft[indexOfMessage].isEdited = data.isEdited;
+              });
+            }
+          });
           socket.on('message_delete', (data: IMessage) => {
             if (chatID === data.chat_id) {
               updateCachedData((messages) => {
@@ -70,6 +80,7 @@ export const chatsApi = rootApi.injectEndpoints({
 
           await cacheEntryRemoved;
           socket.off('private_message');
+          socket.off('message_edit');
           socket.off('message_delete');
         } catch (error) {
           console.log(error);
@@ -85,7 +96,7 @@ export const chatsApi = rootApi.injectEndpoints({
     }),
     editMessage: builder.mutation<EditMessageResponse, EditMessageData>({
       query: ({ message, message_id, chat_with_id }) => ({
-        url: `/chat/message/${message_id}`,
+        url: `/chat/message/${message_id}/update`,
         method: 'PUT',
         data: { message, chat_with_id },
       }),

@@ -83,14 +83,19 @@ export const MessageRowOrange = styled(SharedStyles)`
     top: -1px;
     right: -17px;
   }
-  span {
-    align-self: flex-end;
-    font-weight: 300;
-    font-size: 0.6rem;
-  }
 `;
 export const MessageText = styled.p`
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+`;
+
+export const MessageBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3em;
+  span {
+    font-weight: 300;
+    font-size: 0.6rem;
+  }
 `;

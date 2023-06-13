@@ -5,12 +5,14 @@ import {
   MessageRowLeft,
   MessageRowOrange,
   MessageText,
+  MessageBottom,
 } from './style';
 import MessageOptions from '../message-option/MessageOptions';
 
 type MessageProps = {
   message_text: string;
   created_at: string;
+  isEdited: boolean;
 };
 interface MessageRightProps extends MessageProps {
   chat_id: string;
@@ -18,13 +20,20 @@ interface MessageRightProps extends MessageProps {
 }
 
 //**MESSAGE LEFT COMPONENTS FUNCTION */
-export const MessageLeft: FC<MessageProps> = ({ message_text, created_at }) => {
+export const MessageLeft: FC<MessageProps> = ({
+  message_text,
+  created_at,
+  isEdited,
+}) => {
   const time = created_at.slice(11, 16);
   return (
     <MessageRowLeft>
       <MessageRowBlue>
         <MessageText>{message_text}</MessageText>
-        <span>{time}</span>
+        <MessageBottom>
+          <span>{isEdited ? 'edited' : ''}</span>
+          <span>{time}</span>
+        </MessageBottom>
       </MessageRowBlue>
     </MessageRowLeft>
   );
@@ -36,6 +45,7 @@ export const MessageRight: FC<MessageRightProps> = ({
   created_at,
   message_id,
   chat_id,
+  isEdited,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMessageOptions = Boolean(anchorEl);
@@ -57,7 +67,10 @@ export const MessageRight: FC<MessageRightProps> = ({
       >
         <MessageRowOrange>
           <MessageText>{message_text}</MessageText>
-          <span>{time}</span>
+          <MessageBottom>
+            <span>{isEdited ? 'edited' : ''}</span>
+            <span>{time}</span>
+          </MessageBottom>
         </MessageRowOrange>
       </MessageRowRight>
       <MessageOptions
@@ -66,6 +79,7 @@ export const MessageRight: FC<MessageRightProps> = ({
         handleClose={handleCloseMessageOptions}
         message_id={message_id}
         chat_id={chat_id}
+        message_text={message_text}
       />
     </>
   );
