@@ -30,6 +30,7 @@ export async function createMessages(req: Request, res: Response) {
         to: to,
         message_text: message,
         created_at: new Date(),
+        isEdited: false,
         chat_id: makeAnObjectID(chat_id),
     };
 
@@ -73,13 +74,24 @@ export async function editMessage(req: Request, res: Response) {
     try {
         const user_id = String(req.user?._id);
         const { message_id } = req.params;
-        const { message, to } = req.body;
+        const { message, chat_with_id } = req.body;
 
-        const editedMessage = await Message.findByIdAndUpdate(message_id, {
-            $set: { message_text: message },
+        const findEditMessage = await Message.findById(message_id);
+        const editedMessage = {
+            _id: findEditMessage?._id,
+            from: user_id,
+            to: chat_with_id,
+            message_text: message,
+            created_at: new Date(),
+            isEdited: true,
+            chat_id: findEditMessage?.chat_id,
+        };
+
+        io.to(chat_with_id).to(user_id).emit("message_edit", editedMessage);
+
+        await Message.findByIdAndUpdate(message_id, {
+            $set: { message_text: message, isEdited: true },
         });
-
-        io.to(to).to(user_id).emit("message_edit", editedMessage);
 
         res.json({ status: true });
     } catch (error) {

@@ -18,3 +18,13 @@ export const ChatRoomName = styled.div`
     font-weight: 300;
   }
 `;
+export const NoMessage = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-size: 2rem;
+    color: rgb(216, 216, 216);
+  },
+`;
