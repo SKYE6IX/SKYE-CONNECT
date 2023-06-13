@@ -5,8 +5,11 @@ import {
   useSendMessagesMutation,
   useEditMessageMutation,
 } from '@/globalRedux/service/chatApi';
-import { useAppSelector } from '@/hooks/appStateHooks';
-import { selectEditMessage } from '@/globalRedux/feature/messengerSlice';
+import { useAppSelector, useAppDispatch } from '@/hooks/appStateHooks';
+import {
+  selectEditMessage,
+  clearEditMessage,
+} from '@/globalRedux/feature/messengerSlice';
 import {
   SendMessageWrapper,
   SendMessageForm,
@@ -25,6 +28,7 @@ type SendMessageProps = {
 
 const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
   const editMessage = useAppSelector(selectEditMessage);
+  const dispatch = useAppDispatch();
   const [sendMessage] = useSendMessagesMutation();
   const [sendEditMessage] = useEditMessageMutation();
 
@@ -63,6 +67,12 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
             message_id: editMessage.message_id,
             chat_with_id: to,
           })
+            .unwrap()
+            .then((res) => {
+              if (res.status === true) {
+                dispatch(clearEditMessage());
+              }
+            })
         : sendMessage(sendMessageData);
     }
     resetForm();

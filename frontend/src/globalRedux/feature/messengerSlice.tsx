@@ -39,12 +39,17 @@ const messengerSlice = createSlice({
     setChatRoomUrl: (state, action: PayloadAction<string>) => {
       state.chatRoomUrl = state.chatRoomUrl + action.payload;
     },
-    closeChatRoom: () => initialState,
+    closeChatRoom: (state) => {
+      state.chatRoomUrl = initialState.chatRoomUrl;
+    },
     setCorrespondUser: (state, action: PayloadAction<CorrespondUser>) => {
       state.correspondUser = action.payload;
     },
     setEditMessage: (state, action: PayloadAction<EditMessage>) => {
       state.editMessage = action.payload;
+    },
+    clearEditMessage: (state) => {
+      state.editMessage = initialState.editMessage;
     },
   },
 });
@@ -54,6 +59,7 @@ export const {
   closeChatRoom,
   setCorrespondUser,
   setEditMessage,
+  clearEditMessage,
 } = messengerSlice.actions;
 
 export const selectChatRoomUrl = (state: RootState) =>
