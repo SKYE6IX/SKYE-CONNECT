@@ -15,7 +15,7 @@ export const CustomMenu = styled((props: MenuProps) => (
     }}
     {...props}
   />
-))(({ theme }) => ({
+))(({}) => ({
   '& .MuiPaper-root': {
     borderRadius: '10px',
     minWidth: 180,

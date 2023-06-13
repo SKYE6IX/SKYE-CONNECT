@@ -12,6 +12,10 @@ type MessageProps = {
   message_text: string;
   created_at: string;
 };
+interface MessageRightProps extends MessageProps {
+  chat_id: string;
+  message_id: number;
+}
 
 //**MESSAGE LEFT COMPONENTS FUNCTION */
 export const MessageLeft: FC<MessageProps> = ({ message_text, created_at }) => {
@@ -27,9 +31,11 @@ export const MessageLeft: FC<MessageProps> = ({ message_text, created_at }) => {
 };
 
 //**MESSAGE RIGHT COMPONENTS FUNCTION */
-export const MessageRight: FC<MessageProps> = ({
+export const MessageRight: FC<MessageRightProps> = ({
   message_text,
   created_at,
+  message_id,
+  chat_id,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMessageOptions = Boolean(anchorEl);
@@ -58,6 +64,8 @@ export const MessageRight: FC<MessageProps> = ({
         anchorEl={anchorEl}
         open={openMessageOptions}
         handleClose={handleCloseMessageOptions}
+        message_id={message_id}
+        chat_id={chat_id}
       />
     </>
   );
