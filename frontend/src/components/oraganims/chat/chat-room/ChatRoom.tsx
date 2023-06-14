@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import React, { FC, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -36,6 +36,21 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
     router.push('/messenger');
   };
 
+  function scrollToTop<T>(
+    dep: T
+  ): React.MutableRefObject<HTMLDivElement | undefined> {
+    const ref = useRef<HTMLDivElement>();
+    useEffect(() => {
+      setTimeout(() => {
+        if (ref.current != undefined) {
+          ref.current.scrollTop = ref.current.scrollHeight;
+        }
+      }, 100);
+    }, [dep]);
+    return ref;
+  }
+  const scrollChatToTopRef = scrollToTop(messages);
+
   return (
     <CustomDialog
       open={true}
@@ -53,7 +68,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
           </ChatRoomName>
         </ChatRoomHeader>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent dividers ref={scrollChatToTopRef}>
         {messages?.length ? (
           <>
             {messages.map((message) => (
