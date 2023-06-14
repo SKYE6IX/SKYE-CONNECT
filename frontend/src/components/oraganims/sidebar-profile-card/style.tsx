@@ -1,7 +1,7 @@
 'use client';
 import styled from 'styled-components';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
-export const ProfileCardContainer = styled.div`
+export const SidebarProfileCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,27 +11,27 @@ export const ProfileCardContainer = styled.div`
   border-radius: 1.5rem;
   height: 350px;
 `;
-export const ProfileCardAvatar = styled(Avatar)`
+export const SidebarProfileCardAvatar = styled(Avatar)`
   width: 80px;
   height: 80px;
 `;
-export const ProfileCardName = styled.div`
+export const SidebarProfileCardName = styled.div`
   span {
     margin: 0 0.2rem;
   }
 `;
-export const ProfileCardAboutMe = styled.p`
+export const SidebarProfileCardAboutMe = styled.p`
   width: 200px;
   font-size: 0.8rem;
   font-weight: 300;
   margin: 0;
   text-align: center;
 `;
-export const ProfileCardInfoContainer = styled.div`
+export const SidebarProfileCardInfoContainer = styled.div`
   display: flex;
   gap: 3rem;
 `;
-export const ProfileCardInfo = styled.div`
+export const SidebarProfileCardInfo = styled.div`
   text-align: center;
   h5 {
     font-weight: 400;
