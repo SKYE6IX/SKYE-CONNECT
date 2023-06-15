@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import SummarizeIcon from '@mui/icons-material/Summarize';
@@ -7,21 +6,26 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HomeIcon from '@mui/icons-material/Home';
+import { MoreInfoCardRows, CustomDialog } from './style';
+import type { User } from '@/types/user';
 
-import { MoreInfoCardRows } from './style';
+type MoreInfoCardProps = {
+  user: User | undefined;
+  handleCloseMoreInfo: () => void;
+};
 
-const MoreInfoCard: FC = () => {
+const MoreInfoCard: FC<MoreInfoCardProps> = ({ user, handleCloseMoreInfo }) => {
   return (
-    <Dialog open={false}>
+    <CustomDialog open={true} onClose={handleCloseMoreInfo}>
       <DialogTitle>Additional Info</DialogTitle>
       <DialogContent dividers>
         <MoreInfoCardRows>
           <SummarizeIcon />
-          <p>Web developer from Moscow</p>
+          <p>{user?.about_me}</p>
         </MoreInfoCardRows>
         <MoreInfoCardRows>
           <AlternateEmailIcon />
-          <span>Skye6ix</span>
+          <span>{user?.username}</span>
         </MoreInfoCardRows>
       </DialogContent>
       <DialogContent dividers>
@@ -35,14 +39,14 @@ const MoreInfoCard: FC = () => {
         </MoreInfoCardRows>
         <MoreInfoCardRows>
           <HomeIcon />
-          <span>Current city: Moscow</span>
+          <span>Current city: {user?.city}</span>
         </MoreInfoCardRows>
       </DialogContent>
       <DialogContent dividers>
         <h4>Personal information</h4>
         <p>Language: English</p>
       </DialogContent>
-    </Dialog>
+    </CustomDialog>
   );
 };
 

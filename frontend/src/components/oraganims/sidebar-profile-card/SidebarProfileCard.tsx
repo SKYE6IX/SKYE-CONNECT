@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import {
   SidebarProfileCardContainer,
   SidebarProfileCardAvatar,
@@ -14,10 +15,12 @@ type SidebarProfileCardProps = CardsProps;
 const SidebarProfileCard: FC<SidebarProfileCardProps> = ({ user }) => {
   return (
     <SidebarProfileCardContainer>
-      <SidebarProfileCardAvatar
-        src={user?.avatar?.thumbnail}
-        alt={user?.first_name}
-      />
+      <Link href={`/dashboard/${user?.username}`}>
+        <SidebarProfileCardAvatar
+          src={user?.avatar?.thumbnail}
+          alt={user?.first_name}
+        />
+      </Link>
       <SidebarProfileCardName>
         <span>{user?.first_name}</span>
         <span>{user?.last_name}</span>

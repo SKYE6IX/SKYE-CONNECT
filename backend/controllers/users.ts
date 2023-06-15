@@ -93,6 +93,7 @@ export const updateUser = async (req: Request, res: Response) => {
         professional,
         about_me,
     } = req.body;
+
     const updateUser = await User.findByIdAndUpdate(userID, {
         $set: {
             email,
@@ -107,6 +108,7 @@ export const updateUser = async (req: Request, res: Response) => {
             about_me,
         },
     });
+
     const file = req.file as Express.Multer.File;
 
     if (file && updateUser != undefined) {
@@ -118,6 +120,7 @@ export const updateUser = async (req: Request, res: Response) => {
         };
         updateUser.avatar = avatarResult;
     }
+
     await updateUser?.save();
 
     res.json({ status: "success" });

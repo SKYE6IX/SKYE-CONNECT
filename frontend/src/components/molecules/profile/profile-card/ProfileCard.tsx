@@ -1,26 +1,76 @@
-import { FC } from 'react';
+'use client';
+import { FC, useState } from 'react';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import WorkIcon from '@mui/icons-material/Work';
+import MoreInfoCard from '../profile-more-info/MoreInfoCard';
+import UpdateProfile from '../update-profile/UpdateProfile';
 import {
   ProfileCardContainer,
-  ProfileCardTextContentWrapper,
   CustomAvatar,
-  ProfileCardButtons,
+  ButtonWrapper,
+  ProfileCardTextContentWrapper,
+  NamesWrapper,
+  OtherInfoWrapper,
 } from './style';
+import type { User } from '@/types/user';
 
-const ProfileCard: FC = () => {
+type ProfileCardProps = {
+  user: User | undefined;
+};
+
+const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
+  const [openMoreInfo, setOpenMoreInfo] = useState<boolean>(false);
+  const [openUpdateProfile, setOpenUpdateProfile] = useState<boolean>(false);
+
+  const handleOpenMoreInfo = () => {
+    setOpenMoreInfo(true);
+  };
+  const handleCloseMoreInfo = () => {
+    setOpenMoreInfo(false);
+  };
+  const handleOpenUpdateProfile = () => {
+    setOpenUpdateProfile(true);
+  };
+  const handleCloseUpdateProfile = () => {
+    setOpenUpdateProfile(false);
+  };
+
   return (
     <ProfileCardContainer>
-      <CustomAvatar />
+      <CustomAvatar src={user?.avatar?.thumbnail} alt={user?.first_name} />
+
       <ProfileCardTextContentWrapper>
-        <span>Azeez</span>
-        <span>Abiola</span>
-        <p>Web Developer living in Moscow</p>
-        <span>Moscow</span>
-        <span>Software Engineer</span>
+        <NamesWrapper>
+          <span>{user?.first_name}</span>
+          <span>{user?.last_name}</span>
+        </NamesWrapper>
+        <p>{user?.about_me}</p>
+        <OtherInfoWrapper>
+          <div>
+            <LocationOnIcon />
+            <span>{user?.city}</span>
+          </div>
+          <div>
+            <WorkIcon />
+            <span>{user?.professional}</span>
+          </div>
+        </OtherInfoWrapper>
       </ProfileCardTextContentWrapper>
-      <ProfileCardButtons>More</ProfileCardButtons>
-      <ProfileCardButtons>Edit Profile</ProfileCardButtons>
+
+      <ButtonWrapper>
+        <button onClick={handleOpenMoreInfo}>More</button>
+        {openMoreInfo && (
+          <MoreInfoCard user={user} handleCloseMoreInfo={handleCloseMoreInfo} />
+        )}
+        <button onClick={handleOpenUpdateProfile}>Edit Profile</button>
+        {openUpdateProfile && (
+          <UpdateProfile
+            user={user}
+            handleCloseUpdateProfile={handleCloseUpdateProfile}
+          />
+        )}
+      </ButtonWrapper>
     </ProfileCardContainer>
   );
 };
-
 export default ProfileCard;

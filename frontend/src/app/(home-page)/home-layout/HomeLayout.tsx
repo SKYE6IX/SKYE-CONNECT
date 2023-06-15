@@ -2,7 +2,7 @@
 import React from 'react';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import SignOut from '@/components/molecules/sign-out/SignOut';
-import SidebarProfileCard from '@/components/oraganims/sidebar-profile-card/ProfileCard';
+import SidebarProfileCard from '@/components/oraganims/sidebar-profile-card/SidebarProfileCard';
 import ConnectionCard from '@/components/oraganims/connection-card/ConnectionCard';
 import ConneectionSuggestionCard from '@/components/oraganims/connection-suggestion-card/ConnectionSuggestionCard';
 import ChatOpener from '@/components/oraganims/chat/chat-opener/ChatOpener';

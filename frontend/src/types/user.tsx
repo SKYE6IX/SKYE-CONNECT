@@ -46,7 +46,7 @@ export interface SignUpForm {
   date_of_birth: Date | null;
 }
 
-export interface UpdateProfileFormTypes extends SignUpForm {
+export interface ProfileUpdateForm extends SignUpForm {
   avatar?: any;
   about_me?: string;
   country?: string;
@@ -56,7 +56,7 @@ export interface UpdateProfileFormTypes extends SignUpForm {
 
 export type UpdateProfileMutationInput = {
   userID: number;
-  body: UpdateProfileFormTypes;
+  body: ProfileUpdateForm;
 };
 
 export type CardsProps = {
