@@ -7,6 +7,12 @@ export const FollowersCardContainer = styled.div`
   border-radius: 1rem;
   padding: 0.8rem 1rem;
   height: 400px;
+  h4 {
+    margin: 0px;
+    margin-bottom: 0.8em;
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
 `;
 
 export const Followers = styled.div`
@@ -16,12 +22,18 @@ export const Followers = styled.div`
   margin: 0.5rem 0;
 `;
 
-export const CustomAvatar = styled(Avatar)``;
+export const CustomAvatar = styled(Avatar)`
+  width: 50px;
+  height: 50px;
+`;
 
 export const FollowersCardTextContents = styled.div`
+  div {
+    display: flex;
+    gap: 0.3em;
+  }
   span {
-    margin: 0 0.2rem;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-weight: 300;
   }
   p {

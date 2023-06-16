@@ -30,7 +30,7 @@ const DashboardTemplate: FC = () => {
             <DashboardPostList />
           </DashboardTemplateMain>
           <DashboardTemplateAside>
-            <FollowersCard />
+            <FollowersCard followers={data?.followers} />
             <GroupCard />
           </DashboardTemplateAside>
         </DashboardTemplateBodyWrapper>
