@@ -14,11 +14,13 @@ export const DashboardPostContainer = styled.div`
 export const DashboardPostHeader = styled.div`
   display: flex;
   align-items: center;
+  padding: 0.5em;
   ul {
     display: flex;
     align-items: center;
     list-style: none;
     gap: 1em;
+    margin: 0px;
   }
 `;
 
@@ -39,6 +41,10 @@ export const DashboardPostHeaderButton = styled.li<ActivePostsOption>`
 export const Divider = styled.hr`
   border-top: 1px solid black;
   border-radius: inherit;
+`;
+
+export const DashboardPostsWrapper = styled.div`
+  padding: 0px 30px;
 `;
 
 //backgroud-colors

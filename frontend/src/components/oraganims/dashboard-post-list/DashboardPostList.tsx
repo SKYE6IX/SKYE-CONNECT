@@ -5,6 +5,7 @@ import {
   DashboardPostHeader,
   DashboardPostHeaderButton,
   Divider,
+  DashboardPostsWrapper,
 } from './style';
 import type { IPost } from '@/types/post';
 
@@ -55,10 +56,12 @@ const DashboardPostList: FC<DashboardPostListProps> = ({
       </DashboardPostHeader>
       <Divider />
 
-      {isUserPostsActive &&
-        user_posts?.map((post) => <PostCard post={post} key={post._id} />)}
-      {isLikedPostsActive &&
-        liked_posts?.map((post) => <PostCard post={post} key={post._id} />)}
+      <DashboardPostsWrapper>
+        {isUserPostsActive &&
+          user_posts?.map((post) => <PostCard post={post} key={post._id} />)}
+        {isLikedPostsActive &&
+          liked_posts?.map((post) => <PostCard post={post} key={post._id} />)}
+      </DashboardPostsWrapper>
     </DashboardPostContainer>
   );
 };
