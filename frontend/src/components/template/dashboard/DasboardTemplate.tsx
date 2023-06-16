@@ -27,7 +27,10 @@ const DashboardTemplate: FC = () => {
         <DashboardTemplateBodyWrapper>
           <DashboardTemplateMain>
             <PhotoGalleryCard />
-            <DashboardPostList />
+            <DashboardPostList
+              user_posts={data?.posts}
+              liked_posts={data?.likePosts}
+            />
           </DashboardTemplateMain>
           <DashboardTemplateAside>
             <FollowersCard followers={data?.followers} />
