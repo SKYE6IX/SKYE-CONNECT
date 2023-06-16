@@ -8,9 +8,13 @@ import type { User } from '@/types/user';
 
 type DashboardHeaderProps = {
   user: User | undefined;
+  handleRefetchUser: () => void;
 };
 
-const DashboardHeader: FC<DashboardHeaderProps> = ({ user }) => {
+const DashboardHeader: FC<DashboardHeaderProps> = ({
+  user,
+  handleRefetchUser,
+}) => {
   return (
     <DashboardHeaderContainer>
       <DashboardHeaderCoverImageWrapper>
@@ -19,7 +23,7 @@ const DashboardHeader: FC<DashboardHeaderProps> = ({ user }) => {
           <button>Change Cover</button>
         </div>
       </DashboardHeaderCoverImageWrapper>
-      <ProfileCard user={user} />
+      <ProfileCard user={user} handleRefetchUser={handleRefetchUser} />
     </DashboardHeaderContainer>
   );
 };

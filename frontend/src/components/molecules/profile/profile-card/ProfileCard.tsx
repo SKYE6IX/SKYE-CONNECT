@@ -16,9 +16,10 @@ import type { User } from '@/types/user';
 
 type ProfileCardProps = {
   user: User | undefined;
+  handleRefetchUser: () => void;
 };
 
-const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
+const ProfileCard: FC<ProfileCardProps> = ({ user, handleRefetchUser }) => {
   const [openMoreInfo, setOpenMoreInfo] = useState<boolean>(false);
   const [openUpdateProfile, setOpenUpdateProfile] = useState<boolean>(false);
 
@@ -33,6 +34,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ user }) => {
   };
   const handleCloseUpdateProfile = () => {
     setOpenUpdateProfile(false);
+    handleRefetchUser();
   };
 
   return (

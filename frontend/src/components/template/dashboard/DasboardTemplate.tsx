@@ -15,11 +15,15 @@ import {
 } from './style';
 
 const DashboardTemplate: FC = () => {
-  const { data } = useGetUserQuery();
+  const { data, refetch } = useGetUserQuery();
+  const handleRefetchUser = () => {
+    refetch();
+  };
+
   return (
     <DashboardTemplateContainer>
       <InnerWrapper>
-        <DashboardHeader user={data} />
+        <DashboardHeader user={data} handleRefetchUser={handleRefetchUser} />
         <DashboardTemplateBodyWrapper>
           <DashboardTemplateMain>
             <PhotoGalleryCard />

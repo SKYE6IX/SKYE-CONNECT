@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const DashboardHeaderContainer = styled.div`
   width: 100%;
   border-radius: 1em;
-  border: 1px solid red;
 `;
 export const DashboardHeaderCoverImageWrapper = styled.div`
   background-color: rgba(2, 4, 0, 0.2);
