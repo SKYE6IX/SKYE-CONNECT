@@ -10,8 +10,11 @@ type SinglePostTemplateProps = {
 const SinglePostTemplate: FC<SinglePostTemplateProps> = ({ post_id }) => {
   const { data, isLoading } = useGetPostQuery(post_id);
 
-  console.log(data);
-  return <SinglePost post={data} />;
+  if (isLoading) return <p>Loading..</p>;
+
+  const post = data!;
+
+  return <SinglePost post={post} />;
 };
 
 export default SinglePostTemplate;
