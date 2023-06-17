@@ -35,6 +35,9 @@ const PostLikes: FC<PostLikesProps> = ({ post_id, user }) => {
       return likePost._id === post_id;
     });
   };
+
+  // const totalLike = data?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
   return (
     <PostLikesContainer>
       <span>{data?.length}</span>

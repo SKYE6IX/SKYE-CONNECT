@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import { CommentIcon } from '@/components/atoms/MUIComponents/Components';
 import {
@@ -43,19 +44,21 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         <PostMenu post_id={post._id} />
       </PostCardHeader>
 
-      <PostCardBody>
-        <PostCardTextContent>{post.content}</PostCardTextContent>
-        <PostCardMediaContent>
-          <MediaItem>
-            <img src="" alt="" />
-          </MediaItem>
-        </PostCardMediaContent>
+      <Link href={`/feeds/${post._id}`}>
+        <PostCardBody>
+          <PostCardTextContent>{post.content}</PostCardTextContent>
+          <PostCardMediaContent>
+            <MediaItem>
+              <img src="" alt="" />
+            </MediaItem>
+          </PostCardMediaContent>
 
-        <PostCardReaction>
-          <PostLikes post_id={post._id} user={userData} />
-          <CommentIcon>Comment</CommentIcon>
-        </PostCardReaction>
-      </PostCardBody>
+          <PostCardReaction>
+            <PostLikes post_id={post._id} user={userData} />
+            <CommentIcon>Comment</CommentIcon>
+          </PostCardReaction>
+        </PostCardBody>
+      </Link>
 
       <PostCardCommentContainer>
         <CommentList post_id={post._id} user={userData} />

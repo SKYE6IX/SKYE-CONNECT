@@ -18,7 +18,7 @@ export const allPost = (req, res) => __awaiter(void 0, void 0, void 0, function*
 //Get a single post
 export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const singlePost = yield Post.findById(id);
+    const singlePost = yield Post.findById(id).populate("author");
     res.json(singlePost);
 });
 //Creating new post

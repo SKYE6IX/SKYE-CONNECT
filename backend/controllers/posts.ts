@@ -11,7 +11,7 @@ export const allPost = async (req: Request, res: Response) => {
 //Get a single post
 export const getSinglePost = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const singlePost = await Post.findById(id);
+    const singlePost = await Post.findById(id).populate("author");
     res.json(singlePost);
 };
 
@@ -35,7 +35,6 @@ export const createPost = async (req: Request, res: Response) => {
     await post.save();
     res.send("Post Created");
 };
-
 
 //Delete post
 export const deletePost = async (req: Request, res: Response) => {
