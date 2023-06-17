@@ -7,35 +7,35 @@ import ConnectionCard from '@/components/oraganims/connection-card/ConnectionCar
 import ConneectionSuggestionCard from '@/components/oraganims/connection-suggestion-card/ConnectionSuggestionCard';
 import ChatOpener from '@/components/oraganims/chat/chat-opener/ChatOpener';
 import {
+  Container,
+  MainNavigation,
+  MainContainer,
   Main,
-  HomeNavigation,
-  HomeContainer,
-  HomeMain,
-  HomeAsides,
+  MainAsides,
 } from './style';
 
-const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading } = useGetUserQuery();
   return (
-    <Main>
-      <HomeNavigation>
+    <Container>
+      <MainNavigation>
         <SignOut />
-      </HomeNavigation>
-      <HomeContainer>
-        <HomeAsides>
+      </MainNavigation>
+      <MainContainer>
+        <MainAsides>
           <SidebarProfileCard user={data} isUserDataLoading={isLoading} />
           <ChatOpener />
-        </HomeAsides>
-        <HomeMain>{children}</HomeMain>
-        <HomeAsides>
+        </MainAsides>
+        <Main>{children}</Main>
+        <MainAsides>
           <ConnectionCard user={data} isUserDataLoading={isLoading} />
           <ConneectionSuggestionCard
             user={data}
             isUserDataLoading={isLoading}
           />
-        </HomeAsides>
-      </HomeContainer>
-    </Main>
+        </MainAsides>
+      </MainContainer>
+    </Container>
   );
 };
-export default HomeLayout;
+export default MainLayout;

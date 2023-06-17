@@ -5,10 +5,10 @@ import Navigation, {
   NavigationProps,
 } from '@/components/molecules/navigation/Navigation';
 
-export const Main = styled.main`
+export const Container = styled.main`
   height: 100vh;
 `;
-export const HomeNavigation: FC<NavigationProps> = styled(Navigation)`
+export const MainNavigation: FC<NavigationProps> = styled(Navigation)`
   height: 7vh;
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@ export const HomeNavigation: FC<NavigationProps> = styled(Navigation)`
     margin-left: auto;
   }
 `;
-export const HomeContainer = styled.div`
+export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 600px 1fr;
   grid-gap: 10px;
@@ -28,13 +28,13 @@ export const HomeContainer = styled.div`
   height: 93vh;
   padding: 10px 20px;
 `;
-export const HomeMain = styled.div`
+export const Main = styled.div`
   padding: 20px 20px;
   background-color: white;
   border-radius: 10px;
   overflow-x: scroll;
 `;
-export const HomeAsides = styled.div`
+export const MainAsides = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;

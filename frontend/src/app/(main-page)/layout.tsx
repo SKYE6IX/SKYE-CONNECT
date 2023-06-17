@@ -1,18 +1,18 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import RootLayout from '../RootLayout';
-import HomeLayout from './home-layout/HomeLayout';
+import MainLayout from './main-layout/MainLayout';
 import { isAuthenticated } from '../authentication/isAuthenticated';
 
-const HomepageLayout = async ({ children }: { children: React.ReactNode }) => {
+const MainpageLayout = async ({ children }: { children: React.ReactNode }) => {
   const authUser = await isAuthenticated();
   if (!authUser) {
     redirect('/');
   }
   return (
     <RootLayout>
-      <HomeLayout>{children}</HomeLayout>
+      <MainLayout>{children}</MainLayout>
     </RootLayout>
   );
 };
-export default HomepageLayout;
+export default MainpageLayout;
