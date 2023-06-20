@@ -6,10 +6,12 @@ import { PhotoCameraIcon } from '@/components/atoms/MUIComponents/Components';
 import {
   CreatePostContainer,
   TextArea,
-  MediaInput,
   SubmitButton,
+  CreatePostBottom,
+  PhotosPreviewWrapper,
 } from './style';
 import useForm from '@/hooks/useForm';
+import { previewPhotos } from './helper';
 interface PostForm {
   content: string;
   images: any;
@@ -38,6 +40,7 @@ const CreatePost: FC = () => {
     fileRef.current.value = null;
     resetForm();
   };
+
   return (
     <CreatePostContainer>
       <form onSubmit={handleSubmit}>
@@ -47,7 +50,7 @@ const CreatePost: FC = () => {
           onChange={handleChange}
           value={formState.content}
         />
-        <MediaInput>
+        <CreatePostBottom>
           <input
             ref={fileRef}
             type="file"
@@ -61,6 +64,13 @@ const CreatePost: FC = () => {
               style={{ fontSize: '1.5rem', cursor: 'pointer' }}
             />
           </label>
+
+          <PhotosPreviewWrapper>
+            {previewPhotos(formState.images).map((img, i) => (
+              <img src={img} key={i} />
+            ))}
+          </PhotosPreviewWrapper>
+
           <SubmitButton
             type="submit"
             disabled={isLoading}
@@ -79,7 +89,7 @@ const CreatePost: FC = () => {
               'Post'
             )}
           </SubmitButton>
-        </MediaInput>
+        </CreatePostBottom>
       </form>
     </CreatePostContainer>
   );
