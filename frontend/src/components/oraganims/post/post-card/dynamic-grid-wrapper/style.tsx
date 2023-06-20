@@ -5,7 +5,7 @@ export const DefaultWrapper = styled.div`
   max-height: 450px;
   max-width: 500px;
   display: grid;
-  gap: 1em;
+  gap: 2%;
   img {
     border-radius: 1em;
     height: 100%;
@@ -16,7 +16,7 @@ export const DefaultWrapper = styled.div`
 `;
 
 export const TwoGridPhotos = styled(DefaultWrapper)`
-  grid-template-columns: repeat(2, 48%);
+  grid-template-columns: repeat(2, 49%);
 `;
 
 export const ThreeGridPhotos = styled(DefaultWrapper)`
@@ -36,13 +36,13 @@ export const ThreeGridPhotos = styled(DefaultWrapper)`
 `;
 
 export const FourGridPhotos = styled(DefaultWrapper)`
-  grid-template-columns: repeat(2, 48%);
-  grid-template-rows: repeat(2, 48%);
+  grid-template-columns: repeat(2, 49%);
+  grid-template-rows: repeat(2, 49%);
 `;
 
 export const FiveGridPhotos = styled(DefaultWrapper)`
-  grid-template-columns: repeat(3, [col] 32%);
-  grid-template-rows: repeat(2, [row] 48%);
+  grid-template-columns: repeat(3, [col] 32.6%);
+  grid-template-rows: repeat(2, [row] 49%);
   img {
     &:nth-child(1) {
       grid-column: col / span 1;
@@ -56,6 +56,6 @@ export const FiveGridPhotos = styled(DefaultWrapper)`
 `;
 
 export const SixGridPhotos = styled(DefaultWrapper)`
-  grid-template-columns: repeat(3, 32%);
-  grid-template-rows: repeat(2, 48%);
+  grid-template-columns: repeat(3, 32.6%);
+  grid-template-rows: repeat(2, 49%);
 `;
