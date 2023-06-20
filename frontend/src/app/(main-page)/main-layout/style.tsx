@@ -28,6 +28,7 @@ export const MainContainer = styled.div`
   height: 93vh;
   padding: 10px 20px;
 `;
+
 export const Main = styled.div`
   padding: 20px 20px;
   background-color: white;

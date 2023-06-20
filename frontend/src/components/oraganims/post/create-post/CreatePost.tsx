@@ -1,5 +1,6 @@
 'use client';
 import { FC, useRef } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useAddPostMutation } from '@/globalRedux/service/postApi';
 import { PhotoCameraIcon } from '@/components/atoms/MUIComponents/Components';
 import {
@@ -60,13 +61,27 @@ const CreatePost: FC = () => {
               style={{ fontSize: '1.5rem', cursor: 'pointer' }}
             />
           </label>
-          <SubmitButton type="submit" disabled={isLoading}>
-            Post
+          <SubmitButton
+            type="submit"
+            disabled={isLoading}
+            $isLoading={isLoading}
+          >
+            {isLoading ? (
+              <CircularProgress
+                disableShrink
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  color: 'white',
+                }}
+              />
+            ) : (
+              'Post'
+            )}
           </SubmitButton>
         </MediaInput>
       </form>
     </CreatePostContainer>
   );
 };
-
 export default CreatePost;

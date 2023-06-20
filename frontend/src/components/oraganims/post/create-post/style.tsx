@@ -1,5 +1,10 @@
 'use client';
 import styled from 'styled-components';
+
+interface ButtonProps {
+  $isLoading: boolean;
+}
+
 export const CreatePostContainer = styled.div`
   height: 200px;
   border-radius: 20px;
@@ -28,8 +33,8 @@ export const MediaInput = styled.div`
   }
 `;
 
-export const SubmitButton = styled.button`
-  background-color: green;
+export const SubmitButton = styled.button<ButtonProps>`
+  background-color: ${(props) => (props.$isLoading ? ' #41644A' : '#263a29')};
   color: white;
   padding: 5px 20px;
   border: none;
@@ -37,3 +42,5 @@ export const SubmitButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
 `;
+
+// isLoading color:

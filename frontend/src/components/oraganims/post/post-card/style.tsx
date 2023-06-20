@@ -1,6 +1,7 @@
 'use client';
 import styled from 'styled-components';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
+
 export const PostCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,22 +31,31 @@ export const PostCardNames = styled.div`
   }
 `;
 
-export const PostCardBody = styled.div``;
-
-export const PostCardCommentContainer = styled.div`
-  max-height: 200px;
-  overflow-y: scroll;
+export const PostCardBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export const PostCardTextContent = styled.p`
   line-height: 2rem;
   font-weight: 300;
   font-size: 1.1rem;
+  align-self: flex-start;
 `;
 
-export const PostCardMediaContent = styled.div``;
-
-export const MediaItem = styled.div``;
+export const PostCardCommentContainer = styled.div`
+  max-height: 200px;
+  overflow-y: scroll;
+`;
 
 export const PostCardReaction = styled.div`
   display: flex;

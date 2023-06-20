@@ -9,9 +9,7 @@ import {
   PostCardBody,
   PostCardNames,
   PostCardFooter,
-  PostCardMediaContent,
   PostCardTextContent,
-  MediaItem,
   PostCardReaction,
   PostCardCommentContainer,
 } from './style';
@@ -19,6 +17,7 @@ import PostMenu from '../post-options/menu-button/PostMenu';
 import PostLikes from '../post-features/likes/PostLikes';
 import AddComment from '../post-features/comment/add-comment/AddComment';
 import CommentList from '../post-features/comment/comment-list/CommentList';
+import DyanamicGridWrapper from './dynamic-grid-wrapper/DynamicGridWrapper';
 import type { IPost } from '@/types/post';
 
 type PostCardProps = {
@@ -28,7 +27,6 @@ type PostCardProps = {
 const PostCard: FC<PostCardProps> = ({ post }) => {
   const { data } = useGetUserQuery();
   const userData = data;
-
   return (
     <PostCardContainer>
       <PostCardHeader>
@@ -44,21 +42,19 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         <PostMenu post_id={post._id} />
       </PostCardHeader>
 
-      <Link href={`/feeds/${post._id}`}>
-        <PostCardBody>
+      <PostCardBody>
+        <Link href={`/feeds/${post._id}`}>
           <PostCardTextContent>{post.content}</PostCardTextContent>
-          <PostCardMediaContent>
-            <MediaItem>
-              <img src="" alt="" />
-            </MediaItem>
-          </PostCardMediaContent>
-
-          <PostCardReaction>
-            <PostLikes post_id={post._id} user={userData} />
-            <CommentIcon>Comment</CommentIcon>
-          </PostCardReaction>
-        </PostCardBody>
-      </Link>
+          <DyanamicGridWrapper
+            photos={post.photos}
+            photosLength={post.photos.length}
+          />
+        </Link>
+        <PostCardReaction>
+          <PostLikes post_id={post._id} user={userData} />
+          <CommentIcon>Comment</CommentIcon>
+        </PostCardReaction>
+      </PostCardBody>
 
       <PostCardCommentContainer>
         <CommentList post_id={post._id} user={userData} />
