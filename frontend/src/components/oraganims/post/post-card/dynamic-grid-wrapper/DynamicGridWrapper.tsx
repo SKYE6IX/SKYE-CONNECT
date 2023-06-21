@@ -1,5 +1,5 @@
 'use client';
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import type { IPhoto } from '@/types/post';
 import {
   DefaultWrapper,
@@ -9,6 +9,7 @@ import {
   FiveGridPhotos,
   SixGridPhotos,
 } from './style';
+import { checkImageOrientation } from './helper';
 
 type DyanamicGridWrapperProps = {
   photosLength: number;
@@ -19,6 +20,17 @@ const DyanamicGridWrapper: FC<DyanamicGridWrapperProps> = ({
   photos,
   photosLength,
 }) => {
+  const [orientation, setOrientation] = useState<string>('');
+  useEffect(() => {
+    if (photos.length === 1) {
+      photos.forEach((photo) => {
+        checkImageOrientation(photo.url, (orientation) => {
+          setOrientation(orientation);
+        });
+      });
+    }
+  }, [photos]);
+
   switch (photosLength) {
     case 6:
       return (
@@ -62,7 +74,7 @@ const DyanamicGridWrapper: FC<DyanamicGridWrapperProps> = ({
       );
     default:
       return (
-        <DefaultWrapper>
+        <DefaultWrapper orientation={orientation}>
           {photos.map((photo) => (
             <img src={photo.url} alt={photo.filename} key={photo._id} />
           ))}

@@ -43,7 +43,7 @@ export const CreatePostBottom = styled.div`
 
 export const PhotosPreviewWrapper = styled.div`
   height: 60px;
-  max-width: 50px;
+  max-width: 70px;
   display: flex;
   gap: 0.2em;
   img {

@@ -1,7 +1,11 @@
 'use client';
 import styled from 'styled-components';
 
-export const DefaultWrapper = styled.div`
+interface Props {
+  orientation: string;
+}
+
+const SharedStyles = styled.div`
   max-height: 450px;
   max-width: 500px;
   display: grid;
@@ -15,11 +19,16 @@ export const DefaultWrapper = styled.div`
   }
 `;
 
-export const TwoGridPhotos = styled(DefaultWrapper)`
+export const DefaultWrapper = styled(SharedStyles)<Props>`
+  max-width: ${({ orientation }) =>
+    orientation === 'landscape' ? '500px' : '300px'};
+`;
+
+export const TwoGridPhotos = styled(SharedStyles)`
   grid-template-columns: repeat(2, 49%);
 `;
 
-export const ThreeGridPhotos = styled(DefaultWrapper)`
+export const ThreeGridPhotos = styled(SharedStyles)`
   grid-template: 49% 49% / 49% 49%;
   grid-template-areas: 'L T' 'L B';
   img {
@@ -35,12 +44,12 @@ export const ThreeGridPhotos = styled(DefaultWrapper)`
   }
 `;
 
-export const FourGridPhotos = styled(DefaultWrapper)`
+export const FourGridPhotos = styled(SharedStyles)`
   grid-template-columns: repeat(2, 49%);
   grid-template-rows: repeat(2, 49%);
 `;
 
-export const FiveGridPhotos = styled(DefaultWrapper)`
+export const FiveGridPhotos = styled(SharedStyles)`
   grid-template-columns: repeat(3, [col] 32.6%);
   grid-template-rows: repeat(2, [row] 49%);
   img {
@@ -55,7 +64,7 @@ export const FiveGridPhotos = styled(DefaultWrapper)`
   }
 `;
 
-export const SixGridPhotos = styled(DefaultWrapper)`
+export const SixGridPhotos = styled(SharedStyles)`
   grid-template-columns: repeat(3, 32.6%);
   grid-template-rows: repeat(2, 49%);
 `;
