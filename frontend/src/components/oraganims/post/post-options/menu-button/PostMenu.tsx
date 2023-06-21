@@ -1,11 +1,9 @@
 'use client';
 import React, { FC } from 'react';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeletePostButton from '../delete-button/DeletePostButon';
-import { PostMenuButtonContainer } from './style';
+import { PostMenuButtonContainer, CustomMenu } from './style';
 
 type PostMenuProps = {
   post_id: number;
@@ -32,7 +30,7 @@ const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
       >
         <MoreVertIcon />
       </IconButton>
-      <Menu
+      <CustomMenu
         id="long-menu"
         MenuListProps={{
           'aria-labelledby': 'long-button',
@@ -45,10 +43,8 @@ const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
           horizontal: 55,
         }}
       >
-        <MenuItem>
-          <DeletePostButton post_id={post_id} />
-        </MenuItem>
-      </Menu>
+        <DeletePostButton post_id={post_id} />
+      </CustomMenu>
     </PostMenuButtonContainer>
   );
 };
