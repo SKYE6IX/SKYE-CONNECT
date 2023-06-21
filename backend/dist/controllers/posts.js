@@ -59,5 +59,6 @@ export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
     //Remove the post from Users also
     yield User.findByIdAndUpdate(userID, { $pull: { posts: id } });
     post === null || post === void 0 ? void 0 : post.remove();
-    res.send("Post successfully Deleted");
+    res.json(post);
+    // res.send("Post successfully Deleted");
 });

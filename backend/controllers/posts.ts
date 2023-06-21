@@ -52,5 +52,6 @@ export const deletePost = async (req: Request, res: Response) => {
     //Remove the post from Users also
     await User.findByIdAndUpdate(userID, { $pull: { posts: id } });
     post?.remove();
-    res.send("Post successfully Deleted");
+    res.json(post);
+    // res.send("Post successfully Deleted");
 };

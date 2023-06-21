@@ -35,10 +35,12 @@ export const postsApi = rootApi.injectEndpoints({
       query: (body) => ({ url: '/posts', method: 'POST', data: body }),
       invalidatesTags: [{ type: 'Posts' }],
     }),
+
     deletePost: builder.mutation<IPost, number>({
       query: (id) => ({ url: '/posts/' + id, method: 'DELETE' }),
       invalidatesTags: (result) => [{ type: 'Posts', id: result?._id }],
     }),
+
     getComments: builder.query<CommentResponse, number>({
       query: (postID) => ({
         url: '/posts/' + postID + '/comments',

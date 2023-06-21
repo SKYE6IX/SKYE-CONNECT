@@ -22,6 +22,9 @@ type DeletePostProps = {
 
 const DeletePostButton: FC<DeletePostProps> = ({ post_id }) => {
   const [deletePost, { isLoading }] = useDeletePostMutation();
+
+  console.log(isLoading);
+
   const handleClick = async () => {
     await deletePost(post_id);
   };
