@@ -5,6 +5,7 @@ import PostLikes from '../post-features/likes/PostLikes';
 import CommentList from '../post-features/comment/comment-list/CommentList';
 import AddComment from '../post-features/comment/add-comment/AddComment';
 import PostMenu from '../post-options/menu-button/PostMenu';
+import Carousel from './carosel/Carosel';
 import type { IPost } from '@/types/post';
 import {
   SinglePostContainer,
@@ -13,8 +14,6 @@ import {
   CustomAvatar,
   PostInfoWrapper,
   NamesWrapper,
-  SinglePostMediaContent,
-  MediaItem,
   SinglePostReaction,
   SinglePostCommentContainer,
   SinglePostFooter,
@@ -42,12 +41,7 @@ const SinglePost: FC<SinglePostProps> = ({ post }) => {
       </SinglePostHeader>
       <SinglePostBody>
         <p>{post.content}</p>
-        <SinglePostMediaContent>
-          <MediaItem>
-            <img src="" alt="" />
-          </MediaItem>
-        </SinglePostMediaContent>
-
+        {post.photos.length && <Carousel photos={post.photos} />}
         <SinglePostReaction>
           <PostLikes post_id={post._id} />
           <CommentIcon />

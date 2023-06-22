@@ -32,10 +32,6 @@ export const NamesWrapper = styled.div`
 
 export const SinglePostBody = styled.div``; //TODO LATER
 
-export const SinglePostMediaContent = styled.div``; //TODO LATER
-
-export const MediaItem = styled.div``; //TODO LATER
-
 export const SinglePostReaction = styled.div`
   display: flex;
   gap: 2rem;
