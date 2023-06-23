@@ -13,8 +13,8 @@ export const getAllUser = async (req: Request, res: Response) => {
 };
 
 export async function getSingleUser(req: Request, res: Response) {
-    const { userID } = req.params;
-    const singleUser = await User.findById(userID)
+    const { user_id } = req.params;
+    const singleUser = await User.findById(user_id)
         .populate({
             path: "posts",
             populate: {
@@ -80,7 +80,7 @@ export const createNewUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-    const { userID } = req.params;
+    const { user_id } = req.params;
     const {
         email,
         username,
@@ -94,7 +94,7 @@ export const updateUser = async (req: Request, res: Response) => {
         about_me,
     } = req.body;
 
-    const updateUser = await User.findByIdAndUpdate(userID, {
+    const updateUser = await User.findByIdAndUpdate(user_id, {
         $set: {
             email,
             username,
@@ -124,6 +124,29 @@ export const updateUser = async (req: Request, res: Response) => {
     await updateUser?.save();
 
     res.json({ status: "success" });
+};
+
+//Header upload and update
+export const uploadHeaderCover = async (req: Request, res: Response) => {
+    const { user_id } = req.params;
+    const user = await User.findById(user_id);
+    const file = req.file as Express.Multer.File;
+    //First delete thee old cover if it exist
+    if (user?.header_cover) {
+        const public_id = user.header_cover.filename;
+        cloudinary.uploader.destroy(public_id).then((res) => console.log(res));
+    }
+    const optimizeImgUrl = file.path.replace("/upload", "/upload/q_80");
+    if (user != undefined) {
+        const header_cover: IPhoto = {
+            url: optimizeImgUrl,
+            filename: file.filename,
+        };
+        user.header_cover = header_cover;
+    }
+    await user?.save();
+
+    res.send({ status: true });
 };
 
 export const logInUser = async (

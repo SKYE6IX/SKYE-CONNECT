@@ -7,6 +7,7 @@ import type {
   SignUpForm,
   UpdateProfileMutationInput,
   User,
+  HeaderCoverInput,
 } from '@/types/user';
 
 interface UpdateResponse {
@@ -31,6 +32,13 @@ export const usersApi = rootApi.injectEndpoints({
         url: `/user/${userID}/update`,
         method: 'PUT',
         data: body,
+      }),
+    }),
+    uploadHeaderCover: builder.mutation<{ status: boolean }, HeaderCoverInput>({
+      query: ({ data, user_id }) => ({
+        url: `/user/${user_id}/upload-header-cover`,
+        method: 'PUT',
+        data: data,
       }),
     }),
     login: builder.mutation<Response, LoginForm>({
@@ -72,4 +80,5 @@ export const {
   useAddFollowerMutation,
   useGetSingleUserQuery,
   useRemoveFollowerMutation,
+  useUploadHeaderCoverMutation,
 } = usersApi;

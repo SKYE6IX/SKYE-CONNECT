@@ -9,12 +9,11 @@ const requiredServerEnvs = [
 type RequiredServerEnvKeys = (typeof requiredServerEnvs)[number];
 declare global {
     namespace NodeJS {
-        interface ProcessEnv extends Record<RequiredServerEnvKeys, string> { }
+        interface ProcessEnv extends Record<RequiredServerEnvKeys, string> {}
     }
 }
 
-export { };
-
+export {};
 
 export interface IPhoto {
     url: string;
@@ -23,6 +22,7 @@ export interface IPhoto {
 export interface IUser {
     _id: Types.ObjectId;
     avatar: IPhoto;
+    header_cover: IPhoto;
     email: string;
     username: string;
     first_name: string;
@@ -34,6 +34,7 @@ export interface IUser {
     languages: string[];
     professional: string;
     about_me: string;
+    relationship: string;
     posts: Types.ObjectId[];
     likePosts: Types.ObjectId[];
     created_at: Date;
@@ -41,6 +42,6 @@ export interface IUser {
     following: Types.ObjectId[];
     chatLists: Array<{
         chat_with: Types.ObjectId;
-        chatID: Types.ObjectId
-    }>
+        chatID: Types.ObjectId;
+    }>;
 }

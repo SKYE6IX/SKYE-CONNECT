@@ -18,8 +18,8 @@ export const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 export function getSingleUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { userID } = req.params;
-        const singleUser = yield User.findById(userID)
+        const { user_id } = req.params;
+        const singleUser = yield User.findById(user_id)
             .populate({
             path: "posts",
             populate: {
@@ -78,9 +78,9 @@ export const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 export const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userID } = req.params;
+    const { user_id } = req.params;
     const { email, username, first_name, last_name, date_of_birth, gender, country, city, professional, about_me, } = req.body;
-    const updateUser = yield User.findByIdAndUpdate(userID, {
+    const updateUser = yield User.findByIdAndUpdate(user_id, {
         $set: {
             email,
             username,
@@ -106,6 +106,27 @@ export const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     yield (updateUser === null || updateUser === void 0 ? void 0 : updateUser.save());
     res.json({ status: "success" });
+});
+//Header upload and update
+export const uploadHeaderCover = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { user_id } = req.params;
+    const user = yield User.findById(user_id);
+    const file = req.file;
+    //First delete thee old cover if it exist
+    if (user === null || user === void 0 ? void 0 : user.header_cover) {
+        const public_id = user.header_cover.filename;
+        cloudinary.uploader.destroy(public_id).then((res) => console.log(res));
+    }
+    const optimizeImgUrl = file.path.replace("/upload", "/upload/q_80");
+    if (user != undefined) {
+        const header_cover = {
+            url: optimizeImgUrl,
+            filename: file.filename,
+        };
+        user.header_cover = header_cover;
+    }
+    yield (user === null || user === void 0 ? void 0 : user.save());
+    res.send({ status: true });
 });
 export const logInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     passport.authenticate("local", function (err, user, info) {

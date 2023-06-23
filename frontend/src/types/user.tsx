@@ -7,6 +7,10 @@ export interface User {
     filename: string;
     thumbnail: string;
   };
+  header_cover: {
+    url: string;
+    filename: string;
+  };
   email: string;
   username: string;
   posts: PostsResponse;
@@ -18,6 +22,7 @@ export interface User {
   country: string;
   city: string;
   professional?: string;
+  relationship: string;
   about_me?: string;
   followers: User[];
   following: User[];
@@ -63,3 +68,8 @@ export type CardsProps = {
   user: User | undefined;
   isUserDataLoading: boolean;
 };
+
+export interface HeaderCoverInput {
+  user_id: number | undefined;
+  data: FormData;
+}
