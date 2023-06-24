@@ -21,9 +21,9 @@ export interface User {
   date_of_birth: Date | null;
   country: string;
   city: string;
-  professional?: string;
+  professional: string;
   relationship: string;
-  about_me?: string;
+  about_me: string;
   followers: User[];
   following: User[];
   chatLists: [{ chat_with: User; chatID: string; _id: number }];

@@ -15,6 +15,13 @@ type MoreInfoCardProps = {
 };
 
 const MoreInfoCard: FC<MoreInfoCardProps> = ({ user, handleCloseMoreInfo }) => {
+  const date = user?.date_of_birth!;
+  const month = new Date(date).toLocaleString('default', {
+    month: 'long',
+  });
+  const year = new Date(date).getFullYear();
+  const day = new Date(date).getDate();
+
   return (
     <CustomDialog open={true} onClose={handleCloseMoreInfo}>
       <DialogTitle>Additional Info</DialogTitle>
@@ -31,7 +38,9 @@ const MoreInfoCard: FC<MoreInfoCardProps> = ({ user, handleCloseMoreInfo }) => {
       <DialogContent dividers>
         <MoreInfoCardRows>
           <CardGiftcardIcon />
-          <span>Birthday: July 27, 1992</span>
+          <span>
+            Birthday: {month} {day}, {year}
+          </span>
         </MoreInfoCardRows>
         <MoreInfoCardRows>
           <FavoriteBorderIcon />

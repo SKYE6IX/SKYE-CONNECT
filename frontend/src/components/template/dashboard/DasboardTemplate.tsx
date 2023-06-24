@@ -15,14 +15,15 @@ import {
   DashboardTemplateAside,
   AsideContentWrapper,
 } from './style';
+import type { GetUserResponse } from '@/types/user';
 
 const DashboardTemplate: FC = () => {
+  const { isFixed } = useFixedScroll();
   const { data, refetch } = useGetUserQuery();
+
   const handleRefetchUser = () => {
     refetch();
   };
-  const { isFixed } = useFixedScroll();
-
   return (
     <DashboardTemplateContainer>
       <InnerWrapper id="fixed_container">
