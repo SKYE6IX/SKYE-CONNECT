@@ -56,7 +56,7 @@ const DashboardHeader: FC<DashboardHeaderProps> = ({
   return (
     <DashboardHeaderContainer>
       <DashboardHeaderCoverImageWrapper
-        header_cover_url={user?.header_cover.url}
+        header_cover_url={user?.header_cover?.url}
         preveiw_header_cover={url}
       >
         {isLoading && (

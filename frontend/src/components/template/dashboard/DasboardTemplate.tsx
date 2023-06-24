@@ -6,12 +6,14 @@ import FollowersCard from '@/components/oraganims/followers-card/FollowersCard';
 import PhotoGalleryCard from '@/components/oraganims/photo-gallery/PhotoGalleryCard';
 import GroupCard from '@/components/oraganims/group-card/GroupCard';
 import DashboardPostList from '@/components/oraganims/dashboard-post-list/DashboardPostList';
+import { useFixedScroll } from './helper';
 import {
   DashboardTemplateContainer,
   InnerWrapper,
   DashboardTemplateBodyWrapper,
   DashboardTemplateMain,
   DashboardTemplateAside,
+  AsideContentWrapper,
 } from './style';
 
 const DashboardTemplate: FC = () => {
@@ -19,10 +21,11 @@ const DashboardTemplate: FC = () => {
   const handleRefetchUser = () => {
     refetch();
   };
+  const { isFixed } = useFixedScroll();
 
   return (
     <DashboardTemplateContainer>
-      <InnerWrapper>
+      <InnerWrapper id="fixed_container">
         <DashboardHeader user={data} handleRefetchUser={handleRefetchUser} />
         <DashboardTemplateBodyWrapper>
           <DashboardTemplateMain>
@@ -33,8 +36,10 @@ const DashboardTemplate: FC = () => {
             />
           </DashboardTemplateMain>
           <DashboardTemplateAside>
-            <FollowersCard followers={data?.followers} />
-            <GroupCard />
+            <AsideContentWrapper $is_fixed={isFixed}>
+              <FollowersCard followers={data?.followers} />
+              <GroupCard />
+            </AsideContentWrapper>
           </DashboardTemplateAside>
         </DashboardTemplateBodyWrapper>
       </InnerWrapper>
