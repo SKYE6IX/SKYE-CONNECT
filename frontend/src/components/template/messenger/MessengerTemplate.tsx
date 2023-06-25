@@ -19,6 +19,8 @@ const MessengerTemplate: FC = () => {
     router.push('/feeds');
   };
 
+  console.log(chatRoomUrl);
+
   const isActive = pathname === chatRoomUrl;
 
   return (

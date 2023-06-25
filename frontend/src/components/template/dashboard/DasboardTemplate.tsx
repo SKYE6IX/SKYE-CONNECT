@@ -15,7 +15,6 @@ import {
   DashboardTemplateAside,
   AsideContentWrapper,
 } from './style';
-import type { GetUserResponse } from '@/types/user';
 
 const DashboardTemplate: FC = () => {
   const { isFixed } = useFixedScroll();

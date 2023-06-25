@@ -18,7 +18,7 @@ export const FollowersCardContainer = styled.div`
 export const Followers = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.4em;
   margin: 0.5rem 0;
 `;
 
@@ -33,11 +33,23 @@ export const FollowersCardTextContents = styled.div`
     gap: 0.3em;
   }
   span {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
   }
   p {
     margin: 0;
     font-size: 0.9rem;
+  }
+`;
+
+export const FollowersCardsAction = styled.div`
+  margin-left: auto;
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  svg {
+    font-size: 1.2rem;
   }
 `;
