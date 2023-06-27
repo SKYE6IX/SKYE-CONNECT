@@ -23,6 +23,7 @@ const DashboardTemplate: FC = () => {
   const handleRefetchUser = () => {
     refetch();
   };
+
   return (
     <DashboardTemplateContainer>
       <InnerWrapper id="fixed_container">
