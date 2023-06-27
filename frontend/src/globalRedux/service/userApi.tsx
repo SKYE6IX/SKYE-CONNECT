@@ -24,8 +24,8 @@ export const usersApi = rootApi.injectEndpoints({
       query: () => ({ url: '/user', method: 'GET' }),
       providesTags: ['Users'],
     }),
-    getSingleUser: builder.query<User, number>({
-      query: (userID) => ({ url: `/user/${userID}`, method: 'GET' }),
+    getSingleUser: builder.query<User, string>({
+      query: (user_id) => ({ url: `/user/${user_id}`, method: 'GET' }),
     }),
     updateUser: builder.mutation<UpdateResponse, any>({
       query: ({ userID, body }) => ({

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface HeaderCoverUrl {
   header_cover_url: string | undefined;
-  preveiw_header_cover: string | undefined;
+  preveiw_header_cover?: string | undefined;
 }
 
 export const DashboardHeaderContainer = styled.div`

@@ -203,6 +203,7 @@ export function addFollower(req, res) {
         otherUser === null || otherUser === void 0 ? void 0 : otherUser.save();
         res.json({
             message: "User added",
+            status: true,
         });
     });
 }

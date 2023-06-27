@@ -30,10 +30,18 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   return (
     <PostCardContainer>
       <PostCardHeader>
-        <PostCardAvatar
-          alt={post.author.first_name}
-          src={post.author.avatar?.thumbnail || ''}
-        />
+        <Link
+          href={
+            userData?._id === post.author._id
+              ? `/dashboard/${userData?.username}`
+              : `/${post.author._id}`
+          }
+        >
+          <PostCardAvatar
+            alt={post.author.first_name}
+            src={post.author.avatar?.thumbnail || ''}
+          />
+        </Link>
         <PostCardNames>
           <span>{post.author.first_name}</span>
           <span>{post.author.last_name}</span>

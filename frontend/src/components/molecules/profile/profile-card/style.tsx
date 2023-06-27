@@ -53,7 +53,8 @@ export const OtherInfoWrapper = styled(SharedStyles)`
 export const ButtonWrapper = styled(SharedStyles)`
   gap: 0.8em;
   margin-left: auto;
-  button {
+  button,
+  span {
     height: 2em;
     border: none;
     border-radius: 0.5em;
@@ -64,5 +65,17 @@ export const ButtonWrapper = styled(SharedStyles)`
     font-size: 1rem;
     font-weight: 300;
     padding: 0.5em;
+  }
+`;
+
+export const ChatButton = styled.div`
+  height: 2em;
+  button {
+    background: none;
+    color: #454545;
+    padding: 0px;
+    svg {
+      font-size: 2rem;
+    }
   }
 `;

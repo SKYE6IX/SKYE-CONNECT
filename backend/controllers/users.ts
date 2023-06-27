@@ -228,6 +228,7 @@ export async function addFollower(req: Request, res: Response) {
 
     res.json({
         message: "User added",
+        status: true,
     });
 }
 
