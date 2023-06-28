@@ -18,6 +18,13 @@ export const postsApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query<PostsResponse, void>({
       query: () => ({ url: '/posts', method: 'GET' }),
+      transformResponse: (responseData: PostsResponse) => {
+        return responseData.sort((a, b) => {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        });
+      },
       providesTags: (result, error, arg) =>
         result
           ? [
