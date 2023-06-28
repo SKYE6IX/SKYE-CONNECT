@@ -46,7 +46,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           <span>{post.author.last_name}</span>
           <p>1 hr ago</p>
         </PostCardNames>
-        <PostMenu post_id={post._id} />
+        <PostMenu post_id={post._id} user={userData} />
       </PostCardHeader>
 
       <PostCardBody>

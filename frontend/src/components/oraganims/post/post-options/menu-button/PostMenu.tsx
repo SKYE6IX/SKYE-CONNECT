@@ -4,12 +4,14 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeletePostButton from '../delete-button/DeletePostButon';
 import { PostMenuButtonContainer, CustomMenu } from './style';
+import type { User } from '@/types/user';
 
 type PostMenuProps = {
   post_id: number;
+  user: User | undefined;
 };
 
-const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
+const PostMenu: FC<PostMenuProps> = ({ post_id, user }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -18,6 +20,12 @@ const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isUserPost = (post_id: number) => {
+    const checkUserPost = user?.posts.some((post) => post._id === post_id);
+    return checkUserPost;
+  };
+
   return (
     <PostMenuButtonContainer>
       <IconButton
@@ -43,7 +51,7 @@ const PostMenu: FC<PostMenuProps> = ({ post_id }) => {
           horizontal: 55,
         }}
       >
-        <DeletePostButton post_id={post_id} />
+        {isUserPost(post_id) && <DeletePostButton post_id={post_id} />}
       </CustomMenu>
     </PostMenuButtonContainer>
   );

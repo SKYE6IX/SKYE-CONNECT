@@ -1,5 +1,5 @@
 'use client';
-import { FC, useRef, useEffect } from 'react';
+import { FC } from 'react';
 import {
   Comment,
   CommentListAvatar,
@@ -17,6 +17,7 @@ type CommentListProps = {
 
 const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
   const { data: comments, isLoading } = useGetCommentsQuery(post_id);
+
   if (isLoading) return <p>Loading...</p>;
 
   return (
