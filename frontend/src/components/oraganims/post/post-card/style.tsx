@@ -52,11 +52,6 @@ export const PostCardTextContent = styled.p`
   align-self: flex-start;
 `;
 
-export const PostCardCommentContainer = styled.div`
-  max-height: 200px;
-  overflow-y: scroll;
-`;
-
 export const PostCardReaction = styled.div`
   display: flex;
   gap: 2rem;

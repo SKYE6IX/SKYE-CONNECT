@@ -2,18 +2,23 @@
 import styled from 'styled-components';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
 
-const CommentListContainer = styled.div`
+export const Container = styled.div`
+  max-height: 200px;
+  overflow: auto;
+`;
+
+export const Comment = styled.div`
   display: flex;
   gap: 0.5rem;
   margin: 0.5em 1.5em;
 `;
 
-const CommentListAvatar = styled(Avatar)`
+export const CommentListAvatar = styled(Avatar)`
   height: 25px;
   width: 25px;
 `;
 
-const CommentListBody = styled.div`
+export const CommentListBody = styled.div`
   p {
     font-size: 0.8rem;
     font-weight: 400;
@@ -29,5 +34,3 @@ const CommentListBody = styled.div`
     font-weight: 300;
   }
 `;
-
-export { CommentListContainer, CommentListAvatar, CommentListBody };

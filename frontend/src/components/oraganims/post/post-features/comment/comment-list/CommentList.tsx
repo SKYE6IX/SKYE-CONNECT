@@ -1,8 +1,10 @@
-import { FC } from 'react';
+'use client';
+import { FC, useRef, useEffect } from 'react';
 import {
-  CommentListContainer,
+  Comment,
   CommentListAvatar,
   CommentListBody,
+  Container,
 } from './style';
 import DeleteComment from '../delete-comment/DeleteComment';
 import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
@@ -16,10 +18,11 @@ type CommentListProps = {
 const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
   const { data: comments, isLoading } = useGetCommentsQuery(post_id);
   if (isLoading) return <p>Loading...</p>;
+
   return (
-    <>
+    <Container>
       {comments?.map((comment) => (
-        <CommentListContainer key={comment._id}>
+        <Comment key={comment._id}>
           <CommentListAvatar
             alt={comment.author?.first_name}
             src={comment.author?.avatar?.thumbnail}
@@ -33,9 +36,9 @@ const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
           {user?._id === comment.author?._id && (
             <DeleteComment post_id={post_id} comment_id={comment._id} />
           )}
-        </CommentListContainer>
+        </Comment>
       ))}
-    </>
+    </Container>
   );
 };
 

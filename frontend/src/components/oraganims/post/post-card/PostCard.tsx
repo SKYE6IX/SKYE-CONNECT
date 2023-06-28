@@ -11,7 +11,6 @@ import {
   PostCardFooter,
   PostCardTextContent,
   PostCardReaction,
-  PostCardCommentContainer,
 } from './style';
 import PostMenu from '../post-options/menu-button/PostMenu';
 import PostLikes from '../post-features/likes/PostLikes';
@@ -64,9 +63,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         </PostCardReaction>
       </PostCardBody>
 
-      <PostCardCommentContainer>
-        <CommentList post_id={post._id} user={userData} />
-      </PostCardCommentContainer>
+      <CommentList post_id={post._id} user={userData} />
 
       <PostCardFooter>
         <PostCardAvatar
