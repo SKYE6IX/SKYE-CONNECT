@@ -15,7 +15,7 @@ const PhotoSchema = new Schema({
     filename: String,
 }, {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
 });
 PhotoSchema.virtual("thumbnail").get(function () {
     return this.url.replace("/upload", "/upload/q_50");
@@ -26,6 +26,7 @@ const PostSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     likes: [{ type: Schema.Types.ObjectId, ref: "Like" }],
+    created_at: { type: String, required: true },
 });
 PostSchema.post("remove", function (doc) {
     return __awaiter(this, void 0, void 0, function* () {

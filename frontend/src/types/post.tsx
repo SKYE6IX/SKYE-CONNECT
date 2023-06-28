@@ -16,6 +16,7 @@ export interface IPost {
   photos: Array<IPhoto>;
   comments: Array<IComment>;
   author: User;
+  created_at: string;
 }
 
 export interface CommentForm {

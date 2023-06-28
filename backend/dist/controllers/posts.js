@@ -24,10 +24,13 @@ export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, fun
 //Creating new post
 export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const userID = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
-    const currentUser = yield User.findById(userID);
+    const user_id = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+    const currentUser = yield User.findById(user_id);
     const { content } = req.body;
-    const post = new Post({ content });
+    const post = new Post({
+        content,
+        created_at: new Date().toString(),
+    });
     const files = req.files;
     if (files) {
         const images = files.map((f) => ({
@@ -36,11 +39,11 @@ export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }));
         post.photos = images;
     }
-    post.author = userID;
+    post.author = user_id;
     currentUser === null || currentUser === void 0 ? void 0 : currentUser.posts.push(post.id);
     yield (currentUser === null || currentUser === void 0 ? void 0 : currentUser.save());
     yield post.save();
-    res.send("Post Created");
+    res.json(post);
 });
 //Delete post
 export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -60,5 +63,4 @@ export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
     yield User.findByIdAndUpdate(userID, { $pull: { posts: id } });
     post === null || post === void 0 ? void 0 : post.remove();
     res.json(post);
-    // res.send("Post successfully Deleted");
 });

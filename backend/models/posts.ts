@@ -12,21 +12,22 @@ interface IPost {
     author: Types.ObjectId;
     comments: Array<Types.ObjectId>;
     likes: Array<Types.ObjectId>;
+    created_at: string;
 }
 
-
-
-const PhotoSchema = new Schema<IPhotos>({
-    url: String,
-    filename: String,
-}, {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-});
-
+const PhotoSchema = new Schema<IPhotos>(
+    {
+        url: String,
+        filename: String,
+    },
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    }
+);
 
 PhotoSchema.virtual("thumbnail").get(function () {
-    return this.url.replace("/upload", "/upload/q_50")
+    return this.url.replace("/upload", "/upload/q_50");
 });
 
 const PostSchema = new Schema<IPost>({
@@ -35,6 +36,7 @@ const PostSchema = new Schema<IPost>({
     author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     likes: [{ type: Schema.Types.ObjectId, ref: "Like" }],
+    created_at: { type: String, required: true },
 });
 
 PostSchema.post("remove", async function (doc: IPost) {

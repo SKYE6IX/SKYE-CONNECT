@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import moment from 'moment';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import { CommentIcon } from '@/components/atoms/MUIComponents/Components';
 import {
@@ -26,6 +27,10 @@ type PostCardProps = {
 const PostCard: FC<PostCardProps> = ({ post }) => {
   const { data } = useGetUserQuery();
   const userData = data;
+
+  const getTimeCreated = new Date(post.created_at);
+  const formatCreatedTime = moment(getTimeCreated).fromNow();
+
   return (
     <PostCardContainer>
       <PostCardHeader>
@@ -44,7 +49,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         <PostCardNames>
           <span>{post.author.first_name}</span>
           <span>{post.author.last_name}</span>
-          <p>1 hr ago</p>
+          <p>{formatCreatedTime}</p>
         </PostCardNames>
         <PostMenu post_id={post._id} user={userData} />
       </PostCardHeader>

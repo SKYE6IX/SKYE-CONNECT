@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { v2 as cloudinary } from "cloudinary";
 import Post from "../models/posts";
 import User from "../models/users";
+
 //Get all list of post
 export const allPost = async (req: Request, res: Response) => {
     const allPost = await Post.find({}).populate("comments").populate("author");
@@ -17,10 +18,13 @@ export const getSinglePost = async (req: Request, res: Response) => {
 
 //Creating new post
 export const createPost = async (req: Request, res: Response) => {
-    const userID = req.user?._id!;
-    const currentUser = await User.findById(userID);
+    const user_id = req.user?._id!;
+    const currentUser = await User.findById(user_id);
     const { content } = req.body;
-    const post = new Post({ content });
+    const post = new Post({
+        content,
+        created_at: new Date().toString(),
+    });
     const files = req.files as Express.Multer.File[];
     if (files) {
         const images = files.map((f) => ({
@@ -29,11 +33,14 @@ export const createPost = async (req: Request, res: Response) => {
         }));
         post.photos = images;
     }
-    post.author = userID;
+
+    post.author = user_id;
     currentUser?.posts.push(post.id);
+
     await currentUser?.save();
     await post.save();
-    res.send("Post Created");
+
+    res.json(post);
 };
 
 //Delete post
@@ -53,5 +60,4 @@ export const deletePost = async (req: Request, res: Response) => {
     await User.findByIdAndUpdate(userID, { $pull: { posts: id } });
     post?.remove();
     res.json(post);
-    // res.send("Post successfully Deleted");
 };
