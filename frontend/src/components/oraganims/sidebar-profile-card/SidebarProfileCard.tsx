@@ -33,7 +33,7 @@ const SidebarProfileCard: FC<SidebarProfileCardProps> = ({ user }) => {
         </SidebarProfileCardInfo>
         <SidebarProfileCardInfo>
           <h5>Posts</h5>
-          <span>20</span>
+          <span>{user?.posts.length}</span>
         </SidebarProfileCardInfo>
       </SidebarProfileCardInfoContainer>
     </SidebarProfileCardContainer>
