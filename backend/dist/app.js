@@ -20,12 +20,12 @@ import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
     transports: ["polling"],
     cors: {
         origin: "http://localhost:3000",
-        credentials: true
-    }
+        credentials: true,
+    },
 });
 const PORT = 8080;
 const dbUrl = "mongodb://localhost:27017/SKYE-CONNECTv2";
@@ -86,7 +86,7 @@ const sessionMiddleware = session({
         maxAge: 1000 * 60 * 60 * 24 * 7,
     },
 });
-//Applying the session 
+//Applying the session
 app.use(sessionMiddleware);
 //initialize passport for usage
 app.use(passport.initialize());
@@ -113,23 +113,30 @@ io.use((socket, next) => {
         next(new Error("unauthorized"));
     }
 });
-io.on("connection", (socket) => {
-    var _a;
-    const session = socket.request;
-    const userID = String((_a = session.user) === null || _a === void 0 ? void 0 : _a._id);
-    socket.join(userID);
-    console.log("User Connected");
-    socket.on("disconnect", () => {
-        console.log("User Disconnected");
-    });
-});
-//Export io for usage
-export { io };
 app.use("/user", userRouter);
 app.use("/posts", postRouter);
 app.use("/posts", commentRouter);
 app.use("/posts", likeRouter);
 app.use("/chat", chatRouter, messageRouter);
+io.on("connection", (socket) => {
+    var _a;
+    //WHEN USER LOG IN
+    console.log("User Connected");
+    const session = socket.request;
+    const user_id = String((_a = session.user) === null || _a === void 0 ? void 0 : _a._id);
+    socket.join(user_id);
+    //PRIVATE MESSAGE TYPING STATUS SETUP
+    socket.on("typing:start", (data) => {
+        socket.to(data.to).emit("typingResponse", { status: true });
+    });
+    socket.on("typing:stop", (data) => {
+        socket.to(data.to).emit("typingResponse", { status: false });
+    });
+    //WHEN USER LOGOUT
+    socket.on("disconnect", () => {
+        console.log("User Disconnected");
+    });
+});
 app.use(function (err, req, res, next) {
     res.status(err.status || 500).send(err.message);
 });

@@ -13,6 +13,7 @@ import type {
   EditMessageData,
   EditMessageResponse,
 } from '@/types/chat';
+
 let socket: Socket;
 
 export const chatsApi = rootApi.injectEndpoints({
@@ -56,6 +57,7 @@ export const chatsApi = rootApi.injectEndpoints({
               });
             }
           });
+
           socket.on('message_edit', (data: IMessage) => {
             if (chatID === data.chat_id) {
               updateCachedData((draft) => {
@@ -67,6 +69,7 @@ export const chatsApi = rootApi.injectEndpoints({
               });
             }
           });
+
           socket.on('message_delete', (data: IMessage) => {
             if (chatID === data.chat_id) {
               updateCachedData((messages) => {
@@ -79,6 +82,7 @@ export const chatsApi = rootApi.injectEndpoints({
           });
 
           await cacheEntryRemoved;
+
           socket.off('private_message');
           socket.off('message_edit');
           socket.off('message_delete');
@@ -87,6 +91,7 @@ export const chatsApi = rootApi.injectEndpoints({
         }
       },
     }),
+
     sendMessages: builder.mutation<any, SendMessageData>({
       query: (sendMessageData) => ({
         url: `/chat/message/${sendMessageData.chat_id}`,
@@ -101,6 +106,7 @@ export const chatsApi = rootApi.injectEndpoints({
         data: { message, chat_with_id },
       }),
     }),
+
     deleteMessage: builder.mutation<DeleteMessageResponse, DeleteMessageProps>({
       query: ({ chat_id, message_id }) => ({
         url: `/chat/message/${chat_id}/${message_id}`,

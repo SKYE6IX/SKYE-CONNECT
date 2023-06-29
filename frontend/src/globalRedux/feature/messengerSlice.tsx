@@ -14,9 +14,17 @@ interface EditMessage {
   isEditing: boolean;
 }
 
-const initialState = {
+interface InitialState {
+  chatRoomUrl: string;
+  correspondUser: CorrespondUser;
+  editMessage: EditMessage;
+  typingStatus: boolean;
+}
+
+const initialState: InitialState = {
   chatRoomUrl: '/messenger/',
   correspondUser: {
+    id: 0,
     avatar: '',
     first_name: '',
     last_name: '',
@@ -26,10 +34,7 @@ const initialState = {
     message_edit_text: '',
     isEditing: false,
   },
-} as {
-  chatRoomUrl: string;
-  correspondUser: CorrespondUser;
-  editMessage: EditMessage;
+  typingStatus: false,
 };
 
 const messengerSlice = createSlice({
@@ -51,6 +56,9 @@ const messengerSlice = createSlice({
     clearEditMessage: (state) => {
       state.editMessage = initialState.editMessage;
     },
+    setTypingStatus: (state, action: PayloadAction<boolean>) => {
+      state.typingStatus = action.payload;
+    },
   },
 });
 
@@ -60,6 +68,7 @@ export const {
   setCorrespondUser,
   setEditMessage,
   clearEditMessage,
+  setTypingStatus,
 } = messengerSlice.actions;
 
 export const selectChatRoomUrl = (state: RootState) =>
@@ -68,4 +77,7 @@ export const selectCorrespondUser = (state: RootState) =>
   state.messengerReducer.correspondUser;
 export const selectEditMessage = (state: RootState) =>
   state.messengerReducer.editMessage;
+export const selectTypingStatus = (state: RootState) =>
+  state.messengerReducer.typingStatus;
+
 export default messengerSlice.reducer;

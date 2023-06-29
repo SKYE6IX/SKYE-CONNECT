@@ -10,7 +10,13 @@ export const CustomDialog = styled(Dialog)(({ theme }) => ({
 export const ChatRoomHeader = styled.div`
   display: flex;
   gap: 0.5em;
+  p {
+    margin: 0px;
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
 `;
+
 export const ChatRoomName = styled.div`
   span {
     margin: 0 0.3em 0 0;
@@ -18,6 +24,7 @@ export const ChatRoomName = styled.div`
     font-weight: 300;
   }
 `;
+
 export const NoMessage = styled.div`
   height: 100%;
   display: flex;

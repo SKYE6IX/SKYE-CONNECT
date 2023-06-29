@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/appStateHooks';
 import {
   closeChatRoom,
   selectCorrespondUser,
+  selectTypingStatus,
 } from '@/globalRedux/feature/messengerSlice';
 import SendMessage from '../message/send-message/SendMessage';
 import type { User } from '@/types/user';
@@ -24,6 +25,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const correspondUser = useAppSelector(selectCorrespondUser);
+  const typingStatus = useAppSelector(selectTypingStatus);
   const pathname = usePathname();
 
   const chat_id = pathname.substring(11);
@@ -62,10 +64,13 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
       <DialogTitle>
         <ChatRoomHeader>
           <Avatar src={correspondUser.avatar} alt={correspondUser.first_name} />
-          <ChatRoomName>
-            <span>{correspondUser.first_name}</span>
-            <span>{correspondUser.last_name}</span>
-          </ChatRoomName>
+          <div>
+            <ChatRoomName>
+              <span>{correspondUser.first_name}</span>
+              <span>{correspondUser.last_name}</span>
+            </ChatRoomName>
+            {typingStatus && <p>Typing...</p>}
+          </div>
         </ChatRoomHeader>
       </DialogTitle>
       <DialogContent dividers ref={scrollChatToTopRef}>

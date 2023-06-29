@@ -1,6 +1,7 @@
 'use client';
 import React, { FC, useEffect } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import getSocket from '@/globalRedux/service/socket';
 import {
   useSendMessagesMutation,
   useEditMessageMutation,
@@ -9,6 +10,7 @@ import { useAppSelector, useAppDispatch } from '@/hooks/appStateHooks';
 import {
   selectEditMessage,
   clearEditMessage,
+  setTypingStatus,
 } from '@/globalRedux/feature/messengerSlice';
 import {
   SendMessageWrapper,
@@ -31,12 +33,23 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
   const dispatch = useAppDispatch();
   const [sendMessage] = useSendMessagesMutation();
   const [sendEditMessage] = useEditMessageMutation();
+  const socket = getSocket();
 
   const { formState, handleChange, resetForm } = useForm<MessageForm>({
     initialState: {
       message: editMessage.isEditing ? editMessage.message_edit_text : '',
     },
   });
+
+  //SETTING USER TYPING STATE
+  useEffect(() => {
+    socket.on('typingResponse', (data) => {
+      dispatch(setTypingStatus(data.status));
+    });
+    return () => {
+      socket.off('typingResponse');
+    };
+  }, [socket]);
 
   //Control for the height in the textarea
   const textAreaRef =
@@ -53,13 +66,11 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
 
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const sendMessageData = {
       message: formState.message,
       chat_id: chat_id,
       to: to,
     };
-
     if (formState.message) {
       editMessage.isEditing
         ? sendEditMessage({
@@ -78,6 +89,13 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
     resetForm();
   };
 
+  const handleFocus = () => {
+    socket.emit('typing:start', { to: to });
+  };
+  const handleBlur = () => {
+    socket.emit('typing:stop', { to: to });
+  };
+
   return (
     <SendMessageWrapper>
       <SendMessageForm onSubmit={handleSumbit}>
@@ -87,6 +105,8 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
           value={formState.message}
           rows={1}
           ref={textAreaRef}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <SendMessageButton type="submit">
           <ArrowUpwardIcon />

@@ -11,12 +11,12 @@ import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
     transports: ["polling"],
     cors: {
         origin: "http://localhost:3000",
-        credentials: true
-    }
+        credentials: true,
+    },
 });
 const PORT = 8080;
 const dbUrl = "mongodb://localhost:27017/SKYE-CONNECTv2";
@@ -80,9 +80,9 @@ const sessionMiddleware = session({
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7,
     },
-})
+});
 
-//Applying the session 
+//Applying the session
 app.use(sessionMiddleware);
 //initialize passport for usage
 app.use(passport.initialize());
@@ -94,45 +94,51 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser() as any);
 passport.deserializeUser(User.deserializeUser());
 
-
 //CONNECTING TO SOCKET.IO
 // Convert a connect middleware to a Socket.IO middleware
 const wrap = (middleware: any) => (socket: any, next: any) =>
-    middleware(socket.request as Request, {} as Response, next as NextFunction)
-    ;
-io.use(wrap(sessionMiddleware))
-io.use(wrap(passport.initialize()))
-io.use(wrap(passport.session()))
+    middleware(socket.request as Request, {} as Response, next as NextFunction);
+io.use(wrap(sessionMiddleware));
+io.use(wrap(passport.initialize()));
+io.use(wrap(passport.session()));
 
 //Only allow autheticated users
 io.use((socket, next) => {
     const session = socket.request as Request;
     if (session.isAuthenticated()) {
-        next()
+        next();
     } else {
-        next(new Error("unauthorized"))
+        next(new Error("unauthorized"));
     }
 });
-
-io.on("connection", (socket) => {
-    const session = socket.request as Request;
-    const userID = String(session.user?._id);
-    socket.join(userID);
-    
-    console.log("User Connected")
-    socket.on("disconnect", () => {
-        console.log("User Disconnected")
-    })
-});
-
-//Export io for usage
-export { io }
 
 app.use("/user", userRouter);
 app.use("/posts", postRouter);
 app.use("/posts", commentRouter);
 app.use("/posts", likeRouter);
-app.use("/chat", chatRouter, messageRouter)
+app.use("/chat", chatRouter, messageRouter);
+
+io.on("connection", (socket) => {
+    //WHEN USER LOG IN
+    console.log("User Connected");
+
+    const session = socket.request as Request;
+    const user_id = String(session.user?._id);
+    socket.join(user_id);
+
+    //PRIVATE MESSAGE TYPING STATUS SETUP
+    socket.on("typing:start", (data: { to: string }) => {
+        socket.to(data.to).emit("typingResponse", { status: true });
+    });
+    socket.on("typing:stop", (data: { to: string }) => {
+        socket.to(data.to).emit("typingResponse", { status: false });
+    });
+
+    //WHEN USER LOGOUT
+    socket.on("disconnect", () => {
+        console.log("User Disconnected");
+    });
+});
 
 app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     res.status(err.status || 500).send(err.message);
