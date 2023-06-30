@@ -1,51 +1,25 @@
 import { FC, useState } from 'react';
+import DoneIcon from '@mui/icons-material/Done';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import MessageOptions from '../message-option/MessageOptions';
+import type { MessageProps } from '@/types/chat';
 import {
   MessageRowRight,
-  MessageRowBlue,
-  MessageRowLeft,
   MessageRowOrange,
   MessageText,
   MessageBottom,
 } from './style';
-import MessageOptions from '../message-option/MessageOptions';
 
-type MessageProps = {
-  message_text: string;
-  created_at: string;
-  isEdited: boolean;
-};
 interface MessageRightProps extends MessageProps {
   chat_id: string;
-  message_id: number;
 }
-
-//**MESSAGE LEFT COMPONENTS FUNCTION */
-export const MessageLeft: FC<MessageProps> = ({
-  message_text,
-  created_at,
-  isEdited,
-}) => {
-  const time = created_at.slice(11, 16);
-  return (
-    <MessageRowLeft>
-      <MessageRowBlue>
-        <MessageText>{message_text}</MessageText>
-        <MessageBottom>
-          <span>{isEdited ? 'edited' : ''}</span>
-          <span>{time}</span>
-        </MessageBottom>
-      </MessageRowBlue>
-    </MessageRowLeft>
-  );
-};
-
-//**MESSAGE RIGHT COMPONENTS FUNCTION */
-export const MessageRight: FC<MessageRightProps> = ({
+const MessageRight: FC<MessageRightProps> = ({
   message_text,
   created_at,
   message_id,
   chat_id,
   isEdited,
+  isRead,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMessageOptions = Boolean(anchorEl);
@@ -69,7 +43,10 @@ export const MessageRight: FC<MessageRightProps> = ({
           <MessageText>{message_text}</MessageText>
           <MessageBottom>
             <span>{isEdited ? 'edited' : ''}</span>
-            <span>{time}</span>
+            <div>
+              <span>{time}</span>
+              {isRead ? <DoneAllIcon /> : <DoneIcon />}
+            </div>
           </MessageBottom>
         </MessageRowOrange>
       </MessageRowRight>
@@ -84,3 +61,4 @@ export const MessageRight: FC<MessageRightProps> = ({
     </>
   );
 };
+export default MessageRight;

@@ -7,6 +7,7 @@ export interface IMessage {
   message_text: string;
   created_at: string;
   isEdited: boolean;
+  isRead: boolean;
   chat_id: string;
 }
 
@@ -40,11 +41,17 @@ export type DeleteChatProps = {
   chat_id: string;
   chat_with_id: number;
 };
-
 export interface DeleteChatResponse {
   status: boolean;
 }
-
 export interface DeleteMessageResponse extends DeleteChatResponse {
   message_id: string;
 }
+
+export type MessageProps = {
+  message_text: string;
+  created_at: string;
+  isEdited: boolean;
+  isRead: boolean;
+  message_id: number;
+};

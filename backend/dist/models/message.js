@@ -6,6 +6,7 @@ const messageSchema = new Schema({
     message_text: { type: String, required: true },
     created_at: { type: Date, required: true },
     isEdited: { type: Boolean, required: true },
+    isRead: { type: Boolean, required: true },
     chat_id: { type: Schema.Types.ObjectId, ref: "Chat" },
 }, { toJSON: { getters: true } });
 const Message = model("Message", messageSchema);

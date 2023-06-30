@@ -16,7 +16,6 @@ import checkChatHistory from "../utilities/checkChatHistory";
 export function getMessages(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { chat_id } = req.params;
-        console.log(chat_id);
         const messages = yield Message.find({ chat_id: chat_id });
         res.json(messages);
     });
@@ -38,6 +37,7 @@ export function createMessages(req, res) {
             message_text: message,
             created_at: new Date(),
             isEdited: false,
+            isRead: false,
             chat_id: makeAnObjectID(chat_id),
         };
         //create a new message
@@ -82,6 +82,7 @@ export function editMessage(req, res) {
                 message_text: message,
                 created_at: new Date(),
                 isEdited: true,
+                isRead: findEditMessage === null || findEditMessage === void 0 ? void 0 : findEditMessage.isRead,
                 chat_id: findEditMessage === null || findEditMessage === void 0 ? void 0 : findEditMessage.chat_id,
             };
             io.to(chat_with_id).to(user_id).emit("message_edit", editedMessage);

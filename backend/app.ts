@@ -29,6 +29,9 @@ import likeRouter from "./routes/likes";
 import chatRouter from "./routes/chat";
 import messageRouter from "./routes/message";
 
+//sockets
+import runSoket from "./socket";
+
 import User from "./models/users";
 
 // //connect mongoose to mongo db
@@ -82,7 +85,7 @@ const sessionMiddleware = session({
     },
 });
 
-//Applying the session
+//APPLYING SESSION FOR APP
 app.use(sessionMiddleware);
 //initialize passport for usage
 app.use(passport.initialize());
@@ -94,15 +97,14 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser() as any);
 passport.deserializeUser(User.deserializeUser());
 
-//CONNECTING TO SOCKET.IO
+//CONNECTING SESSION TO SOCKET.IO
 // Convert a connect middleware to a Socket.IO middleware
 const wrap = (middleware: any) => (socket: any, next: any) =>
     middleware(socket.request as Request, {} as Response, next as NextFunction);
 io.use(wrap(sessionMiddleware));
 io.use(wrap(passport.initialize()));
 io.use(wrap(passport.session()));
-
-//Only allow autheticated users
+//allowing only auth user to connect to socket // TODO: PROBALY WILL CHANGE LATER CAUSE OF NOTIFCATION
 io.use((socket, next) => {
     const session = socket.request as Request;
     if (session.isAuthenticated()) {
@@ -117,28 +119,8 @@ app.use("/posts", postRouter);
 app.use("/posts", commentRouter);
 app.use("/posts", likeRouter);
 app.use("/chat", chatRouter, messageRouter);
-
-io.on("connection", (socket) => {
-    //WHEN USER LOG IN
-    console.log("User Connected");
-
-    const session = socket.request as Request;
-    const user_id = String(session.user?._id);
-    socket.join(user_id);
-
-    //PRIVATE MESSAGE TYPING STATUS SETUP
-    socket.on("typing:start", (data: { to: string }) => {
-        socket.to(data.to).emit("typingResponse", { status: true });
-    });
-    socket.on("typing:stop", (data: { to: string }) => {
-        socket.to(data.to).emit("typingResponse", { status: false });
-    });
-
-    //WHEN USER LOGOUT
-    socket.on("disconnect", () => {
-        console.log("User Disconnected");
-    });
-});
+//Run Socket
+runSoket();
 
 app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     res.status(err.status || 500).send(err.message);

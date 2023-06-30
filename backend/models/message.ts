@@ -7,6 +7,7 @@ export interface IMessage {
     message_text: string;
     created_at: Date;
     isEdited: boolean;
+    isRead: boolean;
     chat_id: Types.ObjectId;
 }
 
@@ -18,6 +19,7 @@ const messageSchema = new Schema<IMessage>(
         message_text: { type: String, required: true },
         created_at: { type: Date, required: true },
         isEdited: { type: Boolean, required: true },
+        isRead: { type: Boolean, required: true },
         chat_id: { type: Schema.Types.ObjectId, ref: "Chat" },
     },
     { toJSON: { getters: true } }

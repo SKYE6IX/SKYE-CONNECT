@@ -36,6 +36,8 @@ import commentRouter from "./routes/comment";
 import likeRouter from "./routes/likes";
 import chatRouter from "./routes/chat";
 import messageRouter from "./routes/message";
+//sockets
+import runSoket from "./socket";
 import User from "./models/users";
 // //connect mongoose to mongo db
 mongoose.set("strictQuery", false);
@@ -86,7 +88,7 @@ const sessionMiddleware = session({
         maxAge: 1000 * 60 * 60 * 24 * 7,
     },
 });
-//Applying the session
+//APPLYING SESSION FOR APP
 app.use(sessionMiddleware);
 //initialize passport for usage
 app.use(passport.initialize());
@@ -97,13 +99,13 @@ passport.use(new localStrategy(User.authenticate()));
 //Get user into a session to make them stay log in
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-//CONNECTING TO SOCKET.IO
+//CONNECTING SESSION TO SOCKET.IO
 // Convert a connect middleware to a Socket.IO middleware
 const wrap = (middleware) => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));
 io.use(wrap(passport.initialize()));
 io.use(wrap(passport.session()));
-//Only allow autheticated users
+//allowing only auth user to connect to socket // TODO: PROBALY WILL CHANGE LATER CAUSE OF NOTIFCATION
 io.use((socket, next) => {
     const session = socket.request;
     if (session.isAuthenticated()) {
@@ -118,25 +120,8 @@ app.use("/posts", postRouter);
 app.use("/posts", commentRouter);
 app.use("/posts", likeRouter);
 app.use("/chat", chatRouter, messageRouter);
-io.on("connection", (socket) => {
-    var _a;
-    //WHEN USER LOG IN
-    console.log("User Connected");
-    const session = socket.request;
-    const user_id = String((_a = session.user) === null || _a === void 0 ? void 0 : _a._id);
-    socket.join(user_id);
-    //PRIVATE MESSAGE TYPING STATUS SETUP
-    socket.on("typing:start", (data) => {
-        socket.to(data.to).emit("typingResponse", { status: true });
-    });
-    socket.on("typing:stop", (data) => {
-        socket.to(data.to).emit("typingResponse", { status: false });
-    });
-    //WHEN USER LOGOUT
-    socket.on("disconnect", () => {
-        console.log("User Disconnected");
-    });
-});
+//Run Socket
+runSoket();
 app.use(function (err, req, res, next) {
     res.status(err.status || 500).send(err.message);
 });

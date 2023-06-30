@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useRef, useEffect } from 'react';
+import React, { FC } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,7 +7,8 @@ import DialogActions from '@mui/material/DialogActions';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
 import { CustomDialog, ChatRoomHeader, ChatRoomName, NoMessage } from './style';
 import { useGetMessagesQuery } from '@/globalRedux/service/chatApi';
-import { MessageRight, MessageLeft } from '../message/message-list/Messages';
+import MessageLeft from '../message/message-list/MessageLeft';
+import MessageRight from '../message/message-list/MessageRight';
 import { useAppDispatch, useAppSelector } from '@/hooks/appStateHooks';
 import {
   closeChatRoom,
@@ -15,6 +16,7 @@ import {
   selectTypingStatus,
 } from '@/globalRedux/feature/messengerSlice';
 import SendMessage from '../message/send-message/SendMessage';
+import { useScrollToTop } from './helper';
 import type { User } from '@/types/user';
 
 type ChatRoomProps = {
@@ -27,31 +29,20 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
   const correspondUser = useAppSelector(selectCorrespondUser);
   const typingStatus = useAppSelector(selectTypingStatus);
   const pathname = usePathname();
-
   const chat_id = pathname.substring(11);
 
-  const { data, isLoading } = useGetMessagesQuery(chat_id);
+  const { data, isLoading, refetch } = useGetMessagesQuery(chat_id);
   const messages = isLoading ? null : data;
 
   const handleClose = () => {
     dispatch(closeChatRoom());
     router.push('/messenger');
   };
+  const handleRefetchMessage = () => {
+    refetch();
+  };
 
-  function scrollToTop<T>(
-    dep: T
-  ): React.MutableRefObject<HTMLDivElement | undefined> {
-    const ref = useRef<HTMLDivElement>();
-    useEffect(() => {
-      setTimeout(() => {
-        if (ref.current != undefined) {
-          ref.current.scrollTop = ref.current.scrollHeight;
-        }
-      }, 100);
-    }, [dep]);
-    return ref;
-  }
-  const scrollChatToTopRef = scrollToTop(messages);
+  const scrollChatToTopRef = useScrollToTop(messages);
 
   return (
     <CustomDialog
@@ -83,6 +74,10 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
                     message_text={message.message_text}
                     created_at={message.created_at}
                     isEdited={message.isEdited}
+                    isRead={message.isRead}
+                    message_id={message._id}
+                    handleRefetchMessage={handleRefetchMessage}
+                    from={message.from}
                   />
                 )}
 
@@ -93,6 +88,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
                     chat_id={message.chat_id}
                     message_id={message._id}
                     isEdited={message.isEdited}
+                    isRead={message.isRead}
                   />
                 )}
               </div>
@@ -110,5 +106,4 @@ const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
     </CustomDialog>
   );
 };
-
 export default ChatRoom;

@@ -9,7 +9,6 @@ import checkChatHistory from "../utilities/checkChatHistory";
 
 export async function getMessages(req: Request, res: Response) {
     const { chat_id } = req.params;
-    console.log(chat_id);
     const messages = await Message.find({ chat_id: chat_id });
     res.json(messages);
 }
@@ -31,15 +30,18 @@ export async function createMessages(req: Request, res: Response) {
         message_text: message,
         created_at: new Date(),
         isEdited: false,
+        isRead: false,
         chat_id: makeAnObjectID(chat_id),
     };
 
     //create a new message
     const createNewMessages = new Message(newMessage);
+
     const newMessagesId = createNewMessages._id;
     await Chat.findByIdAndUpdate(chat_id, {
         $push: { messages: newMessagesId },
     });
+
     await createNewMessages.save();
 
     // Check chat history between correspond users
@@ -47,12 +49,14 @@ export async function createMessages(req: Request, res: Response) {
         String(user_id),
         String(to)
     );
+
     if (!isOtherUserExistInCurrentUserChatList) {
         currrentUser?.chatLists.push({
             chat_with: to,
             chatID: makeAnObjectID(chat_id),
         });
     }
+
     const isCurrentUserExistInOtherChatList = await checkChatHistory(
         String(to),
         String(user_id)
@@ -84,6 +88,7 @@ export async function editMessage(req: Request, res: Response) {
             message_text: message,
             created_at: new Date(),
             isEdited: true,
+            isRead: findEditMessage?.isRead,
             chat_id: findEditMessage?.chat_id,
         };
 

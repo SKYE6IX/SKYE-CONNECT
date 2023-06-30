@@ -39,10 +39,10 @@ export const chatsApi = rootApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
     getMessages: builder.query<IMessage[], number | string>({
-      query: (chatID) => ({ url: `/chat/message/${chatID}`, method: 'GET' }),
+      query: (chat_id) => ({ url: `/chat/message/${chat_id}`, method: 'GET' }),
       providesTags: ['Chats'],
       async onCacheEntryAdded(
-        chatID,
+        chat_id,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
         try {
@@ -51,7 +51,7 @@ export const chatsApi = rootApi.injectEndpoints({
           socket = getSocket();
 
           socket.on('private_message', (data: IMessage) => {
-            if (chatID === data.chat_id) {
+            if (chat_id === data.chat_id) {
               updateCachedData((draft) => {
                 draft.push(data);
               });
@@ -59,7 +59,7 @@ export const chatsApi = rootApi.injectEndpoints({
           });
 
           socket.on('message_edit', (data: IMessage) => {
-            if (chatID === data.chat_id) {
+            if (chat_id === data.chat_id) {
               updateCachedData((draft) => {
                 const indexOfMessage = draft.findIndex(
                   (message) => message._id === data._id
@@ -71,7 +71,7 @@ export const chatsApi = rootApi.injectEndpoints({
           });
 
           socket.on('message_delete', (data: IMessage) => {
-            if (chatID === data.chat_id) {
+            if (chat_id === data.chat_id) {
               updateCachedData((messages) => {
                 const filterMessage = messages.filter(
                   (message) => message._id !== data._id
@@ -81,11 +81,23 @@ export const chatsApi = rootApi.injectEndpoints({
             }
           });
 
+          socket.on('is_message_read_res', (data: IMessage) => {
+            if (chat_id === data.chat_id) {
+              updateCachedData((draft) => {
+                const indexOfMessage = draft.findIndex(
+                  (message) => message._id === data._id
+                );
+                draft[indexOfMessage].isRead = data.isRead;
+              });
+            }
+          });
+
           await cacheEntryRemoved;
 
           socket.off('private_message');
           socket.off('message_edit');
           socket.off('message_delete');
+          socket.off('is_message_read_res');
         } catch (error) {
           console.log(error);
         }

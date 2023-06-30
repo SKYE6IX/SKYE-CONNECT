@@ -5,6 +5,7 @@ const SharedStyles = styled.div`
   display: flex;
 `;
 export const MessageRowLeft = styled(SharedStyles)``;
+
 export const MessageRowBlue = styled(SharedStyles)`
   flex-direction: column;
   position: relative;
@@ -84,6 +85,7 @@ export const MessageRowOrange = styled(SharedStyles)`
     right: -17px;
   }
 `;
+
 export const MessageText = styled.p`
   padding: 0;
   margin: 0;
@@ -94,8 +96,14 @@ export const MessageBottom = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 0.3em;
-  span {
-    font-weight: 300;
-    font-size: 0.6rem;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+    span,
+    svg {
+      font-weight: 300;
+      font-size: 0.7rem;
+    }
   }
 `;
