@@ -8,6 +8,9 @@ export const ChatOpenerContainer = styled.div`
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
   border-radius: 1.5rem;
   padding: 1rem 1.5rem;
+  span {
+    margin-left: auto;
+  }
 `;
 export const ChatOpenerButton = styled.button`
   border: none;

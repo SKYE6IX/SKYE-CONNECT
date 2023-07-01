@@ -38,6 +38,40 @@ export const chatsApi = rootApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    getUserMessages: builder.query<IMessage[], void>({
+      query: () => ({ url: '/chat/message', method: 'GET' }),
+      transformResponse: (responseData: IMessage[]) => {
+        return responseData.filter((response) => {
+          return response.isRead === false;
+        });
+      },
+      providesTags: ['Chats'],
+      async onCacheEntryAdded(
+        chat_id,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        try {
+          await cacheDataLoaded;
+
+          socket = getSocket();
+
+          socket.on('new_message_notification', (data: IMessage) => {
+            if (!data.isRead) {
+              updateCachedData((draft) => {
+                draft.push(data);
+              });
+            }
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        await cacheEntryRemoved;
+        socket.off('new_message_notification');
+      },
+    }),
+
     getMessages: builder.query<IMessage[], number | string>({
       query: (chat_id) => ({ url: `/chat/message/${chat_id}`, method: 'GET' }),
       providesTags: ['Chats'],
@@ -104,7 +138,7 @@ export const chatsApi = rootApi.injectEndpoints({
       },
     }),
 
-    sendMessages: builder.mutation<any, SendMessageData>({
+    sendMessages: builder.mutation<IMessage, SendMessageData>({
       query: (sendMessageData) => ({
         url: `/chat/message/${sendMessageData.chat_id}`,
         method: 'POST',
@@ -137,4 +171,5 @@ export const {
   useDeleteChatMutation,
   useDeleteMessageMutation,
   useEditMessageMutation,
+  useGetUserMessagesQuery,
 } = chatsApi;

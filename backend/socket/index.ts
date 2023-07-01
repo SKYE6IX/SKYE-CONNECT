@@ -21,7 +21,7 @@ const runSoket = () => {
             socket.to(data.to).emit("typingResponse", { status: false });
         });
 
-        // message read status
+        //message read status
         socket.on(
             "is_message_read",
             async (data: { message_id: string; from: string }) => {
@@ -35,6 +35,18 @@ const runSoket = () => {
             }
         );
 
+        //Send a notification to the user;
+        socket.on(
+            "on_message_sent",
+            async (data: { to: string; message_id: string }) => {
+                setTimeout(async () => {
+                    const message = await Message.findById(data.message_id);
+                    socket
+                        .to(data.to)
+                        .emit("new_message_notification", message);
+                }, 1000);
+            }
+        );
         ////PRIVATE MESSAGE SETUP END //
 
         //WHEN USER LOGOUT

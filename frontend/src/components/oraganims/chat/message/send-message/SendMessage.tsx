@@ -54,6 +54,7 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
   //Control for the height in the textarea
   const textAreaRef =
     React.useRef() as React.MutableRefObject<HTMLTextAreaElement>;
+
   const textArea = textAreaRef.current;
   useEffect(() => {
     if (textArea) {
@@ -84,7 +85,11 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
                 dispatch(clearEditMessage());
               }
             })
-        : sendMessage(sendMessageData);
+        : sendMessage(sendMessageData)
+            .unwrap()
+            .then((res) => {
+              socket.emit('on_message_sent', { to: to, message_id: res._id });
+            });
     }
     resetForm();
   };

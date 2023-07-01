@@ -13,6 +13,14 @@ import Message from "../models/message";
 import { io } from "../app";
 import makeAnObjectID from "../utilities/makeAnObjectId";
 import checkChatHistory from "../utilities/checkChatHistory";
+export function getUserMessages(req, res) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        const user_id = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+        const userMessages = yield Message.find({ to: user_id });
+        res.json(userMessages);
+    });
+}
 export function getMessages(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { chat_id } = req.params;
@@ -30,7 +38,7 @@ export function createMessages(req, res) {
         const currrentUser = yield User.findById(user_id);
         const otherUser = yield User.findById(to);
         //Make new object for new message.
-        const newMessage = {
+        const new_message = {
             _id: makeAnObjectID(),
             from: user_id,
             to: to,
@@ -41,12 +49,12 @@ export function createMessages(req, res) {
             chat_id: makeAnObjectID(chat_id),
         };
         //create a new message
-        const createNewMessages = new Message(newMessage);
-        const newMessagesId = createNewMessages._id;
+        const newMessage = new Message(new_message);
+        const newMessagesId = newMessage._id;
         yield Chat.findByIdAndUpdate(chat_id, {
             $push: { messages: newMessagesId },
         });
-        yield createNewMessages.save();
+        yield newMessage.save();
         // Check chat history between correspond users
         const isOtherUserExistInCurrentUserChatList = yield checkChatHistory(String(user_id), String(to));
         if (!isOtherUserExistInCurrentUserChatList) {
@@ -64,7 +72,8 @@ export function createMessages(req, res) {
         }
         currrentUser === null || currrentUser === void 0 ? void 0 : currrentUser.save();
         otherUser === null || otherUser === void 0 ? void 0 : otherUser.save();
-        io.to(to).to(String(user_id)).emit("private_message", newMessage);
+        io.to(to).to(String(user_id)).emit("private_message", new_message);
+        res.json(newMessage);
     });
 }
 export function editMessage(req, res) {

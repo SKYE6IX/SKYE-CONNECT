@@ -25,9 +25,13 @@ type ChatListProps = {
       _id: number;
     }
   ];
+  handleRefetchUnreadMessage: () => void;
 };
 
-const ChatList: FC<ChatListProps> = ({ chatLists }) => {
+const ChatList: FC<ChatListProps> = ({
+  chatLists,
+  handleRefetchUnreadMessage,
+}) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [openChatDeleteOption, setOpenChatDeleteOption] =
@@ -49,6 +53,7 @@ const ChatList: FC<ChatListProps> = ({ chatLists }) => {
       })
     );
     router.push(`/messenger/${chat_id}`);
+    handleRefetchUnreadMessage();
   };
 
   return (

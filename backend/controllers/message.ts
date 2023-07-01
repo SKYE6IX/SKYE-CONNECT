@@ -7,6 +7,12 @@ import type { IMessage } from "../models/message";
 import makeAnObjectID from "../utilities/makeAnObjectId";
 import checkChatHistory from "../utilities/checkChatHistory";
 
+export async function getUserMessages(req: Request, res: Response) {
+    const user_id = req.user?._id!;
+    const userMessages = await Message.find({ to: user_id });
+    res.json(userMessages);
+}
+
 export async function getMessages(req: Request, res: Response) {
     const { chat_id } = req.params;
     const messages = await Message.find({ chat_id: chat_id });
@@ -23,7 +29,7 @@ export async function createMessages(req: Request, res: Response) {
     const otherUser = await User.findById(to);
 
     //Make new object for new message.
-    const newMessage: IMessage = {
+    const new_message: IMessage = {
         _id: makeAnObjectID(),
         from: user_id,
         to: to,
@@ -35,14 +41,14 @@ export async function createMessages(req: Request, res: Response) {
     };
 
     //create a new message
-    const createNewMessages = new Message(newMessage);
+    const newMessage = new Message(new_message);
 
-    const newMessagesId = createNewMessages._id;
+    const newMessagesId = newMessage._id;
     await Chat.findByIdAndUpdate(chat_id, {
         $push: { messages: newMessagesId },
     });
 
-    await createNewMessages.save();
+    await newMessage.save();
 
     // Check chat history between correspond users
     const isOtherUserExistInCurrentUserChatList = await checkChatHistory(
@@ -71,7 +77,9 @@ export async function createMessages(req: Request, res: Response) {
     currrentUser?.save();
     otherUser?.save();
 
-    io.to(to).to(String(user_id)).emit("private_message", newMessage);
+    io.to(to).to(String(user_id)).emit("private_message", new_message);
+
+    res.json(newMessage);
 }
 
 export async function editMessage(req: Request, res: Response) {

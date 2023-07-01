@@ -26,7 +26,7 @@ const runSoket = () => {
         socket.on("typing:stop", (data) => {
             socket.to(data.to).emit("typingResponse", { status: false });
         });
-        // message read status
+        //message read status
         socket.on("is_message_read", (data) => __awaiter(void 0, void 0, void 0, function* () {
             yield Message.findByIdAndUpdate(data.message_id, {
                 $set: { isRead: true },
@@ -35,6 +35,15 @@ const runSoket = () => {
             socket
                 .to(data.from)
                 .emit("is_message_read_res", updatedMessage);
+        }));
+        //Send a notification to the user;
+        socket.on("on_message_sent", (data) => __awaiter(void 0, void 0, void 0, function* () {
+            setTimeout(() => __awaiter(void 0, void 0, void 0, function* () {
+                const message = yield Message.findById(data.message_id);
+                socket
+                    .to(data.to)
+                    .emit("new_message_notification", message);
+            }), 1000);
         }));
         ////PRIVATE MESSAGE SETUP END //
         //WHEN USER LOGOUT

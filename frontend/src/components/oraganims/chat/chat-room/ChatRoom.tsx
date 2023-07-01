@@ -21,23 +21,25 @@ import type { User } from '@/types/user';
 
 type ChatRoomProps = {
   user: User | undefined;
+  handleRefetchUnreadMessage: () => void;
 };
 
-const ChatRoom: FC<ChatRoomProps> = ({ user }) => {
+const ChatRoom: FC<ChatRoomProps> = ({ user, handleRefetchUnreadMessage }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const correspondUser = useAppSelector(selectCorrespondUser);
   const typingStatus = useAppSelector(selectTypingStatus);
   const pathname = usePathname();
   const chat_id = pathname.substring(11);
-
   const { data, isLoading, refetch } = useGetMessagesQuery(chat_id);
   const messages = isLoading ? null : data;
 
   const handleClose = () => {
     dispatch(closeChatRoom());
     router.push('/messenger');
+    handleRefetchUnreadMessage();
   };
+
   const handleRefetchMessage = () => {
     refetch();
   };
