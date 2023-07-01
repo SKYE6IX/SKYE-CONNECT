@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { SendIcon } from '@/components/atoms/MUIComponents/Components';
-import { AddCommentForm, AddCommentTextArea, AddCommentButton } from './style';
+import SendIcon from '@mui/icons-material/Send';
 import { useAddCommentMutation } from '@/globalRedux/service/postApi';
 import useForm from '@/hooks/useForm';
+import { AddCommentForm, AddCommentTextArea, AddCommentButton } from './style';
 import type { CommentForm } from '@/types/post';
 
 type AddCommentProps = {

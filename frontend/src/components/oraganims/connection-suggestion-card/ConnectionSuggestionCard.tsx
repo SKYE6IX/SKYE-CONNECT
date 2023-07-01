@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import {
+  useGetAllUserQuery,
+  useAddFollowerMutation,
+} from '@/globalRedux/service/userApi';
+import {
   ConnectionSuggestionCardContainer,
   ConnectionSuggestionCardTitle,
   Connection,
@@ -8,10 +12,7 @@ import {
   ConnectionName,
   ConnectionSuggestionCardContainerAction,
 } from './style';
-import {
-  useGetAllUserQuery,
-  useAddFollowerMutation,
-} from '@/globalRedux/service/userApi';
+
 import type { CardsProps, User } from '@/types/user';
 
 type ConnectionSuggestionCardProps = CardsProps;

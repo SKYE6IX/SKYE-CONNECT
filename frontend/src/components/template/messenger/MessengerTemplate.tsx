@@ -13,7 +13,7 @@ import { selectChatRoomUrl } from '@/globalRedux/feature/messengerSlice';
 const MessengerTemplate: FC = () => {
   const { refetch } = useGetUserMessagesQuery();
   const chatRoomUrl = useAppSelector(selectChatRoomUrl);
-  const { data } = useGetUserQuery();
+  const { data, refetch: refetchUser } = useGetUserQuery();
   const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname === chatRoomUrl;
@@ -25,6 +25,9 @@ const MessengerTemplate: FC = () => {
   const handleRefetchUnreadMessage = () => {
     refetch();
   };
+  const handleRefetchUser = () => {
+    refetchUser();
+  };
 
   return (
     <MessengerContainer>
@@ -32,6 +35,7 @@ const MessengerTemplate: FC = () => {
         <ChatRoom
           user={data}
           handleRefetchUnreadMessage={handleRefetchUnreadMessage}
+          handleReftchUser={handleRefetchUser}
         />
       )}
       <MessengerHeader>

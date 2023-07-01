@@ -11,15 +11,15 @@ import {
   GenderFieldset,
   BirthdayInputContainer,
   BirthDayInput,
+  SubmitButton,
 } from './style';
-import Button from '@/components/atoms/buttons/Button';
 import useForm from '@/hooks/useForm';
 import { useSignupMutation } from '@/globalRedux/service/userApi';
 import type { SignUpForm } from '@/types/user';
 
 const SignUpForm: FC = () => {
   const router = useRouter();
-  const [signup, { isLoading }] = useSignupMutation();
+  const [signup] = useSignupMutation();
   const { formState, handleChange, handleInputChange, resetForm } =
     useForm<SignUpForm>({
       initialState: {
@@ -42,7 +42,7 @@ const SignUpForm: FC = () => {
     e.preventDefault();
     await signup(formState)
       .unwrap()
-      .then((payload) => {
+      .then(() => {
         resetForm();
         router.push('/feeds');
       })
@@ -134,7 +134,7 @@ const SignUpForm: FC = () => {
             handleChange={handleInputChange}
           />
         </BirthdayInputContainer>
-        <Button type="submit">Submit</Button>
+        <SubmitButton type="submit">Submit</SubmitButton>
       </Form>
     </FormConatainer>
   );

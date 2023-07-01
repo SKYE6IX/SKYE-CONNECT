@@ -2,7 +2,7 @@
 import { FC, useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAddPostMutation } from '@/globalRedux/service/postApi';
-import { PhotoCameraIcon } from '@/components/atoms/MUIComponents/Components';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import {
   CreatePostContainer,
   TextArea,
@@ -60,9 +60,7 @@ const CreatePost: FC = () => {
             multiple
           />
           <label htmlFor="images">
-            <PhotoCameraIcon
-              style={{ fontSize: '1.5rem', cursor: 'pointer' }}
-            />
+            <CameraAltIcon style={{ fontSize: '1.5rem', cursor: 'pointer' }} />
           </label>
 
           <PhotosPreviewWrapper>

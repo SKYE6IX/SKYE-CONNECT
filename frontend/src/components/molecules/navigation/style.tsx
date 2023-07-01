@@ -1,5 +1,6 @@
 'use client';
 import styled from 'styled-components';
+
 const NavigationContainer = styled.div`
   display: flex;
   span {

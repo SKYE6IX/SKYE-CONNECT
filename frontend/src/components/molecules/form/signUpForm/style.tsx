@@ -26,13 +26,6 @@ export const Form = styled.form`
   gap: 1.5em;
   width: 100%;
   button {
-    background-color: green;
-    color: white;
-    padding: 5px 30px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
   }
 `;
 export const FormNameInputWrapper = styled.div`
@@ -53,9 +46,20 @@ export const GenderFieldset = styled.fieldset`
     font-family: 'Roboto', sans-serif;
   }
 `;
+
 export const BirthdayInputContainer = styled.div`
   input {
     max-width: 150px;
   }
 `;
 export const BirthDayInput: React.FC<FormInputProps> = styled(FormInput)``;
+
+export const SubmitButton = styled.button`
+  background-color: green;
+  color: white;
+  padding: 5px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+`;

@@ -51,6 +51,13 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
     };
   }, [socket]);
 
+  const handleFocus = () => {
+    socket.emit('typing:start', { to: to });
+  };
+  const handleBlur = () => {
+    socket.emit('typing:stop', { to: to });
+  };
+
   //Control for the height in the textarea
   const textAreaRef =
     React.useRef() as React.MutableRefObject<HTMLTextAreaElement>;
@@ -92,13 +99,6 @@ const SendMessage: FC<SendMessageProps> = ({ chat_id, to }) => {
             });
     }
     resetForm();
-  };
-
-  const handleFocus = () => {
-    socket.emit('typing:start', { to: to });
-  };
-  const handleBlur = () => {
-    socket.emit('typing:stop', { to: to });
   };
 
   return (

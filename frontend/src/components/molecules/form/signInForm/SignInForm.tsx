@@ -2,8 +2,7 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginIcon from '@mui/icons-material/Login';
-import Button from '@/components/atoms/buttons/Button';
-import { Form, SignInInput } from './style';
+import { Form, SignInInput, SubmitButton } from './style';
 import { useLoginMutation } from '@/globalRedux/service/userApi';
 import useForm from '@/hooks/useForm';
 
@@ -53,10 +52,10 @@ const SignInForm: FC = () => {
         handleChange={handleChange}
         value={formState.password}
       />
-      <Button type="submit">
+      <SubmitButton type="submit">
         <LoginIcon />
         Sign In
-      </Button>
+      </SubmitButton>
     </Form>
   );
 };

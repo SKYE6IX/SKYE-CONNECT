@@ -1,6 +1,7 @@
 'use client ';
 import styled from 'styled-components';
 import Dialog from '@mui/material/Dialog';
+
 export const CustomDialog = styled(Dialog)(({ theme }) => ({
   '& .css-1t1j96h-MuiPaper-root-MuiDialog-paper': {
     width: '500px',

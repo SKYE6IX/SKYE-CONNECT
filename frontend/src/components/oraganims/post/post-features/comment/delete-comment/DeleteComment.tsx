@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import styled from 'styled-components';
-import { DeleteIcon } from '@/components/atoms/MUIComponents/Components';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useDeleteCommentMutation } from '@/globalRedux/service/postApi';
 
 type DeleteCommentProps = {

@@ -1,6 +1,6 @@
 'use client';
 import styled from 'styled-components';
-import { Avatar } from '@/components/atoms/MUIComponents/Components';
+import Avatar from '@mui/material/Avatar';
 
 export const ConnectionCardContainer = styled.div`
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);

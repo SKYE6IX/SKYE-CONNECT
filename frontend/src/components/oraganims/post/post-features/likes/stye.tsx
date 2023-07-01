@@ -1,5 +1,6 @@
 'use client';
 import styled from 'styled-components';
+
 export const PostLikesContainer = styled.div`
   display: flex;
   gap: 0.2rem;

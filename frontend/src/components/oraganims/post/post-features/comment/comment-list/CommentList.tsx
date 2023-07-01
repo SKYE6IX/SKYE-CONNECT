@@ -1,13 +1,13 @@
 'use client';
 import { FC } from 'react';
+import DeleteComment from '../delete-comment/DeleteComment';
+import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
 import {
   Comment,
   CommentListAvatar,
   CommentListBody,
   Container,
 } from './style';
-import DeleteComment from '../delete-comment/DeleteComment';
-import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
 import type { User } from '@/types/user';
 
 type CommentListProps = {

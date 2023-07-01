@@ -5,11 +5,16 @@ import { useRouter } from 'next/navigation';
 import { useGetUserMessagesQuery } from '@/globalRedux/service/chatApi';
 import { ChatOpenerContainer, ChatOpenerButton } from './style';
 
-const ChatOpener: FC = () => {
+type ChatOpenerProps = {
+  handleRefetchUser: () => void;
+};
+
+const ChatOpener: FC<ChatOpenerProps> = ({ handleRefetchUser }) => {
   const [unReadMessage, setUnReadMessage] = useState(0);
   const { data, isLoading } = useGetUserMessagesQuery();
   const router = useRouter();
   const handleClick = () => {
+    handleRefetchUser();
     router.push('/messenger');
   };
 

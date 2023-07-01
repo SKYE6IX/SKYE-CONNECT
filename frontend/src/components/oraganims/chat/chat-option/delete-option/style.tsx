@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Avatar } from '@/components/atoms/MUIComponents/Components';
+import Avatar from '@mui/material/Avatar';
 
 export const DeleteChatOptionHeader = styled.div`
   display: flex;

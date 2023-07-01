@@ -1,10 +1,15 @@
 'use client';
 import { FC } from 'react';
 import { useRouter } from 'next/navigation';
+import ChatIcon from '@mui/icons-material/Chat';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useRemoveFollowerMutation } from '@/globalRedux/service/userApi';
+import { useCreateNewChatMutation } from '@/globalRedux/service/chatApi';
+import { useAppDispatch } from '@/hooks/appStateHooks';
 import {
-  ChatIcon,
-  ClearIcon,
-} from '@/components/atoms/MUIComponents/Components';
+  setChatRoomUrl,
+  setCorrespondUser,
+} from '@/globalRedux/feature/messengerSlice';
 import {
   ConnectionCardContainer,
   ConnectionCardTitle,
@@ -15,13 +20,6 @@ import {
   ConnectionAboutMe,
   ConnectionCardActions,
 } from './style';
-import { useRemoveFollowerMutation } from '@/globalRedux/service/userApi';
-import { useCreateNewChatMutation } from '@/globalRedux/service/chatApi';
-import { useAppDispatch } from '@/hooks/appStateHooks';
-import {
-  setChatRoomUrl,
-  setCorrespondUser,
-} from '@/globalRedux/feature/messengerSlice';
 import type { CardsProps, User } from '@/types/user';
 
 type ConnectionCardProps = CardsProps;

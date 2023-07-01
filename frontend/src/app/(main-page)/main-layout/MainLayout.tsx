@@ -15,7 +15,12 @@ import {
 } from './style';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { data, isLoading } = useGetUserQuery();
+  const { data, isLoading, refetch } = useGetUserQuery();
+
+  const handleRefetchUser = () => {
+    refetch();
+  };
+
   return (
     <Container>
       <MainNavigation>
@@ -24,7 +29,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <MainContainer>
         <MainAsides>
           <SidebarProfileCard user={data} isUserDataLoading={isLoading} />
-          <ChatOpener />
+          <ChatOpener handleRefetchUser={handleRefetchUser} />
         </MainAsides>
         <Main>{children}</Main>
         <MainAsides>

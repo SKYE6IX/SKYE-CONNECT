@@ -1,4 +1,3 @@
-'use client';
 //**HELPER FUNCTIONS */
 export const previewPhotos = (photos: any) => {
   let imgUploads: string[] = [];

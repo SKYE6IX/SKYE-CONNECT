@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { Avatar } from '@/components/atoms/MUIComponents/Components';
+import Avatar from '@mui/material/Avatar';
 import { CustomDialog, ChatRoomHeader, ChatRoomName, NoMessage } from './style';
 import { useGetMessagesQuery } from '@/globalRedux/service/chatApi';
 import MessageLeft from '../message/message-list/MessageLeft';
@@ -22,9 +22,14 @@ import type { User } from '@/types/user';
 type ChatRoomProps = {
   user: User | undefined;
   handleRefetchUnreadMessage: () => void;
+  handleReftchUser: () => void;
 };
 
-const ChatRoom: FC<ChatRoomProps> = ({ user, handleRefetchUnreadMessage }) => {
+const ChatRoom: FC<ChatRoomProps> = ({
+  user,
+  handleRefetchUnreadMessage,
+  handleReftchUser,
+}) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const correspondUser = useAppSelector(selectCorrespondUser);
@@ -36,6 +41,7 @@ const ChatRoom: FC<ChatRoomProps> = ({ user, handleRefetchUnreadMessage }) => {
 
   const handleClose = () => {
     dispatch(closeChatRoom());
+    handleReftchUser();
     router.push('/messenger');
     handleRefetchUnreadMessage();
   };

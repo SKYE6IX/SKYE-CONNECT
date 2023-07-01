@@ -1,5 +1,6 @@
 'use client';
 import styled from 'styled-components';
+
 export const SignoutButton = styled.button`
   border: none;
   color: white;

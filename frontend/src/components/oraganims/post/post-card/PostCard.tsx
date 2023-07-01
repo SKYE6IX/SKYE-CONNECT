@@ -1,8 +1,13 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
+import CommentIcon from '@mui/icons-material/Comment';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
-import { CommentIcon } from '@/components/atoms/MUIComponents/Components';
+import PostMenu from '../post-options/menu-button/PostMenu';
+import PostLikes from '../post-features/likes/PostLikes';
+import AddComment from '../post-features/comment/add-comment/AddComment';
+import CommentList from '../post-features/comment/comment-list/CommentList';
+import DyanamicGridWrapper from './dynamic-grid-wrapper/DynamicGridWrapper';
 import {
   PostCardContainer,
   PostCardHeader,
@@ -13,11 +18,6 @@ import {
   PostCardTextContent,
   PostCardReaction,
 } from './style';
-import PostMenu from '../post-options/menu-button/PostMenu';
-import PostLikes from '../post-features/likes/PostLikes';
-import AddComment from '../post-features/comment/add-comment/AddComment';
-import CommentList from '../post-features/comment/comment-list/CommentList';
-import DyanamicGridWrapper from './dynamic-grid-wrapper/DynamicGridWrapper';
 import type { IPost } from '@/types/post';
 
 type PostCardProps = {

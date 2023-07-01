@@ -1,14 +1,12 @@
 import { FC } from 'react';
-import {
-  FavoriteBorderIcon,
-  FavoriteIcon,
-} from '@/components/atoms/MUIComponents/Components';
-import { PostLikesContainer } from './stye';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   useGetPostLikesQuery,
   useAddLikeMutation,
   useRemoveLikeMutation,
 } from '@/globalRedux/service/postApi';
+import { PostLikesContainer } from './stye';
 import type { User } from '@/types/user';
 
 type PostLikesProps = {

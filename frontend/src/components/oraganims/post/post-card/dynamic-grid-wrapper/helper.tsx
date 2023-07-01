@@ -1,4 +1,3 @@
-'use client';
 export const checkImageOrientation = (
   imgUrl: string,
   callback: (orientation: string) => void

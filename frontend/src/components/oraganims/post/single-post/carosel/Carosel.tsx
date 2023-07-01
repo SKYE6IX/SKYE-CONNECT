@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState, useRef, useEffect, useCallback } from 'react';
+import { FC, useState } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {

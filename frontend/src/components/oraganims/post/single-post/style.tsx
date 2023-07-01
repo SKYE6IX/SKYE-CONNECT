@@ -1,6 +1,6 @@
 'use client';
 import styled from 'styled-components';
-import { Avatar } from '@/components/atoms/MUIComponents/Components';
+import Avatar from '@mui/material/Avatar';
 
 export const SinglePostContainer = styled.div``; //TODO LATER
 

@@ -37,7 +37,7 @@ const SinglePost: FC<SinglePostProps> = ({ post }) => {
           </NamesWrapper>
           <span>1hr ago</span>
         </PostInfoWrapper>
-        <PostMenu post_id={post._id} />
+        <PostMenu post_id={post._id} user={userData} />
       </SinglePostHeader>
       <SinglePostBody>
         <p>{post.content}</p>

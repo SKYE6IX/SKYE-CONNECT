@@ -1,6 +1,7 @@
 'use client';
 import styled from 'styled-components';
-import { Avatar } from '@/components/atoms/MUIComponents/Components';
+import Avatar from '@mui/material/Avatar';
+
 export const SidebarProfileCardContainer = styled.div`
   display: flex;
   flex-direction: column;
