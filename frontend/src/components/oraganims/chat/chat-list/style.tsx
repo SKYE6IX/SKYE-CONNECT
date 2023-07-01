@@ -1,6 +1,11 @@
 'use client';
 import styled from 'styled-components';
 import { Avatar } from '@/components/atoms/MUIComponents/Components';
+
+interface LastMessageProps {
+  $isRead: boolean;
+}
+
 export const ChatWrapper = styled.div`
   display: flex;
   margin: 0 0 1em 0;
@@ -21,7 +26,8 @@ export const ClickToChatRoomWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const LastMessageTag = styled.p`
+export const LastMessageTag = styled.p<LastMessageProps>`
   margin: 0.3em 0 0 0;
-  font-weight: 300;
+  font-weight: ${({ $isRead }) => ($isRead ? 300 : 500)};
+  font-size: 1rem;
 `;

@@ -1,8 +1,7 @@
 'use client';
 import React, { FC, useState } from 'react';
-import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { CustomMenu, CustomMenuItem } from './style';
+import { CustomMenu, DeleteButton, CustomIconButton } from './style';
 
 type ChatMenuOptionsProps = {
   handleOpenDeleteChatOption: () => void;
@@ -27,7 +26,7 @@ const ChatMenuOptions: FC<ChatMenuOptionsProps> = ({
 
   return (
     <>
-      <IconButton
+      <CustomIconButton
         aria-label="more"
         id="long-button"
         aria-controls={openOptions ? 'long-menu' : undefined}
@@ -36,7 +35,7 @@ const ChatMenuOptions: FC<ChatMenuOptionsProps> = ({
         onClick={handleOpenOptions}
       >
         <MoreVertIcon />
-      </IconButton>
+      </CustomIconButton>
       <CustomMenu
         id="long-menu"
         MenuListProps={{
@@ -47,12 +46,10 @@ const ChatMenuOptions: FC<ChatMenuOptionsProps> = ({
         onClose={handleCloseOptions}
         transformOrigin={{
           vertical: 30,
-          horizontal: 90,
+          horizontal: 70,
         }}
       >
-        <CustomMenuItem onClick={handleClickDeleteOption}>
-          Delete
-        </CustomMenuItem>
+        <DeleteButton onClick={handleClickDeleteOption}>Delete</DeleteButton>
       </CustomMenu>
     </>
   );

@@ -8,8 +8,13 @@ type LastMessageProps = {
 
 const LastMessage: FC<LastMessageProps> = ({ chat_id }) => {
   const { data } = useGetMessagesQuery(chat_id);
-  const lastMessage = data?.slice(-1)[0];
-  return <LastMessageTag>{lastMessage?.message_text}</LastMessageTag>;
+  const lastMessage = data?.slice(-1)[0]!;
+
+  return (
+    <LastMessageTag $isRead={lastMessage?.isRead}>
+      {lastMessage?.message_text}
+    </LastMessageTag>
+  );
 };
 
 export default LastMessage;
