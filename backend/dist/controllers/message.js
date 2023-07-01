@@ -43,7 +43,7 @@ export function createMessages(req, res) {
             from: user_id,
             to: to,
             message_text: message,
-            created_at: new Date(),
+            created_at: new Date().toString(),
             isEdited: false,
             isRead: false,
             chat_id: makeAnObjectID(chat_id),

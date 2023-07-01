@@ -4,7 +4,7 @@ const messageSchema = new Schema({
     from: { type: Schema.Types.ObjectId, ref: "User" },
     to: { type: Schema.Types.ObjectId, ref: "User" },
     message_text: { type: String, required: true },
-    created_at: { type: Date, required: true },
+    created_at: { type: String, required: true },
     isEdited: { type: Boolean, required: true },
     isRead: { type: Boolean, required: true },
     chat_id: { type: Schema.Types.ObjectId, ref: "Chat" },

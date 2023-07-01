@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import getSocket from '@/globalRedux/service/socket';
-import { useIsMessageInVeiw } from './helper';
+import { useIsMessageInVeiw, getTime } from './helper';
 import type { MessageProps } from '@/types/chat';
 import {
   MessageRowBlue,
@@ -35,14 +35,13 @@ const MessageLeft: FC<MessageLeftProps> = ({
     isMessageRead && handleIsMessageRead();
   }, [socket, isMessageRead]);
 
-  const time = created_at.slice(11, 16);
   return (
     <MessageRowLeft {...refProps}>
       <MessageRowBlue>
         <MessageText>{message_text}</MessageText>
         <MessageBottom>
           <span>{isEdited ? 'edited' : ''}</span>
-          <span>{time}</span>
+          <span>{getTime(created_at)}</span>
         </MessageBottom>
       </MessageRowBlue>
     </MessageRowLeft>

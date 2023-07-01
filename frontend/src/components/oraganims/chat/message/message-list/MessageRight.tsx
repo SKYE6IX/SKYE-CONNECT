@@ -9,6 +9,7 @@ import {
   MessageText,
   MessageBottom,
 } from './style';
+import { getTime } from './helper';
 
 interface MessageRightProps extends MessageProps {
   chat_id: string;
@@ -31,7 +32,6 @@ const MessageRight: FC<MessageRightProps> = ({
     setAnchorEl(null);
   };
 
-  const time = created_at.slice(11, 16);
   return (
     <>
       <MessageRowRight
@@ -44,7 +44,7 @@ const MessageRight: FC<MessageRightProps> = ({
           <MessageBottom>
             <span>{isEdited ? 'edited' : ''}</span>
             <div>
-              <span>{time}</span>
+              <span>{getTime(created_at)}</span>
               {isRead ? <DoneAllIcon /> : <DoneIcon />}
             </div>
           </MessageBottom>

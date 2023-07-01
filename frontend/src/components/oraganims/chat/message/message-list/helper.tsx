@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, MutableRefObject } from 'react';
+import moment from 'moment';
 
 export const useIsMessageInVeiw = (
   ref: MutableRefObject<HTMLDivElement | null>
@@ -22,4 +23,10 @@ export const useIsMessageInVeiw = (
   }, [ref, observer]);
 
   return isIntersecting;
+};
+
+export const getTime = (time: string) => {
+  const new_time = new Date(time);
+  const timeResult = moment(new_time).format('LT');
+  return timeResult;
 };

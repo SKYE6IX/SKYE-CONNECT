@@ -34,7 +34,7 @@ export async function createMessages(req: Request, res: Response) {
         from: user_id,
         to: to,
         message_text: message,
-        created_at: new Date(),
+        created_at: new Date().toString(),
         isEdited: false,
         isRead: false,
         chat_id: makeAnObjectID(chat_id),
