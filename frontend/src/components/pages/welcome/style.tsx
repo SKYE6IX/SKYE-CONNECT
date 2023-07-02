@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Navigation, {
   NavigationProps,
 } from '@/components/molecules/navigation/Navigation';
+import { LogoWrapper } from '@/components/molecules/navigation/style';
+
 const HomeContainer = styled.div`
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
@@ -13,6 +15,16 @@ const HomeContainer = styled.div`
   background-repeat: no-repeat;
   padding: 1em;
 `;
-const HomeNavigation: React.FC<NavigationProps> = styled(Navigation)``;
+
+const HomeNavigation: React.FC<NavigationProps> = styled(Navigation)`
+  ${LogoWrapper} {
+    margin-top: -40px;
+    svg {
+      g {
+        fill: white;
+      }
+    }
+  }
+`;
 
 export { HomeContainer, HomeNavigation };

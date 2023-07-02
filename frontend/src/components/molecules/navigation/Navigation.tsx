@@ -1,14 +1,11 @@
 import React, { FC, HTMLAttributes } from 'react';
-import NavigationContainer from './style';
-import Link from 'next/link';
+import { NavigationContainer } from './style';
+import Logo from './Logo';
 export type NavigationProps = HTMLAttributes<HTMLDivElement>;
-
 const Navigation: FC<NavigationProps> = ({ className, children }) => {
   return (
     <NavigationContainer className={className}>
-      <Link href="/feeds">
-        <span>SKYE-CONNECT</span>
-      </Link>
+      <Logo />
       {children}
     </NavigationContainer>
   );
