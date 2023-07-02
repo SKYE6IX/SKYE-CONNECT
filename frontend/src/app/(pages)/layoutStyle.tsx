@@ -5,7 +5,7 @@ import Navigation, {
   NavigationProps,
 } from '@/components/molecules/navigation/Navigation';
 
-export const ProfilePageNavigation: FC<NavigationProps> = styled(Navigation)`
+export const PagesNavigation: FC<NavigationProps> = styled(Navigation)`
   height: 7vh;
   display: flex;
   align-items: center;

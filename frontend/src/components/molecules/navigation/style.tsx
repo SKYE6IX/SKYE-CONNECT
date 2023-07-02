@@ -7,9 +7,6 @@ const NavigationContainer = styled.div`
     color: white;
     font-size: 2.5em;
   }
-  form {
-    margin-left: auto;
-  }
 `;
 
 export default NavigationContainer;

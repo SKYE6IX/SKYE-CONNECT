@@ -1,20 +1,13 @@
 'use client';
 import React from 'react';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
-import SignOut from '@/components/molecules/sign-out/SignOut';
 import SidebarProfileCard from '@/components/oraganims/sidebar-profile-card/SidebarProfileCard';
 import ConnectionCard from '@/components/oraganims/connection-card/ConnectionCard';
 import ConneectionSuggestionCard from '@/components/oraganims/connection-suggestion-card/ConnectionSuggestionCard';
 import ChatOpener from '@/components/oraganims/chat/chat-opener/ChatOpener';
-import {
-  Container,
-  MainNavigation,
-  MainContainer,
-  Main,
-  MainAsides,
-} from './style';
+import { Container, MainContainer, Main, MainAsides } from './style';
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading, refetch } = useGetUserQuery();
 
   const handleRefetchUser = () => {
@@ -23,9 +16,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Container>
-      <MainNavigation>
-        <SignOut />
-      </MainNavigation>
       <MainContainer>
         <MainAsides>
           <SidebarProfileCard user={data} isUserDataLoading={isLoading} />
@@ -43,4 +33,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     </Container>
   );
 };
-export default MainLayout;
+export default MainPageLayout;

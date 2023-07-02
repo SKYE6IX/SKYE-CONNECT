@@ -22,7 +22,7 @@ const PostMenu: FC<PostMenuProps> = ({ post_id, user }) => {
   };
 
   const isUserPost = (post_id: number) => {
-    const checkUserPost = user?.posts.some((post) => post._id === post_id);
+    const checkUserPost = user?.posts?.some((post) => post._id === post_id);
     return checkUserPost;
   };
 

@@ -6,6 +6,7 @@ import FormInput, { FormInputProps } from '@/components/atoms/inputs/FormInput';
 export const Form = styled.form`
   display: flex;
   gap: 0.8em;
+  margin-left: auto;
 `;
 
 export const SignInInput: React.FC<FormInputProps> = styled(FormInput)`
