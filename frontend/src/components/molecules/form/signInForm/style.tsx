@@ -24,5 +24,6 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   max-height: 45px;
   display: flex;
+  gap: 0.2em;
   align-items: center;
 `;
