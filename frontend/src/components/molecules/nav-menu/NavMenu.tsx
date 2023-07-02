@@ -1,33 +1,37 @@
+'use client';
 import { FC } from 'react';
+import Link from 'next/link';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import Avatar from '@mui/material/Avatar';
-
-import { MenuContainer, MenuItem } from './style';
+import { MenuContainer, MenuItem, CustomAvatar } from './style';
 
 const NavMenu: FC = () => {
   return (
     <MenuContainer>
-      <MenuItem>
-        <HomeIcon />
-        <span>Home</span>
-      </MenuItem>
+      <Link href="/feeds">
+        <MenuItem>
+          <HomeIcon />
+          <span>Home</span>
+        </MenuItem>
+      </Link>
       <MenuItem>
         <PeopleIcon />
         <span>My Connects</span>
       </MenuItem>
-      <MenuItem>
-        <ChatIcon />
-        <span>Messager</span>
-      </MenuItem>
+      <Link href="/messenger">
+        <MenuItem>
+          <ChatIcon />
+          <span>Messager</span>
+        </MenuItem>
+      </Link>
       <MenuItem>
         <NotificationsIcon />
         <span>Notification</span>
       </MenuItem>
       <MenuItem>
-        <Avatar />
+        <CustomAvatar />
         <span>Me</span>
       </MenuItem>
     </MenuContainer>
