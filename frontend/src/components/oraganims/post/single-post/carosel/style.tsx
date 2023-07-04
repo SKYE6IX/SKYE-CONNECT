@@ -6,24 +6,36 @@ interface Props {
   current_index: number;
 }
 
-export const CaroselContainer = styled.div`
+export const CaroselContainer = styled.div<{ photos_lenght: number }>`
+  width: 560px;
+  height: 450px;
+  padding: 0.5em;
   position: relative;
-  max-height: 750px;
-  overflow: hidden;
+  div {
+    height: 100%;
+    width: ${({ photos_lenght }) => photos_lenght === 1 && '100%'};
+    overflow: clip;
+  }
 `;
 
 export const InnerContainer = styled.div<Props>`
   display: flex;
-  width: ${({ photos_length }) => 600 * photos_length}px;
-  transform: translateX(${({ current_index }) => -(current_index * 600)}px);
+  height: 100%;
+  width: ${({ photos_length }) => 550 * photos_length}px;
+  transform: translateX(${({ current_index }) => -(current_index * 550)}px);
   transition: transform ease-out 0.3s;
 `;
 
 export const CaroselItem = styled.div`
-  width: 600px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     max-width: 100%;
     max-height: 100%;
+    object-fit: contain;
   }
 `;
 
@@ -43,6 +55,7 @@ const SharedButtonStyles = styled.button`
     height: 100%;
     width: 100px;
     margin: 0px;
+    color: rgb(178, 178, 178);
   }
 `;
 

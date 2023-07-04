@@ -17,6 +17,7 @@ import {
   PostCardFooter,
   PostCardTextContent,
   PostCardReaction,
+  PostCardCommentsWrapper,
 } from './style';
 import type { IPost } from '@/types/post';
 
@@ -68,7 +69,9 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
         </PostCardReaction>
       </PostCardBody>
 
-      <CommentList post_id={post._id} user={userData} />
+      <PostCardCommentsWrapper>
+        <CommentList post_id={post._id} user={userData} />
+      </PostCardCommentsWrapper>
 
       <PostCardFooter>
         <PostCardAvatar

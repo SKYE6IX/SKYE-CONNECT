@@ -1,5 +1,6 @@
 'use client';
 import { FC } from 'react';
+import moment from 'moment';
 import DeleteComment from '../delete-comment/DeleteComment';
 import { useGetCommentsQuery } from '@/globalRedux/service/postApi';
 import {
@@ -32,7 +33,7 @@ const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
             <span>{comment.author?.first_name}</span>
             <span>{comment.author?.last_name}</span>
             <p>{comment.content}</p>
-            <span>20 min ago</span>
+            <span>{moment(comment.created_at).fromNow()}</span>
           </CommentListBody>
           {user?._id === comment.author?._id && (
             <DeleteComment post_id={post_id} comment_id={comment._id} />

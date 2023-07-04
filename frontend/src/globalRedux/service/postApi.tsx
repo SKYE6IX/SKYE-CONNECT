@@ -37,6 +37,7 @@ export const postsApi = rootApi.injectEndpoints({
     }),
     getPost: builder.query<IPost, string>({
       query: (id) => ({ url: '/posts/' + id, method: 'GET' }),
+      providesTags: ['Post'],
     }),
     addPost: builder.mutation<IPost, any>({
       query: (body) => ({ url: '/posts', method: 'POST', data: body }),
@@ -53,6 +54,13 @@ export const postsApi = rootApi.injectEndpoints({
         url: '/posts/' + postID + '/comments',
         method: 'GET',
       }),
+      transformResponse: (responseData: CommentResponse) => {
+        return responseData.sort((a, b) => {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        });
+      },
       providesTags: (result, err, arg) =>
         result
           ? [
@@ -74,7 +82,7 @@ export const postsApi = rootApi.injectEndpoints({
           socket.on('comment_created', (data) => {
             if (data.post === postID) {
               updateCachedData((draft) => {
-                draft.push(data);
+                draft.unshift(data);
               });
             }
           });
@@ -105,14 +113,20 @@ export const postsApi = rootApi.injectEndpoints({
         method: 'POST',
         data: body,
       }),
-      invalidatesTags: (result) => [{ type: 'Comment', id: result._id }],
+      invalidatesTags: (result) => [
+        { type: 'Comment', id: result._id },
+        'Post',
+      ],
     }),
     deleteComment: builder.mutation<IPost, any>({
       query: ({ commentID, postID }) => ({
         url: `/posts/${postID}/comments/${commentID}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result) => [{ type: 'Comment', id: result?._id }],
+      invalidatesTags: (result) => [
+        { type: 'Comment', id: result?._id },
+        'Post',
+      ],
     }),
     getPostLikes: builder.query<LikeResponse, number>({
       query: (postID) => ({

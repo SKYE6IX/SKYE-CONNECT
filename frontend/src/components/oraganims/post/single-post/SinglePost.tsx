@@ -1,11 +1,13 @@
+'use client';
 import { FC } from 'react';
 import CommentIcon from '@mui/icons-material/Comment';
+import moment from 'moment';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import PostLikes from '../post-features/likes/PostLikes';
 import CommentList from '../post-features/comment/comment-list/CommentList';
 import AddComment from '../post-features/comment/add-comment/AddComment';
 import PostMenu from '../post-options/menu-button/PostMenu';
-import Carousel from './carosel/Carosel';
+import Carousels from './carosel/Carosel';
 import type { IPost } from '@/types/post';
 import {
   SinglePostContainer,
@@ -16,6 +18,7 @@ import {
   NamesWrapper,
   SinglePostReaction,
   SinglePostCommentContainer,
+  NoCommentMessage,
   SinglePostFooter,
 } from './style';
 
@@ -26,6 +29,9 @@ type SinglePostProps = {
 const SinglePost: FC<SinglePostProps> = ({ post }) => {
   const { data } = useGetUserQuery();
   const userData = data;
+  const getTimeCreated = new Date(post.created_at);
+  const formatCreatedTime = moment(getTimeCreated).fromNow();
+
   return (
     <SinglePostContainer>
       <SinglePostHeader>
@@ -35,13 +41,16 @@ const SinglePost: FC<SinglePostProps> = ({ post }) => {
             <span>{post.author.first_name}</span>
             <span>{post.author.last_name}</span>
           </NamesWrapper>
-          <span>1hr ago</span>
+          <span>{formatCreatedTime}</span>
         </PostInfoWrapper>
         <PostMenu post_id={post._id} user={userData} />
       </SinglePostHeader>
+
       <SinglePostBody>
         <p>{post.content}</p>
-        {post.photos.length && <Carousel photos={post.photos} />}
+
+        {post.photos?.length && <Carousels photos={post.photos} />}
+
         <SinglePostReaction>
           <PostLikes post_id={post._id} />
           <CommentIcon />
@@ -49,7 +58,13 @@ const SinglePost: FC<SinglePostProps> = ({ post }) => {
       </SinglePostBody>
 
       <SinglePostCommentContainer>
-        <CommentList post_id={post._id} user={userData} />
+        {post.comments.length ? (
+          <CommentList post_id={post._id} user={userData} />
+        ) : (
+          <NoCommentMessage>
+            <p>First to leave a comment...</p>
+          </NoCommentMessage>
+        )}
       </SinglePostCommentContainer>
 
       <SinglePostFooter>

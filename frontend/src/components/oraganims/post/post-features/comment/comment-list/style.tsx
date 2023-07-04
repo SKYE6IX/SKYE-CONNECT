@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 
 export const Container = styled.div`
-  max-height: 200px;
-  overflow: auto;
+  height: 100%;
 `;
 
 export const Comment = styled.div`

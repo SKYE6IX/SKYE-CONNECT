@@ -30,7 +30,7 @@ const Carousel: FC<CarouselProps> = ({ photos }) => {
   };
 
   return (
-    <CaroselContainer>
+    <CaroselContainer photos_lenght={photos.length}>
       {photos.length > 1 && (
         <>
           <CaroselLeftButtton onClick={goToPrevious}>
@@ -41,16 +41,18 @@ const Carousel: FC<CarouselProps> = ({ photos }) => {
           </CaroselRightButtton>
         </>
       )}
-      <InnerContainer
-        current_index={currentIndex}
-        photos_length={photos.length}
-      >
-        {photos.map((photo) => (
-          <CaroselItem key={photo._id}>
-            <img src={photo.url} alt={photo.filename} />
-          </CaroselItem>
-        ))}
-      </InnerContainer>
+      <div>
+        <InnerContainer
+          current_index={currentIndex}
+          photos_length={photos.length}
+        >
+          {photos.map((photo) => (
+            <CaroselItem key={photo._id}>
+              <img src={photo.url} alt={photo.filename} />
+            </CaroselItem>
+          ))}
+        </InnerContainer>
+      </div>
     </CaroselContainer>
   );
 };

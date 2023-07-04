@@ -28,6 +28,7 @@ export const createComment = (req, res) => __awaiter(void 0, void 0, void 0, fun
         content: content,
         post: currentPost === null || currentPost === void 0 ? void 0 : currentPost._id,
         author: req.user,
+        created_at: new Date().toString(),
     });
     const newCommentID = newComment.id;
     currentPost === null || currentPost === void 0 ? void 0 : currentPost.comments.push(newCommentID);

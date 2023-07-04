@@ -42,6 +42,6 @@ const axiosBaseQuery =
 export const rootApi = createApi({
   reducerPath: 'allApi',
   baseQuery: axiosBaseQuery({ baseUrl: process.env.API_URL }),
-  tagTypes: ['Posts', 'User', 'Users', 'Comment', 'Likes', 'Chats'],
+  tagTypes: ['Posts', 'Post', 'User', 'Users', 'Comment', 'Likes', 'Chats'],
   endpoints: () => ({}),
 });

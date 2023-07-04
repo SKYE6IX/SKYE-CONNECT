@@ -21,8 +21,11 @@ export const createComment = async (req: Request, res: Response) => {
         content: content,
         post: currentPost?._id,
         author: req.user,
+        created_at: new Date().toString(),
     });
+
     const newCommentID = newComment.id;
+
     currentPost?.comments.push(newCommentID);
 
     newComment.save();

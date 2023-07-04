@@ -58,6 +58,11 @@ export const PostCardReaction = styled.div`
   padding: 0 1.2rem;
 `;
 
+export const PostCardCommentsWrapper = styled.div`
+  max-height: 200px;
+  overflow-y: scroll;
+`;
+
 export const PostCardFooter = styled.div`
   display: flex;
   gap: 0.7rem;

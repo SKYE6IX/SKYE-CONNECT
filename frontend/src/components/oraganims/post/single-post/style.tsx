@@ -2,7 +2,11 @@
 import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 
-export const SinglePostContainer = styled.div``; //TODO LATER
+export const SinglePostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+`;
 
 export const SinglePostHeader = styled.div`
   display: flex;
@@ -30,7 +34,14 @@ export const NamesWrapper = styled.div`
   }
 `;
 
-export const SinglePostBody = styled.div``; //TODO LATER
+export const SinglePostBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  p {
+    margin: 0px;
+  }
+`;
 
 export const SinglePostReaction = styled.div`
   display: flex;
@@ -39,11 +50,24 @@ export const SinglePostReaction = styled.div`
 `;
 
 export const SinglePostCommentContainer = styled.div`
-  max-height: 200px;
+  max-height: 500px;
   overflow-y: scroll;
 `;
 
+export const NoCommentMessage = styled.div`
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+  }
+`;
+
 export const SinglePostFooter = styled.div`
+  margin-top: auto;
   display: flex;
   gap: 0.7rem;
   align-items: center;

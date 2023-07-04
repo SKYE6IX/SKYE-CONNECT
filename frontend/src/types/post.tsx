@@ -6,21 +6,21 @@ export interface IPhoto {
   filename: string;
   thumbnail: string;
 }
-export interface IComment {
+export interface Comment {
   readonly _id: number;
   content: string;
-}
-export interface IPost {
-  readonly _id: number;
-  content: string;
-  photos: Array<IPhoto>;
-  comments: Array<IComment>;
+  readonly post: number;
   author: User;
   created_at: string;
 }
 
-export interface CommentForm {
+export interface IPost {
+  readonly _id: number;
   content: string;
+  photos: Array<IPhoto>;
+  comments: Array<Comment>;
+  author: User;
+  created_at: string;
 }
 
 //For all Posts
@@ -32,17 +32,14 @@ export interface SinglePostState {
   loading: boolean;
 }
 
+export interface CommentForm {
+  content: string;
+}
+
 export type AddComment = {
   postID: number;
   body: CommentForm;
 };
-
-export interface Comment {
-  readonly _id: number;
-  content: string;
-  readonly post?: number;
-  author?: User;
-}
 
 export type CommentResponse = Array<Comment>;
 
