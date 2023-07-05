@@ -26,10 +26,12 @@ const MoreInfoCard: FC<MoreInfoCardProps> = ({ user, handleCloseMoreInfo }) => {
     <CustomDialog open={true} onClose={handleCloseMoreInfo}>
       <DialogTitle>Additional Info</DialogTitle>
       <DialogContent dividers>
-        <MoreInfoCardRows>
-          <SummarizeIcon />
-          <p>{user?.about_me}</p>
-        </MoreInfoCardRows>
+        {user?.about_me && (
+          <MoreInfoCardRows>
+            <SummarizeIcon />
+            <p>{user.about_me}</p>
+          </MoreInfoCardRows>
+        )}
         <MoreInfoCardRows>
           <AlternateEmailIcon />
           <span>{user?.username}</span>
@@ -44,11 +46,11 @@ const MoreInfoCard: FC<MoreInfoCardProps> = ({ user, handleCloseMoreInfo }) => {
         </MoreInfoCardRows>
         <MoreInfoCardRows>
           <FavoriteBorderIcon />
-          <span>Relationship: single</span>
+          <span>Relationship: {user?.relationship || 'Add'}</span>
         </MoreInfoCardRows>
         <MoreInfoCardRows>
           <HomeIcon />
-          <span>Current city: {user?.city}</span>
+          <span>Current city: {user?.city || 'Add'}</span>
         </MoreInfoCardRows>
       </DialogContent>
       <DialogContent dividers>

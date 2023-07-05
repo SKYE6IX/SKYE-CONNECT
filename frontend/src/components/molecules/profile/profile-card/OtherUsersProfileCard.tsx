@@ -102,11 +102,11 @@ const OtherUsersProfileCard: FC<ProfileCardProps> = ({
         <p>{other_user?.about_me}</p>
         <OtherInfoWrapper>
           <div>
-            <LocationOnIcon />
+            {other_user?.city && <LocationOnIcon />}
             <span>{other_user?.city}</span>
           </div>
           <div>
-            <WorkIcon />
+            {other_user?.professional && <WorkIcon />}
             <span>{other_user?.professional}</span>
           </div>
         </OtherInfoWrapper>

@@ -49,11 +49,11 @@ const ProfileCard: FC<ProfileCardProps> = ({ user, handleRefetchUser }) => {
         <p>{user?.about_me}</p>
         <OtherInfoWrapper>
           <div>
-            <LocationOnIcon />
+            {user?.professional && <LocationOnIcon />}
             <span>{user?.city}</span>
           </div>
           <div>
-            <WorkIcon />
+            {user?.professional && <WorkIcon />}
             <span>{user?.professional}</span>
           </div>
         </OtherInfoWrapper>
