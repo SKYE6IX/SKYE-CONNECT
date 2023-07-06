@@ -92,6 +92,7 @@ export const updateUser = async (req: Request, res: Response) => {
         city,
         professional,
         about_me,
+        relationship,
     } = req.body;
 
     const updateUser = await User.findByIdAndUpdate(user_id, {
@@ -106,6 +107,7 @@ export const updateUser = async (req: Request, res: Response) => {
             city,
             professional,
             about_me,
+            relationship,
         },
     });
 

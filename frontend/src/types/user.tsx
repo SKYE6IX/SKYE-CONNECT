@@ -53,10 +53,11 @@ export interface SignUpForm {
 
 export interface ProfileUpdateForm extends SignUpForm {
   avatar?: any;
-  about_me?: string;
-  country?: string;
-  city?: string;
-  professional?: string;
+  about_me: string;
+  country: string;
+  city: string;
+  professional: string;
+  relationship: string;
 }
 
 export type UpdateProfileMutationInput = {

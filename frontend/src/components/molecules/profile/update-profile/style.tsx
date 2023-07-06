@@ -92,3 +92,19 @@ export const UpdateProfileBirthdayInputWrapper = styled.div`
 `;
 
 export const BirthDayInput: React.FC<FormInputProps> = styled(FormInput)``;
+
+export const DropDownWrapper = styled.div`
+  & .drop_down {
+    background-color: #eee;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+  }
+`;
+
+export const UpdateProgressContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 45%;
+`;

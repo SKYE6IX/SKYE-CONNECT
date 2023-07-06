@@ -28,6 +28,8 @@ import {
   UpdateProfileGenderFiledset,
   UpdateProfileBirthdayInputWrapper,
   BirthDayInput,
+  UpdateProgressContainer,
+  DropDownWrapper,
 } from './style';
 
 type UpdateProfileProps = {
@@ -58,6 +60,7 @@ const UpdateProfile: FC<UpdateProfileProps> = ({
       country: `${user?.country || ''}`,
       city: `${user?.city || ''}`,
       professional: `${user?.professional || ''}`,
+      relationship: `${user?.relationship || ''}`,
       about_me: `${user?.about_me || ''}`,
       password: '',
     },
@@ -86,14 +89,15 @@ const UpdateProfile: FC<UpdateProfileProps> = ({
 
   return (
     <CustomDialog open={true} onClose={handleCloseUpdateProfile}>
-      {isLoading && <UpdateProgress />}
+      <UpdateProgressContainer>
+        {isLoading && <UpdateProgress />}
+      </UpdateProgressContainer>
 
       {openUpdateFeedback && (
         <UpdateFeedback handleClose={handleCloseUpdateFeedback} />
       )}
 
       <DialogTitle>Update your profile</DialogTitle>
-
       <UpdateProfileAvatar>
         <CustomAvatar
           src={previewAvatar(formState.avatar) || user?.avatar?.thumbnail}
@@ -196,19 +200,25 @@ const UpdateProfile: FC<UpdateProfileProps> = ({
             />
           </UpdateProfileBirthdayInputWrapper>
 
-          <CountryDropdown
-            value={formState.country || ''}
-            onChange={(val) => {
-              setFormState({ ...formState, country: val });
-            }}
-          />
-          <RegionDropdown
-            country={formState.country || ''}
-            value={formState.city || ''}
-            onChange={(val) => {
-              setFormState({ ...formState, city: val });
-            }}
-          />
+          <DropDownWrapper>
+            <CountryDropdown
+              value={formState.country || ''}
+              onChange={(val) => {
+                setFormState({ ...formState, country: val });
+              }}
+              classes="drop_down"
+            />
+          </DropDownWrapper>
+          <DropDownWrapper>
+            <RegionDropdown
+              country={formState.country || ''}
+              value={formState.city || ''}
+              onChange={(val) => {
+                setFormState({ ...formState, city: val });
+              }}
+              classes="drop_down"
+            />
+          </DropDownWrapper>
 
           <UpdateProfileOtherInput
             type="text"
@@ -217,6 +227,16 @@ const UpdateProfile: FC<UpdateProfileProps> = ({
             label="Professional"
             placeholder=" "
             value={formState.professional}
+            handleChange={handleChange}
+          />
+
+          <UpdateProfileOtherInput
+            type="text"
+            name="relationship"
+            id="relationship"
+            label="Relationship"
+            placeholder=" "
+            value={formState.relationship}
             handleChange={handleChange}
           />
 

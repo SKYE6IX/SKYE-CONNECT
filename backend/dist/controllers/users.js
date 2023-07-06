@@ -79,7 +79,7 @@ export const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 export const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user_id } = req.params;
-    const { email, username, first_name, last_name, date_of_birth, gender, country, city, professional, about_me, } = req.body;
+    const { email, username, first_name, last_name, date_of_birth, gender, country, city, professional, about_me, relationship, } = req.body;
     const updateUser = yield User.findByIdAndUpdate(user_id, {
         $set: {
             email,
@@ -92,6 +92,7 @@ export const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, functi
             city,
             professional,
             about_me,
+            relationship,
         },
     });
     const file = req.file;
