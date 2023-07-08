@@ -34,7 +34,7 @@ export const createPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const files = req.files;
     if (files) {
         const images = files.map((f) => ({
-            url: f.path,
+            url: f.path.replace("/upload", "/upload/q_50"),
             filename: f.filename,
         }));
         post.photos = images;

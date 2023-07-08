@@ -25,10 +25,12 @@ export const createPost = async (req: Request, res: Response) => {
         content,
         created_at: new Date().toString(),
     });
+
     const files = req.files as Express.Multer.File[];
+
     if (files) {
         const images = files.map((f) => ({
-            url: f.path,
+            url: f.path.replace("/upload", "/upload/q_50"),
             filename: f.filename,
         }));
         post.photos = images;
