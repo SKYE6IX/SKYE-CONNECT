@@ -1,7 +1,7 @@
 import React from 'react';
-import MainLayout from './main-page-layout/MainPageLayout';
+import MainPages from '@/components/pages/main-pages/MainPages';
 
 const MainpageLayout = ({ children }: { children: React.ReactNode }) => {
-  return <MainLayout>{children}</MainLayout>;
+  return <MainPages>{children}</MainPages>;
 };
 export default MainpageLayout;

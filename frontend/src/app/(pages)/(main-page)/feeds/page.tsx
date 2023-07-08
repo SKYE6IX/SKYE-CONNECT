@@ -1,7 +1,7 @@
 import React from 'react';
-import FeedsPage from '@/components/pages/feeds/FeedsPage';
+import PostsTemplate from '@/components/template/posts/PostsTemplate';
 
-const Page = async () => {
-  return <FeedsPage />;
+const Page = () => {
+  return <PostsTemplate />;
 };
 export default Page;

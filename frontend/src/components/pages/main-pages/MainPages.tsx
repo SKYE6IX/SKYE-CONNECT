@@ -7,7 +7,7 @@ import ConneectionSuggestionCard from '@/components/oraganims/connection-suggest
 import ChatOpener from '@/components/oraganims/chat/chat-opener/ChatOpener';
 import { Container, MainContainer, Main, MainAsides } from './style';
 
-const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
+const MainPages = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading, refetch } = useGetUserQuery();
 
   const handleRefetchUser = () => {
@@ -33,4 +33,4 @@ const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
     </Container>
   );
 };
-export default MainPageLayout;
+export default MainPages;
