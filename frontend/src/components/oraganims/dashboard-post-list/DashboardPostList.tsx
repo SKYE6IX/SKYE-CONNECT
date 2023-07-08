@@ -10,8 +10,8 @@ import {
 import type { IPost } from '@/types/post';
 
 type DashboardPostListProps = {
-  user_posts: IPost[] | undefined;
-  liked_posts: IPost[] | undefined;
+  user_posts: IPost[];
+  liked_posts: IPost[];
 };
 enum DashboardPostsOption {
   USER_POSTS = 'USER_POSTS',
@@ -25,8 +25,6 @@ const DashboardPostList: FC<DashboardPostListProps> = ({
   const [activePost, setActivePost] = useState<string>(
     DashboardPostsOption.USER_POSTS
   );
-
-  console.log(user_posts);
 
   const isUserPostsActive = activePost === DashboardPostsOption.USER_POSTS;
   const isLikedPostsActive = activePost === DashboardPostsOption.LIKED_POSTS;

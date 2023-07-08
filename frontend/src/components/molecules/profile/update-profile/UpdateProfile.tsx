@@ -33,7 +33,7 @@ import {
 } from './style';
 
 type UpdateProfileProps = {
-  user: User | undefined;
+  user: User;
   handleCloseUpdateProfile: () => void;
 };
 

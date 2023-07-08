@@ -4,7 +4,7 @@ import { useGetSingleUserQuery } from '@/globalRedux/service/userApi';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
 import OtherUsersDashboardheader from '@/components/oraganims/dashboard-header/OtherUsersDashboardHeader';
 import OtherUsersDashboardPostList from '@/components/oraganims/dashboard-post-list/OtherUsersDashboardPostList';
-import PhotoGalleryCard from '@/components/oraganims/photo-gallery/PhotoGalleryCard';
+import PhotoGalleryCard from '@/components/oraganims/gallery/GalleryCard';
 import GroupCard from '@/components/oraganims/group-card/GroupCard';
 import OtherUsersFollowerCard from '@/components/oraganims/followers-card/OtherUsersFollowerCard';
 import {
@@ -47,7 +47,7 @@ const OtherUsersProfilePage: FC<OtherUsersProfilePageProps> = ({ user_id }) => {
         />
         <DashboardTemplateBodyWrapper>
           <DashboardTemplateMain>
-            <PhotoGalleryCard />
+            {/* <PhotoGalleryCard /> */}
             <OtherUsersDashboardPostList
               user_posts={otherUserData.posts}
               liked_posts={otherUserData.likePosts}

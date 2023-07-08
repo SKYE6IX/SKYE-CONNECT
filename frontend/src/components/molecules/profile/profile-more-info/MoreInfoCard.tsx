@@ -10,7 +10,7 @@ import { MoreInfoCardRows, CustomDialog } from './style';
 import type { User } from '@/types/user';
 
 type MoreInfoCardProps = {
-  user: User | undefined;
+  user: User;
   handleCloseMoreInfo: () => void;
 };
 

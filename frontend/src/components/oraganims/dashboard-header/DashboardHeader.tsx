@@ -12,7 +12,8 @@ import type { User } from '@/types/user';
 import useForm from '@/hooks/useForm';
 
 type DashboardHeaderProps = {
-  user: User | undefined;
+  isUserDataLoading: boolean;
+  user: User;
   handleRefetchUser: () => void;
 };
 
@@ -28,6 +29,7 @@ const previewHeaderCover = (header_cover: any) => {
 const DashboardHeader: FC<DashboardHeaderProps> = ({
   user,
   handleRefetchUser,
+  isUserDataLoading,
 }) => {
   const [uploadHeaderCover, { isLoading }] = useUploadHeaderCoverMutation();
   const { formState, handleFileChange, resetForm } = useForm({

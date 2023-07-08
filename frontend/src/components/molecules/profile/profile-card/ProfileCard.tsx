@@ -15,7 +15,7 @@ import {
 import type { User } from '@/types/user';
 
 type ProfileCardProps = {
-  user: User | undefined;
+  user: User;
   handleRefetchUser: () => void;
 };
 

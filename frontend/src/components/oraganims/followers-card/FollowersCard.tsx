@@ -17,7 +17,7 @@ import {
 import type { User } from '@/types/user';
 
 type FollowersCardProps = {
-  followers: User[] | undefined;
+  followers: User[];
 };
 
 const FollowersCard: FC<FollowersCardProps> = ({ followers }) => {
