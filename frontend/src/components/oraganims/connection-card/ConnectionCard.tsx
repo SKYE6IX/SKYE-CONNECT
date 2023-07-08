@@ -10,6 +10,7 @@ import {
   setChatRoomUrl,
   setCorrespondUser,
 } from '@/globalRedux/feature/messengerSlice';
+import Loading from '@/components/molecules/loading/Loading';
 import {
   ConnectionCardContainer,
   ConnectionCardTitle,
@@ -24,7 +25,10 @@ import type { CardsProps, User } from '@/types/user';
 
 type ConnectionCardProps = CardsProps;
 
-const ConnectionCard: FC<ConnectionCardProps> = ({ user }) => {
+const ConnectionCard: FC<ConnectionCardProps> = ({
+  user,
+  isUserDataLoading,
+}) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -58,6 +62,7 @@ const ConnectionCard: FC<ConnectionCardProps> = ({ user }) => {
   return (
     <ConnectionCardContainer>
       <ConnectionCardTitle>Connections</ConnectionCardTitle>
+      {isUserDataLoading && <Loading />}
       {user?.following?.map((follow) => (
         <Connection key={follow._id}>
           <ConnectionAvatar

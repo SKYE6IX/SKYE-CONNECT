@@ -4,6 +4,7 @@ import {
   useGetAllUserQuery,
   useAddFollowerMutation,
 } from '@/globalRedux/service/userApi';
+import Loading from '@/components/molecules/loading/Loading';
 import {
   ConnectionSuggestionCardContainer,
   ConnectionSuggestionCardTitle,
@@ -44,7 +45,7 @@ const ConnectionSuggestionCard: FC<ConnectionSuggestionCardProps> = ({
         People you may connect with...
       </ConnectionSuggestionCardTitle>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         otherUsers?.map((otherUser) => (
           <Connection key={otherUser._id}>

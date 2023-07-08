@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import Loading from '@/components/molecules/loading/Loading';
 import {
   SidebarProfileCardContainer,
   SidebarProfileCardAvatar,
@@ -12,7 +13,10 @@ import type { CardsProps } from '@/types/user';
 
 type SidebarProfileCardProps = CardsProps;
 
-const SidebarProfileCard: FC<SidebarProfileCardProps> = ({ user }) => {
+const SidebarProfileCard: FC<SidebarProfileCardProps> = ({
+  user,
+  isUserDataLoading,
+}) => {
   return (
     <SidebarProfileCardContainer>
       <Link href={`/dashboard/${user?.username}`}>

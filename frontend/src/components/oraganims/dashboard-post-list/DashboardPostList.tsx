@@ -26,6 +26,8 @@ const DashboardPostList: FC<DashboardPostListProps> = ({
     DashboardPostsOption.USER_POSTS
   );
 
+  console.log(user_posts);
+
   const isUserPostsActive = activePost === DashboardPostsOption.USER_POSTS;
   const isLikedPostsActive = activePost === DashboardPostsOption.LIKED_POSTS;
   const handleSetActivePosts = (option: string) => {

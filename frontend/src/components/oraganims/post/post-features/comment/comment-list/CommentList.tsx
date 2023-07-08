@@ -19,6 +19,12 @@ type CommentListProps = {
 const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
   const { data: comments, isLoading } = useGetCommentsQuery(post_id);
 
+  const commentTime = (time: string) => {
+    const setTime = new Date(time);
+    const formatTime = moment(setTime).fromNow();
+    return formatTime;
+  };
+
   if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -33,7 +39,7 @@ const CommentList: FC<CommentListProps> = ({ post_id, user }) => {
             <span>{comment.author?.first_name}</span>
             <span>{comment.author?.last_name}</span>
             <p>{comment.content}</p>
-            <span>{moment(comment.created_at).fromNow()}</span>
+            <span>{commentTime(comment.created_at)}</span>
           </CommentListBody>
           {user?._id === comment.author?._id && (
             <DeleteComment post_id={post_id} comment_id={comment._id} />
