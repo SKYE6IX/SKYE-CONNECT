@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { useGetUserQuery } from '@/globalRedux/service/userApi';
+import Loading from './Loading';
 import {
   ConnectionsListContainer,
   Connection,
@@ -13,8 +14,9 @@ import {
 
 const ConnectionsList: FC = () => {
   const { data, isLoading } = useGetUserQuery();
-  if (isLoading) return <p>Loading..</p>;
   const connections = data?.following!;
+
+  if (isLoading) return <Loading />;
   return (
     <ConnectionsListContainer>
       {connections.map((connection) => (

@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 export const ConnectionsListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.8em;
 `;
 
 export const Connection = styled.div`
