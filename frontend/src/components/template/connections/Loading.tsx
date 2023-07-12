@@ -10,7 +10,7 @@ import {
 const Loading = () => {
   return (
     <ConnectionsListContainer>
-      {Array.from(new Array(7)).map((index) => (
+      {Array.from(new Array(7)).map((item, index) => (
         <Connection key={index}>
           <Skeleton
             animation="wave"
