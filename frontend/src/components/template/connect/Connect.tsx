@@ -6,6 +6,7 @@ import {
   useGetUserQuery,
   useAddFollowerMutation,
 } from '@/globalRedux/service/userApi';
+import Loading from './Loading';
 import {
   ConnectContainer,
   Connect,
@@ -20,7 +21,8 @@ const ConnectTemplate: FC = () => {
   const { data, isLoading } = useGetAllUserQuery();
   const [addFollower, { isLoading: isAddFollowerLoading }] =
     useAddFollowerMutation();
-  if (isLoading) return <p>Loading...</p>;
+  const otherUsers = data!;
+
   const isFollowerExist = (
     user: User | undefined,
     otherUserId: number
@@ -33,7 +35,8 @@ const ConnectTemplate: FC = () => {
   const handleClick = async (other_user_id: number) => {
     await addFollower(other_user_id);
   };
-  const otherUsers = data!;
+
+  if (isLoading) return <Loading />;
   return (
     <ConnectContainer>
       {otherUsers.map((user) => (
@@ -63,5 +66,4 @@ const ConnectTemplate: FC = () => {
     </ConnectContainer>
   );
 };
-
 export default ConnectTemplate;
