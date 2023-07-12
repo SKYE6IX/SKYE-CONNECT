@@ -2,7 +2,10 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useGetUserQuery } from '@/globalRedux/service/userApi';
+import {
+  useGetUserQuery,
+  useRemoveFollowerMutation,
+} from '@/globalRedux/service/userApi';
 import { useCreateNewChatMutation } from '@/globalRedux/service/chatApi';
 import { useAppDispatch } from '@/hooks/appStateHooks';
 import {
@@ -23,6 +26,7 @@ import type { User } from '@/types/user';
 const ConnectionsList: FC = () => {
   const { data, isLoading } = useGetUserQuery();
   const [createNewChat] = useCreateNewChatMutation();
+  const [removeFollower] = useRemoveFollowerMutation();
   const connections = data?.following!;
 
   const dispatch = useAppDispatch();
@@ -45,6 +49,9 @@ const ConnectionsList: FC = () => {
         last_name: correspondUser.last_name,
       })
     );
+  };
+  const handleRemoveButton = async (follower_id: number) => {
+    await removeFollower(follower_id);
   };
 
   if (isLoading) return <Loading />;
@@ -76,7 +83,11 @@ const ConnectionsList: FC = () => {
             >
               Message
             </ConnectionButton>
-            <ConnectionButton>Disconnect</ConnectionButton>
+            <ConnectionButton
+              onClick={() => handleRemoveButton(connection._id)}
+            >
+              Disconnect
+            </ConnectionButton>
           </BottonWrapper>
         </Connection>
       ))}
