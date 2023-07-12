@@ -16,10 +16,14 @@ const NavMenu: FC = () => {
           <span>Home</span>
         </MenuItem>
       </Link>
-      <MenuItem>
-        <PeopleIcon />
-        <span>My Connects</span>
-      </MenuItem>
+
+      <Link href="/connections">
+        <MenuItem>
+          <PeopleIcon />
+          <span>My Connects</span>
+        </MenuItem>
+      </Link>
+
       <Link href="/messenger">
         <MenuItem>
           <ChatIcon />
