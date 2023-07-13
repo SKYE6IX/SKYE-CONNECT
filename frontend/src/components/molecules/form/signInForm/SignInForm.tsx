@@ -2,8 +2,11 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginIcon from '@mui/icons-material/Login';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Form, SignInInput, SubmitButton } from './style';
 import { useLoginMutation } from '@/globalRedux/service/userApi';
+import { useAppDispatch } from '@/hooks/appStateHooks';
+import { setLoginFeedback } from '@/globalRedux/feature/userSlice';
 import useForm from '@/hooks/useForm';
 
 interface SignInForm {
@@ -11,6 +14,7 @@ interface SignInForm {
   password: string;
 }
 const SignInForm: FC = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { formState, handleChange, resetForm } = useForm<SignInForm>({
     initialState: {
@@ -18,6 +22,7 @@ const SignInForm: FC = () => {
       password: '',
     },
   });
+
   const [login, { isLoading }] = useLoginMutation();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +31,26 @@ const SignInForm: FC = () => {
       .then((payload) => {
         router.push('/feeds');
         resetForm();
+        dispatch(
+          setLoginFeedback({
+            login_feedback: {
+              message: payload.message,
+              open_alert: true,
+              status: payload.status,
+            },
+          })
+        );
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(
+          setLoginFeedback({
+            login_feedback: {
+              message: error.data.message,
+              open_alert: true,
+              status: error.data.status,
+            },
+          })
+        );
       });
   };
 
@@ -53,8 +75,14 @@ const SignInForm: FC = () => {
         value={formState.password}
       />
       <SubmitButton type="submit">
-        <LoginIcon />
-        Sign In
+        {isLoading ? (
+          <CircularProgress color="inherit" size="1.2rem" />
+        ) : (
+          <>
+            <LoginIcon />
+            Sign In
+          </>
+        )}
       </SubmitButton>
     </Form>
   );

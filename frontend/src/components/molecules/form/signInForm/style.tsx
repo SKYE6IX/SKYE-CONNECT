@@ -23,7 +23,9 @@ export const SubmitButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   max-height: 45px;
+  width: 100px;
   display: flex;
   gap: 0.2em;
   align-items: center;
+  justify-content: center;
 `;

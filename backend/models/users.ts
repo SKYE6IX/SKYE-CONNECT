@@ -73,7 +73,6 @@ const UserSchema = new Schema<IUser>({
         },
     ],
 });
-
 //Using passport plugin to make a user and password for us, which will be hash before storing to data base;
 UserSchema.plugin(passportLocalMongoose, {
     errorMessages: {
