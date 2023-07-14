@@ -25,15 +25,15 @@ const OtherUsersProfilePage: FC<OtherUsersProfilePageProps> = ({ user_id }) => {
   const { isFixed } = useFixedScroll();
   const { data: authUser, refetch } = useGetUserQuery();
   const { data, isLoading } = useGetSingleUserQuery(user_id);
+
   if (isLoading) return <p>Loading...</p>;
   const otherUserData = data!;
-
   const handleRefetch = () => {
     refetch();
   };
 
   //FILTER OUT AUTH USER FROM THE OTHER USER FOLLOWER CARD
-  const filterFollowers = otherUserData.followers.filter(
+  const filterFollowers = otherUserData?.followers.filter(
     (follower) => follower._id !== authUser?._id
   );
 
@@ -49,8 +49,8 @@ const OtherUsersProfilePage: FC<OtherUsersProfilePageProps> = ({ user_id }) => {
           <DashboardTemplateMain>
             {/* <PhotoGalleryCard /> */}
             <OtherUsersDashboardPostList
-              user_posts={otherUserData.posts}
-              liked_posts={otherUserData.likePosts}
+              user_posts={otherUserData?.posts}
+              liked_posts={otherUserData?.likePosts}
             />
           </DashboardTemplateMain>
           <DashboardTemplateAside>
