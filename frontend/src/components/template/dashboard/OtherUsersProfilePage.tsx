@@ -15,6 +15,7 @@ import {
   DashboardTemplateAside,
   AsideContentWrapper,
 } from './style';
+import UserNotFound from './errror-page/UserNotFound';
 import { useFixedScroll } from './helper';
 
 type OtherUsersProfilePageProps = {
@@ -24,9 +25,12 @@ type OtherUsersProfilePageProps = {
 const OtherUsersProfilePage: FC<OtherUsersProfilePageProps> = ({ user_id }) => {
   const { isFixed } = useFixedScroll();
   const { data: authUser, refetch } = useGetUserQuery();
-  const { data, isLoading } = useGetSingleUserQuery(user_id);
+  const { data, isLoading, error } = useGetSingleUserQuery(user_id);
+
+  if (error) return <UserNotFound />;
 
   if (isLoading) return <p>Loading...</p>;
+
   const otherUserData = data!;
   const handleRefetch = () => {
     refetch();
