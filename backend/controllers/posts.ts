@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { v2 as cloudinary } from "cloudinary";
 import Post from "../models/posts";
 import User from "../models/users";

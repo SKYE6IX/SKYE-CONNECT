@@ -123,7 +123,7 @@ app.use("/chat", chatRouter, messageRouter);
 //Run Socket
 runSoket();
 app.use(function (err, req, res, next) {
-    res.status(err.status || 500).send(err.message);
+    res.status(err.status || 500).json(err);
 });
 server.listen(PORT, () => {
     console.log(`Server Running on Port ${PORT}`);

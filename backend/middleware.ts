@@ -5,7 +5,11 @@ import Post from "./models/posts";
 import Comment from "./models/comment";
 
 //Validate sign in form
-export const validateSignInForm = (req: Request, res: Response, next: NextFunction) => {
+export const validateSignInForm = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { username, password } = req.body;
     if (!username || !password) {
         res.status(401).json({
@@ -26,7 +30,11 @@ export const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Middleware validation to check the user is relate to post before be able to to delete,edit,update.
-export const isPostAuthor = async (req: Request, res: Response, next: NextFunction) => {
+export const isPostAuthor = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const { id } = req.params;
         const posts = await Post.findById(id);
@@ -40,7 +48,11 @@ export const isPostAuthor = async (req: Request, res: Response, next: NextFuncti
 };
 
 //Middleware to validate if user is owner of the comment before be able to delete
-export const isCommentAuthor = async (req: Request, res: Response, next: NextFunction) => {
+export const isCommentAuthor = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const { commentID } = req.params;
         const comments = await Comment.findById(commentID);
@@ -53,38 +65,52 @@ export const isCommentAuthor = async (req: Request, res: Response, next: NextFun
     }
 };
 
-//Validate  creeeate new Post on server side
-export const validatePost = (req: Request, res: Response, next: NextFunction) => {
+//Validate  create new Post on server side
+export const validatePost = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { error } = postSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el: { message: any; }) => el.message).join(',')
-        throw new ExpressError(msg, 400)
+        const msg = error.details
+            .map((el: { message: any }) => el.message)
+            .join(",");
+        throw new ExpressError(msg, 400);
     } else {
-        next()
+        next();
     }
 };
 
 //Validate  create new comment on server side
-export const validateComment = (req: Request, res: Response, next: NextFunction) => {
+export const validateComment = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { error } = commentSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el: { message: any; }) => el.message).join(',')
-        throw new ExpressError(msg, 400)
+        const msg = error.details
+            .map((el: { message: any }) => el.message)
+            .join(",");
+        throw new ExpressError(msg, 400);
     } else {
-        next()
+        next();
     }
-}
-//Validate creeate new User om server side
-export const validateUser = (req: Request, res: Response, next: NextFunction) => {
+};
+//Validate creeate new User on server side
+export const validateUser = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { error } = userSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el: { message: any; }) => el.message).join(',')
-        throw new ExpressError(msg, 400)
+        const msg = error.details
+            .map((el: { message: any }) => el.message)
+            .join(",");
+        throw new ExpressError(msg, 400);
     } else {
-        next()
+        next();
     }
-}
-
-
-
-
+};

@@ -61,11 +61,13 @@ export const isCommentAuthor = (req, res, next) => __awaiter(void 0, void 0, voi
         next(err);
     }
 });
-//Validate  creeeate new Post on server side
+//Validate  create new Post on server side
 export const validatePost = (req, res, next) => {
     const { error } = postSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el) => el.message).join(',');
+        const msg = error.details
+            .map((el) => el.message)
+            .join(",");
         throw new ExpressError(msg, 400);
     }
     else {
@@ -76,18 +78,22 @@ export const validatePost = (req, res, next) => {
 export const validateComment = (req, res, next) => {
     const { error } = commentSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el) => el.message).join(',');
+        const msg = error.details
+            .map((el) => el.message)
+            .join(",");
         throw new ExpressError(msg, 400);
     }
     else {
         next();
     }
 };
-//Validate creeate new User om server side
+//Validate creeate new User on server side
 export const validateUser = (req, res, next) => {
     const { error } = userSchema.validate(req.body);
     if (error) {
-        const msg = error.details.map((el) => el.message).join(',');
+        const msg = error.details
+            .map((el) => el.message)
+            .join(",");
         throw new ExpressError(msg, 400);
     }
     else {

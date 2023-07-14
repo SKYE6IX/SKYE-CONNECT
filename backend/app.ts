@@ -123,7 +123,7 @@ app.use("/chat", chatRouter, messageRouter);
 runSoket();
 
 app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
-    res.status(err.status || 500).send(err.message);
+    res.status(err.status || 500).json(err);
 });
 
 server.listen(PORT, () => {
