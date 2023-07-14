@@ -12,7 +12,7 @@ const commentRouter = Router();
 commentRouter
     .route("/:id/comments")
     .post(isLoggedIn, validateComment, catchAsync(createComment))
-    .get(catchAsync(getComments));
+    .get(isLoggedIn, catchAsync(getComments));
 commentRouter
     .route("/:id/comments/:commentID")
     .delete(isLoggedIn, isCommentAuthor, catchAsync(deleteComment));

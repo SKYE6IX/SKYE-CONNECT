@@ -8,10 +8,10 @@ const imagesUpload = multer({ storage });
 const postRouter = Router();
 postRouter
     .route("/")
-    .get(allPost)
+    .get(isLoggedIn, allPost)
     .post(isLoggedIn, validatePost, imagesUpload.array("images"), catchAsync(createPost));
 postRouter
     .route("/:id")
-    .get(catchAsync(getSinglePost))
+    .get(isLoggedIn, catchAsync(getSinglePost))
     .delete(isLoggedIn, isPostAuthor, catchAsync(deletePost));
 export default postRouter;

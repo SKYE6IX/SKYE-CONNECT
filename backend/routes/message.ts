@@ -7,16 +7,19 @@ import {
     getUserMessages,
 } from "../controllers/message";
 import catchAsync from "../utilities/catchAsync";
+import { isLoggedIn } from "../middleware";
 
 const messageRouter = Router();
 
-messageRouter.route("/message").get(catchAsync(getUserMessages));
+messageRouter.route("/message").get(isLoggedIn, catchAsync(getUserMessages));
 messageRouter
     .route("/message/:chat_id")
-    .get(catchAsync(getMessages))
-    .post(catchAsync(createMessages));
+    .get(isLoggedIn, catchAsync(getMessages))
+    .post(isLoggedIn, catchAsync(createMessages));
 messageRouter
     .route("/message/:chat_id/:message_id")
-    .delete(catchAsync(deleteMessage));
-messageRouter.route("/message/:message_id/update").put(catchAsync(editMessage));
+    .delete(isLoggedIn, catchAsync(deleteMessage));
+messageRouter
+    .route("/message/:message_id/update")
+    .put(isLoggedIn, catchAsync(editMessage));
 export default messageRouter;

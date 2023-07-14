@@ -15,7 +15,7 @@ const postRouter = Router();
 
 postRouter
     .route("/")
-    .get(allPost)
+    .get(isLoggedIn, allPost)
     .post(
         isLoggedIn,
         validatePost,
@@ -25,7 +25,7 @@ postRouter
 
 postRouter
     .route("/:id")
-    .get(catchAsync(getSinglePost))
+    .get(isLoggedIn, catchAsync(getSinglePost))
     .delete(isLoggedIn, isPostAuthor, catchAsync(deletePost));
 
 export default postRouter;
