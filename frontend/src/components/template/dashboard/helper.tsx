@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 export const useFixedScroll = () => {
   const [isFixed, setIsFixed] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       const container = document.getElementById('fixed_container');
